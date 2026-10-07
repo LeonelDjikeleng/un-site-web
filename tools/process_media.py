@@ -22,7 +22,7 @@ STILLS = {
     'hero-mobile': [720, 1080],
     'detail-roue': [600, 1000],
     'roue-face': [600, 1000],
-    'roue-rasante': [600, 1000, 1600],
+    'roue-rasante': [600, 1000],
     'finition': [600, 1000],
     'echappement': [600, 1000],
     'goutte': [600, 1000],
@@ -63,7 +63,7 @@ def main(hero_dir: pathlib.Path, stills_dir: pathlib.Path):
         save_set(Image.open(frames[-1]), 'hero-end', [960, 1600, 1920], jpeg_widths=[1600])
 
     # JPEG de repli : seulement aux largeurs citées dans le <img> du HTML
-    jpeg = {'hero-mobile': [], 'roue-rasante': [1000, 1600], 'profil': [1600], 'arriere': [1600]}
+    jpeg = {'hero-mobile': [], 'profil': [1600], 'arriere': [1600]}
     for name, widths in STILLS.items():
         src = next(iter(stills_dir.glob(f'{name}.*')), None)
         if src:

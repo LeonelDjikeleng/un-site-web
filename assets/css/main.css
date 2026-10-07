@@ -832,3 +832,24 @@ body.paused *, body.paused *::before, body.paused *::after { animation-play-stat
   .brand__mark { width: 26px; height: 26px; }
   .visit__addr { font-size: 1.85rem; }
 }
+
+/* Hero mobile : l'image respire (zoom lent, transform seulement) et gagne en lumière */
+@media (max-width: 720px), (orientation: portrait) and (max-width: 1024px) {
+  .hero__media picture img { object-position: 50% 0%; filter: brightness(1.12); transform-origin: 55% 25%; }
+  .hero__stage { min-height: 100svh; }
+}
+@media (max-width: 720px) and (prefers-reduced-motion: no-preference) {
+  .hero__media picture img { animation: heroBreath 14s var(--ease-in-out) infinite alternate; }
+}
+@keyframes heroBreath { from { transform: scale(1); } to { transform: scale(1.07); } }
+
+/* Mobile : diagnostic plus lisible, McLaren avec son image visible */
+@media (max-width: 720px) {
+  .hotspot::before { width: 9px; height: 9px; box-shadow: 0 0 0 4px rgba(231, 234, 237, 0.14); }
+  .hotspot::after { inset: 12px; }
+  .mclaren { display: block; min-height: 0; }
+  .mclaren__media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+  .mclaren__media img { object-position: 70% 50%; }
+  .mclaren__media::after { background: linear-gradient(0deg, var(--c-night) 0%, rgba(9, 11, 13, 0) 45%); }
+  .mclaren__content { padding-top: 0; margin-top: -48px; }
+}
