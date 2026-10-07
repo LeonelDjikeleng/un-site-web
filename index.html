@@ -11,6 +11,7 @@
 <link rel="preload" href="assets/fonts/saira-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/main.css">
 <link rel="stylesheet" href="assets/css/motion.css">
+<link rel="stylesheet" href="assets/css/nojs.css" data-nojs>
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_CA">
 <meta property="og:site_name" content="Milano Performance">
@@ -19,7 +20,7 @@
 <!-- DEPLOY STEP : og:image et og:url doivent être des URL absolues du site en ligne -->
 <meta property="og:image" content="https://milanoperformance.ca/assets/img/og.jpg">
 <meta property="og:url" content="https://milanoperformance.ca/">
-<script>(function(r){r.classList.add('js');try{var m=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!m&&!sessionStorage.getItem('mp-intro')){r.classList.add('is-intro');sessionStorage.setItem('mp-intro','1')}if(!m&&sessionStorage.getItem('mp-veil')){r.classList.add('veil-on')}sessionStorage.removeItem('mp-veil')}catch(e){}})(document.documentElement)</script>
+<script>(function(r){r.classList.add('js');var n=document.querySelector('[data-nojs]');if(n)n.remove();try{var m=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!m&&!sessionStorage.getItem('mp-intro')){r.classList.add('is-intro');sessionStorage.setItem('mp-intro','1')}if(!m&&sessionStorage.getItem('mp-veil')){r.classList.add('veil-on')}sessionStorage.removeItem('mp-veil')}catch(e){}})(document.documentElement)</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

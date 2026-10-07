@@ -10,7 +10,8 @@
 <link rel="icon" href="assets/img/logo-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/main.css">
 <link rel="stylesheet" href="assets/css/motion.css">
-<script>(function(r){r.classList.add('js');try{var m=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!m&&!sessionStorage.getItem('mp-intro')){r.classList.add('is-intro');sessionStorage.setItem('mp-intro','1')}if(!m&&sessionStorage.getItem('mp-veil')){r.classList.add('veil-on')}sessionStorage.removeItem('mp-veil')}catch(e){}})(document.documentElement)</script>
+<link rel="stylesheet" href="assets/css/nojs.css" data-nojs>
+<script>(function(r){r.classList.add('js');var n=document.querySelector('[data-nojs]');if(n)n.remove();try{var m=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!m&&!sessionStorage.getItem('mp-intro')){r.classList.add('is-intro');sessionStorage.setItem('mp-intro','1')}if(!m&&sessionStorage.getItem('mp-veil')){r.classList.add('veil-on')}sessionStorage.removeItem('mp-veil')}catch(e){}})(document.documentElement)</script>
 </head>
 <body data-page="mentions">
 <!-- @header -->

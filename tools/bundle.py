@@ -40,9 +40,10 @@ def data_uri(rel: str) -> str:
 
 
 def prep_hero(js: str) -> str:
-    """hero.js autonome : vidéos (ordinateur + verticale) et images intégrées, WebM imposé."""
+    """hero.js autonome : vidéos (ordinateur + verticale) et images intégrées, WebM imposé.
+    Version ordinateur allégée pour l'aperçu (1280 px, hero-scrub-apercu.webm) : fichier plus court à ouvrir."""
     js = re.sub(r"const VIDEO_URL = [^;]+;",
-                lambda _m: "const VIDEO_URL = TALL ? '%s' : '%s';" % (data_uri('assets/video/hero-scrub-m.webm'), data_uri('assets/video/hero-scrub.webm')), js)
+                lambda _m: "const VIDEO_URL = TALL ? '%s' : '%s';" % (data_uri('assets/video/hero-scrub-m.webm'), data_uri('assets/video/hero-scrub-apercu.webm')), js)
     js = js.replace('const WEBM = ', 'const WEBM = true || ')
     return re.sub(r"'(assets/img/[^']+)'", lambda m: f"'{data_uri(m.group(1))}'", js)
 
@@ -112,7 +113,8 @@ def hero_loops(html: str) -> str:
     def vid(kind, name):
         return (f'<video class="hero__loop hero__loop--{kind}" autoplay muted loop playsinline disablepictureinpicture aria-hidden="true" tabindex="-1">'
                 f'<source src="{data_uri(f"assets/video/{name}.webm")}" type="video/webm">'
-                f'<source src="{data_uri(f"assets/video/{name}.mp4")}" type="video/mp4"></video>')
+                # H.264 en secours pour le film vertical seulement (iPhone) ; Safari ordinateur lit le WebM
+                + (f'<source src="{data_uri(f"assets/video/{name}.mp4")}" type="video/mp4">' if kind == 'm' else '') + '</video>')
     return html.replace('data-hero-video></video>', 'data-hero-video></video>\n        ' + vid('m', 'hero-loop-m') + vid('d', 'hero-loop'), 1)
 
 
@@ -133,6 +135,7 @@ def bundle(src_name: str, out_name: str):
     css = (ROOT / 'assets/css/main.css').read_text(encoding='utf-8') + (ROOT / 'assets/css/motion.css').read_text(encoding='utf-8')
     css = re.sub(r"url\('\.\./fonts/([^']+)'\)", lambda m: f"url('{data_uri('assets/fonts/' + m.group(1))}')", css)
     html = html.replace('<link rel="stylesheet" href="assets/css/main.css">', f'<style>{css}</style>').replace('<link rel="stylesheet" href="assets/css/motion.css">\n', '')
+    html = html.replace('<link rel="stylesheet" href="assets/css/nojs.css" data-nojs>', f'<style data-nojs>{(ROOT / "assets/css/nojs.css").read_text(encoding="utf-8")}</style>')
     html = re.sub(r'<link rel="preload"[^>]*>\n?', '', html)
 
     # Images : on retire les variantes AVIF (doublons) et on réduit chaque srcset à une seule image

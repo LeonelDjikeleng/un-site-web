@@ -38,7 +38,7 @@ if (plan && panel) {
   // Au doigt : un scanner balaie la voiture pendant le défilement et allume chaque système
   if (matchMedia('(hover: none)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const order = hotspots.map((h) => ({ h, x: parseFloat(h.style.getPropertyValue('--x')) })).sort((a, b) => a.x - b.x);
-    let raf = null, on = false, lastScan = -1, lastId = '';
+    let raf = null, on = false, lastScan = -1, lastId = '', swap = null;
     const tick = () => {
       raf = null;
       const r = plan.getBoundingClientRect();
@@ -52,7 +52,8 @@ if (plan && panel) {
       const edge = 6 + 88 * v;
       let current = '';
       order.forEach(({ h, x }) => { const hit = x <= edge + 0.5; h.classList.toggle('is-hit', hit); if (hit) current = h.dataset.system; });
-      if (current && current !== lastId && !userPicked) { lastId = current; show(current); }
+      // Le panneau change quand le doigt marque une pause, pas à chaque système traversé en pleine vitesse
+      if (current && current !== lastId && !userPicked) { lastId = current; clearTimeout(swap); swap = setTimeout(() => { if (!userPicked) show(lastId); }, 140); }
     };
     new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on) tick(); }).observe(plan);
     addEventListener('scroll', () => { if (on && raf === null) raf = requestAnimationFrame(tick); }, { passive: true });

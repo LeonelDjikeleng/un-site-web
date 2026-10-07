@@ -14,14 +14,17 @@
   hero.querySelectorAll('.hero__loop').forEach((v) => { v.pause(); v.remove(); });
 
   // VP9/WebM quand le navigateur le décode (plus léger), sinon H.264/MP4 (Safari, anciens appareils)
+  // Écran en hauteur (téléphone, tablette en portrait) : film vertical composé pour le pouce,
+  // en H.264 « tout en images clés » : chaque position se décode d'un coup, le défilement reste fluide
+  // même sur un Android modeste. Ailleurs, VP9 quand le navigateur le décode (plus léger).
   const probe = document.createElement('video');
-  const WEBM = !!probe.canPlayType && probe.canPlayType('video/webm; codecs="vp9"') === 'probably';
-  // Écran en hauteur (téléphone, tablette en portrait) : film vertical composé pour le pouce
+  const can = (t) => !!probe.canPlayType && probe.canPlayType(t) === 'probably';
   const TALL = matchMedia('(orientation: portrait) and (max-width: 1024px)').matches;
+  const WEBM = TALL ? !can('video/mp4; codecs="avc1.640028"') && can('video/webm; codecs="vp9"') : can('video/webm; codecs="vp9"');
   const NAME = TALL ? 'hero-scrub-m' : 'hero-scrub';
   const VIDEO_URL = `assets/video/${NAME}.${WEBM ? 'webm' : 'mp4'}`;
   const VIDEO_TYPE = WEBM ? 'video/webm' : 'video/mp4';
-  const SIZES = { 'hero-scrub.webm': 2271239, 'hero-scrub.mp4': 3843419, 'hero-scrub-m.webm': 607390, 'hero-scrub-m.mp4': 859129 };
+  const SIZES = { 'hero-scrub.webm': 2271239, 'hero-scrub.mp4': 3843419, 'hero-scrub-m.webm': 435327, 'hero-scrub-m.mp4': 1006622 };
   const VIDEO_BYTES = SIZES[`${NAME}.${WEBM ? 'webm' : 'mp4'}`] || 3000000; // repli si Content-Length est absent
   const POSTER_URL = TALL ? 'assets/img/hero-m-start.jpg' : 'assets/img/hero-start.jpg';
   const FALLBACK_URL = TALL ? 'assets/img/hero-mobile-1080.webp' : 'assets/img/hero-end-1600.jpg';
@@ -126,7 +129,7 @@
   function tick(now) {
     const dt = Math.min(100, now - (lastTick || now));
     lastTick = now;
-    const k = 0.14;
+    const k = 0.24;
     shown += (target - shown) * (1 - Math.pow(1 - k, dt / 16.667));
     const settled = Math.abs(target - shown) < 0.0004 && loadK >= 1;
     if (settled) { shown = target; rafId = null; lastTick = 0; } else rafId = requestAnimationFrame(tick);
@@ -138,8 +141,12 @@
     if (gone !== cueGone) { cue.classList.toggle('is-gone', gone); cueGone = gone; }
   }
   function kick() { if (rafId === null && heroOnScreen) { lastTick = 0; rafId = requestAnimationFrame(tick); } }
-  function onScroll() { target = heroProgress(); kick(); }
-  new IntersectionObserver(([e]) => { heroOnScreen = e.isIntersecting; if (heroOnScreen) onScroll(); }).observe(hero);
+  // Hors de l'écran, aucune mesure : la page plus bas défile sans travail en plus
+  function onScroll() { if (!heroOnScreen) return; target = heroProgress(); kick(); }
+  new IntersectionObserver(([e]) => {
+    heroOnScreen = e.isIntersecting;
+    if (heroOnScreen) onScroll(); else { target = shown = heroProgress(); updateBands(shown); requestSeek(shown * video.duration); }
+  }).observe(hero);
 
   /* ---------- Chargement de la vidéo (Blob en flux + anneau honnête) ---------- */
   let videoReady = false;

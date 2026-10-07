@@ -78,10 +78,13 @@ def build():
     css += '''
 /* Aperçu tout-en-un */
 .view[hidden] { display: none !important; }
+'''
+    nojs = (ROOT / 'assets/css/nojs.css').read_text(encoding='utf-8') + '''
 html:not(.js) .view[hidden]:is(:target, :has(:target)) { display: block !important; }
 html:not(.js) main:has(> .view:not([data-view='accueil']):is(:target, :has(:target))) > .view[data-view='accueil'] { display: none !important; }
 '''
     head = head.replace('<link rel="stylesheet" href="assets/css/main.css">', f'<style>{css}</style>').replace('<link rel="stylesheet" href="assets/css/motion.css">\n', '')
+    head = head.replace('<link rel="stylesheet" href="assets/css/nojs.css" data-nojs>', f'<style data-nojs>{nojs}</style>')
     head = head.replace('<title>', '<script>window.__mpSingleFile = true</script>\n<title>', 1)
     head = head.replace('<title>', '<!-- Aperçu tout-en-un généré par tools/bundle_site.py : ne pas publier tel quel -->\n<title>', 1)
 

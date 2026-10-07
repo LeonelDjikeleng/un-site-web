@@ -20,8 +20,8 @@
 
   /* ---------- Intro de marque : la classe is-intro est posée dans le <head> (1re visite) ---------- */
   if (root.classList.contains('is-intro')) {
-    setTimeout(() => { root.classList.add('intro-out'); root.classList.remove('is-intro'); }, 1250);
-    setTimeout(() => { root.classList.remove('intro-out'); }, 2150);
+    setTimeout(() => { root.classList.add('intro-out'); root.classList.remove('is-intro'); }, 760);
+    setTimeout(() => { root.classList.remove('intro-out'); }, 1350);
   }
   /* Le voile de transition posé dans le <head> se retire en glissant */
   if (root.classList.contains('veil-on')) {
@@ -131,8 +131,10 @@
   function frame() {
     raf = null;
     const vh = innerHeight;
-    scenes.forEach((el) => {
-      const r = el.getBoundingClientRect();
+    // Toutes les mesures d'abord, toutes les écritures ensuite : aucun recalcul forcé de la mise en page
+    const rects = [...scenes].map((el) => [el, el.getBoundingClientRect()]);
+    const max = bar ? root.scrollHeight - innerHeight : 0;
+    rects.forEach(([el, r]) => {
       if (el.hasAttribute('data-scene')) {
         // 0 quand le haut de l'élément entre par le bas, 1 quand son bas sort par le haut
         const mode = el.dataset.scene;
@@ -152,7 +154,6 @@
       }
     });
     if (bar) {
-      const max = root.scrollHeight - innerHeight;
       const v = Math.round((max > 0 ? scrollY / max : 0) * 1000) / 1000;
       if (v !== lastBar) { lastBar = v; bar.style.transform = `scaleX(${v})`; }
     }
@@ -234,11 +235,12 @@
   });
 
   /* ---------- Poussière lumineuse (hero, très discrète) ---------- */
+  // Grand écran et souris seulement : sur téléphone, redessiner tout l'écran en continu coûte trop cher
   const cvs = document.querySelector('[data-dust]');
-  if (cvs && !reduce.matches) {
+  if (cvs && !reduce.matches && matchMedia('(hover: hover) and (pointer: fine) and (min-width: 1024px)').matches) {
     const ctx = cvs.getContext('2d');
-    const dpr = Math.min(2, devicePixelRatio || 1);
-    const N = innerWidth < 720 ? 26 : 46;
+    const dpr = Math.min(1.5, devicePixelRatio || 1);
+    const N = 40;
     let w = 0, h = 0, on = false, raf3 = null;
     const parts = Array.from({ length: N }, () => ({ x: Math.random(), y: Math.random(), r: 0.4 + Math.random() * 1.4, s: 0.002 + Math.random() * 0.006, a: 0.15 + Math.random() * 0.45, o: Math.random() * 6.28 }));
     const size = () => { w = cvs.clientWidth; h = cvs.clientHeight; cvs.width = w * dpr; cvs.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
@@ -269,7 +271,7 @@
       e.preventDefault();
       try { sessionStorage.setItem('mp-veil', '1'); } catch { /* sans stockage : pas de voile à l'arrivée */ }
       root.classList.remove('veil-out'); root.classList.add('veil-in');
-      setTimeout(() => { location.href = href; }, 360);
+      setTimeout(() => { location.href = href; }, 200);
     });
     addEventListener('pageshow', (e) => { if (e.persisted) { root.classList.remove('veil-in'); root.classList.add('veil-out'); } });
   }

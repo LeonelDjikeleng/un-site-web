@@ -73,7 +73,7 @@
   --dur-xs: 120ms;
   --dur-s: 220ms;
   --dur-m: 450ms;
-  --dur-l: 800ms;
+  --dur-l: 600ms;
   --dur-xl: 1200ms;
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
@@ -299,6 +299,14 @@ body.menu-open { overflow: hidden; }
 body.has-action-bar { padding-bottom: 0; }
 @media (max-width: 1023.98px) { .site-footer { padding-bottom: calc(76px + env(safe-area-inset-bottom)); } }
 
+/* Téléphone et tablette : pas de flou d'arrière-plan ni de grain en fusion. Ces deux effets
+   obligent la carte graphique à recomposer tout l'écran à chaque image de défilement. */
+@media (hover: none), (max-width: 1023.98px) {
+  .grain { display: none; }
+  .site-header::before { background: rgba(9, 11, 13, 0.95); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .shop-tools { background: rgba(231, 234, 237, 0.98); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
 /* ==========================================================================
    HERO — vidéo défilée (ordinateur) / image composée (mobile, mouvement réduit)
    ========================================================================== */
@@ -346,6 +354,7 @@ body.has-action-bar { padding-bottom: 0; }
   }
   .js .hero__content { position: absolute; inset: 0; padding: 0; }
   .js .band {
+    will-change: opacity;
     position: absolute; left: var(--gutter); right: var(--gutter); top: 50%; transform: translateY(-46%);
     max-width: min(640px, 46vw);
   }
@@ -369,7 +378,7 @@ body.has-action-bar { padding-bottom: 0; }
 
   /* Film vertical : le texte occupe la moitié basse, la voiture la moitié haute */
   @media (orientation: portrait) and (max-width: 1024px) {
-    .js .hero { height: 430vh; }
+    .js .hero { height: 330vh; }
     .js .hero__stage { height: 100svh; }
     .js .hero__scrim {
       background:

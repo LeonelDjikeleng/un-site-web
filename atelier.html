@@ -11,6 +11,7 @@
 <link rel="preload" href="assets/fonts/saira-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/main.css">
 <link rel="stylesheet" href="assets/css/motion.css">
+<link rel="stylesheet" href="assets/css/nojs.css" data-nojs>
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_CA">
 <meta property="og:title" content="L'atelier Milano Performance · Québec">
@@ -18,7 +19,7 @@
 <!-- DEPLOY STEP : URL absolues -->
 <meta property="og:image" content="https://milanoperformance.ca/assets/img/og.jpg">
 <meta property="og:url" content="https://milanoperformance.ca/atelier.html">
-<script>(function(r){r.classList.add('js');try{var m=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!m&&!sessionStorage.getItem('mp-intro')){r.classList.add('is-intro');sessionStorage.setItem('mp-intro','1')}if(!m&&sessionStorage.getItem('mp-veil')){r.classList.add('veil-on')}sessionStorage.removeItem('mp-veil')}catch(e){}})(document.documentElement)</script>
+<script>(function(r){r.classList.add('js');var n=document.querySelector('[data-nojs]');if(n)n.remove();try{var m=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!m&&!sessionStorage.getItem('mp-intro')){r.classList.add('is-intro');sessionStorage.setItem('mp-intro','1')}if(!m&&sessionStorage.getItem('mp-veil')){r.classList.add('veil-on')}sessionStorage.removeItem('mp-veil')}catch(e){}})(document.documentElement)</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

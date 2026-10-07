@@ -72,7 +72,16 @@ Les cadres d'image ont des ratios fixes (`aspect-ratio`) : une photo remplace un
 
 ## Hero défilé (standard « 10K »)
 
-`assets/js/hero.js` : la vidéo (H.264 + VP9, image clé toutes les 8 images) est chargée en Blob avec un anneau de progression honnête, le temps affiché est lissé indépendamment de la fréquence d'écran, les recherches temporelles sont sérialisées. **Deux films** : `hero-scrub` (ordinateur, 16:9) et `hero-scrub-m` (téléphone et tablette en portrait, 9:16, moins de 1 Mo). Deux conditions donnent une image fixe composée à la place (téléphone tenu à l'horizontale, « réduire les animations ») ; elles sont identiques dans `main.css` et `hero.js` et réévaluées en direct.
+`assets/js/hero.js` : la vidéo (H.264 + VP9, image clé toutes les 8 images) est chargée en Blob avec un anneau de progression honnête, le temps affiché est lissé indépendamment de la fréquence d'écran, les recherches temporelles sont sérialisées. **Deux films** : `hero-scrub` (ordinateur, 16:9) et `hero-scrub-m` (téléphone et tablette en portrait, 9:16, 540 × 960). Le film vertical est en H.264 « tout en images clés » (1 Mo) : chaque position se décode d'un coup, le défilement reste fluide sur un Android modeste ; un WebM léger sert de secours. `hero-scrub-apercu.webm` (1280 px) ne sert qu'au fichier tout-en-un. Deux conditions donnent une image fixe composée à la place (téléphone tenu à l'horizontale, « réduire les animations ») ; elles sont identiques dans `main.css` et `hero.js` et réévaluées en direct.
+
+## Fluidité (téléphone)
+
+Mesurée sur téléphone simulé, processeur bridé ×4 : l'accueil défile à ~60 images/s. Règles à garder :
+- pas de flou d'arrière-plan (`backdrop-filter`) ni de grain en `mix-blend-mode` sur téléphone ;
+- la poussière du hero (canvas) n'existe que sur grand écran à la souris ;
+- le scanner du diagnostic découpe l'image (`clip-path`) au lieu de la masquer (`mask-image`) ;
+- dans les boucles de défilement, toutes les mesures avant toutes les écritures ;
+- `nojs.css` (sélecteurs `:has`, animations sans script) est retirée dès que le JavaScript tourne.
 
 ## Animations (`assets/js/motion.js` + `assets/css/motion.css`)
 

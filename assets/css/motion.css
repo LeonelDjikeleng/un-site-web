@@ -10,21 +10,21 @@
   pointer-events: none;
 }
 .is-intro .intro, .intro-out .intro { display: grid; }
-.is-intro .intro { animation: introSafety 0s linear 2.6s forwards; }
+.is-intro .intro { animation: introSafety 0s linear 1.6s forwards; }
 @keyframes introSafety { to { opacity: 0; visibility: hidden; } }
-.intro-out .intro { clip-path: inset(0 0 100% 0); transition: clip-path 800ms var(--ease-in-out); }
+.intro-out .intro { clip-path: inset(0 0 100% 0); transition: clip-path 560ms var(--ease-in-out); }
 .is-intro .intro { clip-path: inset(0 0 0 0); }
 .intro__inner { display: grid; justify-items: center; gap: 22px; }
 .intro__mark { width: 74px; height: 74px; }
-.intro__mark path { fill: none; stroke: var(--c-text); stroke-width: 1.4; stroke-dasharray: 120; stroke-dashoffset: 120; animation: introDraw 900ms var(--ease-in-out) 100ms forwards; }
-.intro__mark rect { fill: var(--c-caliper); transform: scaleY(0); transform-origin: bottom; transform-box: fill-box; animation: introBar 500ms var(--ease-out) 750ms forwards; }
+.intro__mark path { fill: none; stroke: var(--c-text); stroke-width: 1.4; stroke-dasharray: 120; stroke-dashoffset: 120; animation: introDraw 560ms var(--ease-in-out) 40ms forwards; }
+.intro__mark rect { fill: var(--c-caliper); transform: scaleY(0); transform-origin: bottom; transform-box: fill-box; animation: introBar 320ms var(--ease-out) 440ms forwards; }
 @keyframes introDraw { to { stroke-dashoffset: 0; } }
 @keyframes introBar { to { transform: none; } }
-.intro__word { font-family: var(--f-display); font-stretch: 125%; text-transform: uppercase; letter-spacing: 0.32em; font-size: 0.8125rem; color: var(--c-steel); opacity: 0; animation: introWord 700ms var(--ease-out) 500ms forwards; }
+.intro__word { font-family: var(--f-display); font-stretch: 125%; text-transform: uppercase; letter-spacing: 0.32em; font-size: 0.8125rem; color: var(--c-steel); opacity: 0; animation: introWord 480ms var(--ease-out) 220ms forwards; }
 .intro__word b { color: var(--c-text); font-weight: 700; }
 @keyframes introWord { from { opacity: 0; letter-spacing: 0.6em; } to { opacity: 1; letter-spacing: 0.32em; } }
 .intro__line { width: 160px; height: 1px; background: var(--c-line); overflow: hidden; position: relative; }
-.intro__line::after { content: ''; position: absolute; inset: 0; background: var(--c-signal); transform: scaleX(0); transform-origin: left; animation: introLoad 1100ms var(--ease-in-out) 100ms forwards; }
+.intro__line::after { content: ''; position: absolute; inset: 0; background: var(--c-signal); transform: scaleX(0); transform-origin: left; animation: introLoad 680ms var(--ease-in-out) 40ms forwards; }
 @keyframes introLoad { to { transform: none; } }
 
 /* ---------- Transition entre pages : un voile qui glisse ---------- */
@@ -32,8 +32,8 @@
 .veil::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--c-caliper); box-shadow: 0 0 24px 2px rgba(255, 90, 78, 0.55); }
 .veil-on .veil { transform: none; animation: veilSafety 0s linear 1.6s forwards; }
 @keyframes veilSafety { to { transform: translateY(-101%); } }
-.veil-in .veil { transform: none; transition: transform 380ms var(--ease-in-out); }
-.veil-out .veil { transform: translateY(-101%); transition: transform 650ms var(--ease-in-out); }
+.veil-in .veil { transform: none; transition: transform 220ms var(--ease-in-out); }
+.veil-out .veil { transform: translateY(-101%); transition: transform 420ms var(--ease-in-out); }
 
 /* ---------- Barre de progression de lecture (sous l'en-tête) ---------- */
 .progress-line { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--c-caliper); transform-origin: left; transform: scaleX(0); pointer-events: none; box-shadow: 0 0 10px rgba(255, 90, 78, 0.6); }
@@ -41,41 +41,41 @@
 /* ---------- Titres : mots qui montent derrière un masque ---------- */
 .wm { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.06em 0.02em 0.1em; margin: -0.06em -0.02em -0.1em; }
 .wi { display: inline-block; }
-.js [data-words] .wi { transform: translateY(112%) rotate(4deg); transform-origin: 0 100%; transition: transform 1000ms var(--ease-out); transition-delay: calc(var(--i, 0) * 55ms); }
+.js [data-words] .wi { transform: translateY(112%) rotate(4deg); transform-origin: 0 100%; transition: transform 700ms var(--ease-out); transition-delay: calc(var(--i, 0) * 40ms); }
 .js [data-words].is-in .wi { transform: none; }
-.js [data-words='track'] .wi { transform: translateY(40%); opacity: 0; letter-spacing: 0.25em; transition: transform 1100ms var(--ease-out), opacity 900ms var(--ease-out), letter-spacing 1300ms var(--ease-out); transition-delay: calc(var(--i, 0) * 70ms); }
+.js [data-words='track'] .wi { transform: translateY(40%); opacity: 0; letter-spacing: 0.25em; transition: transform 750ms var(--ease-out), opacity 600ms var(--ease-out), letter-spacing 850ms var(--ease-out); transition-delay: calc(var(--i, 0) * 50ms); }
 .js [data-words='track'].is-in .wi { transform: none; opacity: 1; letter-spacing: normal; }
-.js [data-words='punch'] .wi { transform: scale(0.4); opacity: 0; transition: transform 700ms cubic-bezier(.34, 1.56, .64, 1), opacity 400ms var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms); }
+.js [data-words='punch'] .wi { transform: scale(0.4); opacity: 0; transition: transform 560ms cubic-bezier(.34, 1.56, .64, 1), opacity 320ms var(--ease-out); transition-delay: calc(var(--i, 0) * 60ms); }
 .js [data-words='punch'].is-in .wi { transform: none; opacity: 1; }
 
 /* ---------- Sur-titres : le filet se trace, les lettres se resserrent ---------- */
-.js .kicker::before { transform: scaleX(0); transform-origin: left; transition: transform 900ms var(--ease-out) 150ms; }
-.js .kicker { opacity: 0; letter-spacing: 0.42em; transition: opacity 800ms var(--ease-out), letter-spacing 1100ms var(--ease-out); }
+.js .kicker::before { transform: scaleX(0); transform-origin: left; transition: transform 600ms var(--ease-out) 100ms; }
+.js .kicker { opacity: 0; letter-spacing: 0.42em; transition: opacity 500ms var(--ease-out), letter-spacing 700ms var(--ease-out); }
 .js .kicker.is-in { opacity: 1; letter-spacing: 0.22em; }
 .js .kicker.is-in::before { transform: none; }
 .js .hero .kicker, .js .band .kicker { opacity: 1; letter-spacing: 0.22em; }
 .js .hero .kicker::before { transform: none; }
 
 /* ---------- Révélations génériques ---------- */
-.js [data-reveal='up'] { opacity: 0; transform: translateY(28px); transition: opacity 900ms var(--ease-out), transform 1000ms var(--ease-out); transition-delay: var(--d, 0ms); }
+.js [data-reveal='up'] { opacity: 0; transform: translateY(24px); transition: opacity 600ms var(--ease-out), transform 650ms var(--ease-out); transition-delay: var(--d, 0ms); }
 .js [data-reveal='up'].is-in { opacity: 1; transform: none; }
-.js [data-reveal='clip'] { clip-path: inset(100% 0 0 0); transition: clip-path 1300ms var(--ease-in-out); transition-delay: var(--d, 0ms); }
-.js [data-reveal='clip'] img { transform: scale(1.28); transition: transform 1800ms var(--ease-out); transition-delay: var(--d, 0ms); }
+.js [data-reveal='clip'] { clip-path: inset(100% 0 0 0); transition: clip-path 850ms var(--ease-in-out); transition-delay: var(--d, 0ms); }
+.js [data-reveal='clip'] img { transform: scale(1.2); transition: transform 1100ms var(--ease-out); transition-delay: var(--d, 0ms); }
 .js [data-reveal='clip'].is-in { clip-path: inset(0 0 0 0); }
 .js [data-reveal='clip'].is-in img { transform: scale(1); }
-.js [data-reveal='wipe'] { clip-path: inset(0 100% 0 0); transition: clip-path 1200ms var(--ease-in-out); transition-delay: var(--d, 0ms); }
+.js [data-reveal='wipe'] { clip-path: inset(0 100% 0 0); transition: clip-path 800ms var(--ease-in-out); transition-delay: var(--d, 0ms); }
 .js [data-reveal='wipe'].is-in { clip-path: inset(0 0 0 0); }
 
 /* Série horizontale : chaque enfant arrive avec un décalage */
-.js .stagger-x > * { opacity: 0; transform: translateX(26px); transition: opacity 800ms var(--ease-out), transform 900ms var(--ease-out); }
+.js .stagger-x > * { opacity: 0; transform: translateX(22px); transition: opacity 550ms var(--ease-out), transform 600ms var(--ease-out); }
 .js .stagger-x.is-in > * { opacity: 1; transform: none; }
-.js .stagger-x.is-in > :nth-child(2) { transition-delay: 90ms; }
-.js .stagger-x.is-in > :nth-child(3) { transition-delay: 180ms; }
-.js .stagger-x.is-in > :nth-child(4) { transition-delay: 270ms; }
-.js .stagger-x.is-in > :nth-child(n + 5) { transition-delay: 360ms; }
+.js .stagger-x.is-in > :nth-child(2) { transition-delay: 60ms; }
+.js .stagger-x.is-in > :nth-child(3) { transition-delay: 120ms; }
+.js .stagger-x.is-in > :nth-child(4) { transition-delay: 180ms; }
+.js .stagger-x.is-in > :nth-child(n + 5) { transition-delay: 240ms; }
 
 /* ---------- Tracés SVG qui se dessinent ---------- */
-.js [data-draw-in] path, .js [data-draw-in] circle, .js [data-draw-in] line, .js [data-draw-in] polyline { stroke-dashoffset: var(--len, 300); transition: stroke-dashoffset 1600ms var(--ease-in-out); transition-delay: var(--d, 0ms); }
+.js [data-draw-in] path, .js [data-draw-in] circle, .js [data-draw-in] line, .js [data-draw-in] polyline { stroke-dashoffset: var(--len, 300); transition: stroke-dashoffset 1000ms var(--ease-in-out); transition-delay: var(--d, 0ms); }
 .js [data-draw-in].is-in path, .js [data-draw-in].is-in circle, .js [data-draw-in].is-in line, .js [data-draw-in].is-in polyline { stroke-dashoffset: 0; }
 .js [data-scene] [data-draw] { stroke-dashoffset: calc(var(--len, 300) * (1 - min(1, var(--p, 0) * 1.6))); }
 
@@ -92,7 +92,7 @@
 @keyframes tapLight { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(26); } }
 
 /* ---------- Hero : poussière lumineuse ---------- */
-.dust { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen; opacity: 0.7; }
+.dust { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.6; }
 
 /* ---------- Manifeste : les mots s'allument au fil du défilement ---------- */
 .manifesto__text .mw { opacity: clamp(0.16, calc(var(--p, 0) * 2.3 * var(--n, 30) - var(--i, 0)), 1); }
@@ -179,13 +179,13 @@
 }
 
 /* ---------- Boutique : les cartes arrivent en cascade à chaque filtre ---------- */
-.js .product { animation: cardIn 700ms var(--ease-out) both; animation-delay: calc(min(var(--i, 0), 12) * 45ms); }
+.js .product { animation: cardIn 480ms var(--ease-out) both; animation-delay: calc(min(var(--i, 0), 8) * 35ms); }
 @keyframes cardIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
 /* ---------- Diagnostic : le scanner balaie la voiture (téléphone) ---------- */
 .diag__scan { position: absolute; top: 4%; bottom: 4%; left: calc(6% + 88% * var(--scan, 0)); width: 2px; z-index: 1; pointer-events: none; opacity: 0; background: linear-gradient(180deg, transparent, var(--c-signal), transparent); box-shadow: 0 0 18px 4px rgba(255, 90, 78, 0.45); }
 .diag__plan.is-scanning:not(.scan-done) .diag__scan { opacity: 1; }
-.diag__plan.is-scanning .lit { -webkit-mask-image: linear-gradient(90deg, #000 calc(6% + 88% * var(--scan, 0)), transparent calc(6% + 88% * var(--scan, 0) + 4%)); mask-image: linear-gradient(90deg, #000 calc(6% + 88% * var(--scan, 0)), transparent calc(6% + 88% * var(--scan, 0) + 4%)); opacity: 1; }
+.diag__plan.is-scanning .lit { -webkit-mask-image: none; mask-image: none; clip-path: inset(0 calc((1 - var(--scan, 0)) * 100%) 0 0); opacity: 1; will-change: clip-path; }
 .diag__plan.is-scanning .base { opacity: 0.35; }
 .hotspot.is-hit::before { background: var(--c-signal); box-shadow: 0 0 0 6px rgba(255, 90, 78, 0.25), 0 0 16px rgba(255, 90, 78, 0.8); }
 
@@ -214,53 +214,13 @@
   .dust { display: none; }
 }
 
-/* ==========================================================================
-   SANS JAVASCRIPT — le site bouge quand même
-   Certaines visionneuses (aperçu de fichier sur téléphone, messageries, iframes
-   protégées) bloquent les scripts : la classe .js n'est alors jamais posée.
-   Tout ce qui suit est en CSS pur et ne vise que html:not(.js).
-   - Défilement : animations liées au défilement (animation-timeline), seulement
-     là où le navigateur les connaît (@supports) ; ailleurs, contenu fixe et lisible.
-   - Interactions : menu (:target), filtres de la boutique et diagnostic (boutons
-     radio + :has), START (:active), tous sans script.
-   ========================================================================== */
-@property --p { syntax: '<number>'; inherits: true; initial-value: 0; }
-@property --scan { syntax: '<number>'; inherits: true; initial-value: 0; }
-@property --hold { syntax: '<number>'; inherits: true; initial-value: 0; }
-@property --sweep { syntax: '<number>'; inherits: true; initial-value: 0; }
-@property --focus { syntax: '<number>'; inherits: false; initial-value: 1; }
-@property --num { syntax: '<integer>'; inherits: false; initial-value: 0; }
-@property --rpm { syntax: '<integer>'; inherits: false; initial-value: 0; }
-
-/* ---------- En-tête, barre d'action, menu ---------- */
+/* ---------- Éléments réservés à l'aperçu sans JavaScript (voir nojs.css) ---------- */
 .menu-btn--nojs, .menu-btn--close, .hero__loop { display: none; }
-html:not(.js) .site-header::before { opacity: 1; }
-html:not(.js) .action-bar { transform: none; }
-html:not(.js) .header-right > button.menu-btn { display: none; }
-@media (max-width: 1023.98px) {
-  html:not(.js) .menu-btn--nojs { display: inline-grid; }
-  html:not(.js) body:has(#menu:target) .menu-btn--nojs { display: none; }
-  html:not(.js) body:has(#menu:target) .menu-btn--close { display: inline-grid; }
-}
 .menu-btn--close span { background: transparent; }
 .menu-btn--close span::before { transform: translateY(6px) rotate(45deg); }
 .menu-btn--close span::after { transform: translateY(-6px) rotate(-45deg); }
-html:not(.js) .mobile-menu:target { opacity: 1; visibility: visible; transition: opacity var(--dur-m) var(--ease-out); }
-html:not(.js) .mobile-menu:target li { animation: menuIn 600ms var(--ease-out) both; }
-html:not(.js) .mobile-menu:target li:nth-child(2) { animation-delay: 60ms; }
-html:not(.js) .mobile-menu:target li:nth-child(3) { animation-delay: 120ms; }
-html:not(.js) .mobile-menu:target li:nth-child(4) { animation-delay: 180ms; }
-html:not(.js) .mobile-menu:target li:nth-child(5) { animation-delay: 240ms; }
-html:not(.js) body:has(#menu:target) { overflow: hidden; }
 
-/* ---------- Boutique : la recherche demande le JS, les filtres non ---------- */
-html:not(.js) .search { display: none; }
-html:not(.js) .shop-tools .wrap { grid-template-columns: 1fr; }
-html:not(.js) .filters label.chip-btn { cursor: pointer; }
-html:not(.js) #catalogue:has([name='filtre']:not(#f-tout):checked) [data-count] { visibility: hidden; }
-html:not(.js) .filters input:focus-visible + label, html:not(.js) .diag__static input:focus-visible + label { outline: 2px solid var(--c-signal); outline-offset: 2px; }
-
-/* ---------- Diagnostic : six panneaux, un seul visible ---------- */
+/* Diagnostic écrit d'avance dans la page : un seul panneau visible avant que le script le remplace */
 .diag__static .panel-swap { display: none; }
 .diag__static label.chip-btn { cursor: pointer; }
 .diag__static:has(#sys-moteur:checked) [data-sys='moteur'],
@@ -275,223 +235,3 @@ html:not(.js) .filters input:focus-visible + label, html:not(.js) .diag__static 
 .diag__static:has(#sys-transmission:checked) [for='sys-transmission'],
 .diag__static:has(#sys-echappement:checked) [for='sys-echappement'],
 .diag__static:has(#sys-roues:checked) [for='sys-roues'] { background: var(--c-text); color: var(--c-ink); border-color: var(--c-text); }
-html:not(.js) .hotspot { pointer-events: none; }
-html:not(.js) .hotspot[aria-pressed='true']::before { background: var(--c-text); box-shadow: 0 0 0 6px rgba(231, 234, 237, 0.14); transform: none; }
-html:not(.js) .hotspot[aria-pressed='true'] .hotspot__label { color: inherit; }
-html:not(.js) .diag:has(#sys-moteur:checked) [data-system='moteur'],
-html:not(.js) .diag:has(#sys-freins:checked) [data-system='freins'],
-html:not(.js) .diag:has(#sys-suspension:checked) [data-system='suspension'],
-html:not(.js) .diag:has(#sys-transmission:checked) [data-system='transmission'],
-html:not(.js) .diag:has(#sys-echappement:checked) [data-system='echappement'],
-html:not(.js) .diag:has(#sys-roues:checked) [data-system='roues'] { --on: 1; }
-html:not(.js) .hotspot[style] { --on: 0; }
-html:not(.js) .diag .hotspot::before { background: color-mix(in srgb, var(--c-signal) calc(max(var(--on, 0), var(--hit, 0)) * 100%), var(--c-text)); transform: scale(calc(1 + 0.15 * var(--on, 0))); }
-html:not(.js) .diag .hotspot .hotspot__label { opacity: calc(0.6 + 0.4 * var(--on, 0)); }
-
-/* ---------- START sans script : maintenir le bouton (:active) ---------- */
-html:not(.js) .hold { --gauge: max(var(--hold), var(--sweep)); transition: --hold 900ms var(--ease-out) 1.4s; }
-html:not(.js) .hold:has(.hold__btn:active) { --hold: 1; transition: --hold 1500ms linear; }
-html:not(.js) .hold:has(.hold__btn:active) .hold__btn { border-color: var(--c-signal); }
-html:not(.js) .gauge-needle { transform: rotate(calc(-120deg + 240deg * var(--gauge))); }
-html:not(.js) .gauge-fill { stroke-dashoffset: calc(293 * (1 - var(--gauge))); }
-html:not(.js) [data-rpm] { --rpm: calc(var(--gauge) * 85); counter-reset: rpm var(--rpm); font-size: 0; }
-html:not(.js) [data-rpm]::after { content: counter(rpm, decimal-leading-zero) '00'; font-size: 1.1rem; }
-html:not(.js) .hold__msg { opacity: clamp(0, (var(--hold) - 0.97) * 40, 1); transform: translateY(calc((1 - clamp(0, (var(--hold) - 0.97) * 40, 1)) * 10px)); transition: none; }
-
-/* ---------- Lumière au toucher ---------- */
-html:not(.js) :is(.btn, .action-bar a, .chip-btn)::before { transition: opacity 620ms var(--ease-out), transform 620ms var(--ease-out); }
-html:not(.js) :is(.btn, .action-bar a, .chip-btn):active::before { opacity: 1; transform: scale(26); transition: none; }
-
-/* ---------- Intro de marque (accueil) ---------- */
-@media (prefers-reduced-motion: no-preference) {
-  html:not(.js) body[data-page='accueil'] .intro { display: grid; animation: njIntroOut 800ms var(--ease-in-out) 1.35s both; }
-  html:not(.js) body[data-page='accueil'] .band:first-child > * { animation-delay: 1.55s; }
-  html:not(.js) body[data-page='accueil'] .band:first-child > :nth-child(2) { animation-delay: 1.67s; }
-  html:not(.js) body[data-page='accueil'] .band:first-child > :nth-child(3) { animation-delay: 1.8s; }
-  html:not(.js) body[data-page='accueil'] .band:first-child > :nth-child(4) { animation-delay: 1.9s; }
-  html:not(.js) body[data-page='accueil'] .band:first-child > :nth-child(5) { animation-delay: 2s; }
-  @keyframes njIntroOut { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
-
-  /* Titres des pages intérieures : entrée au chargement */
-  html:not(.js) .page-hero [data-words] .wi { animation: njWordUp 1000ms var(--ease-out) both; animation-delay: calc(150ms + var(--i, 0) * 60ms); }
-  html:not(.js) .page-hero .lede, html:not(.js) .page-hero .crumbs { animation: heroIn 900ms var(--ease-out) 500ms both; }
-
-  /* Hero : poussière remplacée par une lame de lumière qui passe */
-  html:not(.js) .hero__media::after, html:not(.js) .final__media::after {
-    content: ''; position: absolute; inset: -20% -60%; pointer-events: none; mix-blend-mode: screen;
-    background: linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, 0.07) 48%, rgba(255, 255, 255, 0.16) 50%, rgba(255, 255, 255, 0.07) 52%, transparent 58%);
-    animation: njSheen 7s var(--ease-in-out) 2.4s infinite;
-    transform: translateX(-70%);
-  }
-  @keyframes njSheen { 0% { transform: translateX(-70%); } 45%, 100% { transform: translateX(70%); } }
-  html:not(.js) .hero__loop { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  @media (orientation: portrait) and (max-width: 1024px) { html:not(.js) .hero__loop--d { display: none; } }
-  @media not all and (orientation: portrait) and (max-width: 1024px) { html:not(.js) .hero__loop--m { display: none; } }
-
-  /* Aperçu tout-en-un : changement de « page » sous un voile */
-  html:not(.js) .view { animation: njViewIn 700ms var(--ease-out) both; }
-  html:not(.js) .view::before {
-    content: ''; position: fixed; inset: 0; z-index: 280; pointer-events: none; background: var(--c-night);
-    border-bottom: 2px solid var(--c-caliper); box-shadow: 0 2px 24px rgba(255, 90, 78, 0.55);
-    animation: njVeil 750ms var(--ease-in-out) both;
-  }
-  @keyframes njViewIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes njVeil { from { transform: none; } to { transform: translateY(-102%); visibility: hidden; } }
-}
-
-/* ---------- Animations liées au défilement ---------- */
-@supports (animation-timeline: view()) {
-@media (prefers-reduced-motion: no-preference) {
-  /* overflow: hidden ferait de chaque section un « défileur » : clip coupe pareil sans ça */
-  html:not(.js) :is(.diag, .mclaren, .mclaren__media, .final, .page-hero, .frame, .house, .map, .hero__stage, .blade) { overflow: clip; }
-
-  html:not(.js) .site-header::before { animation: njFade linear both; animation-timeline: scroll(root); animation-range: 0px 140px; }
-  html:not(.js) .progress-line { animation: njScaleX linear both; animation-timeline: scroll(root); }
-  html:not(.js) .action-bar { animation: njBarIn linear both; animation-timeline: scroll(root); animation-range: 0px 50vh; }
-
-  /* Titres mot à mot, au rythme du pouce */
-  html:not(.js) [data-words] { view-timeline: --words block; }
-  html:not(.js) [data-words] .wi { transform-origin: 0 100%; animation: njWordUp linear both; animation-timeline: --words; animation-range: cover calc(4% + var(--i, 0) * 1.6%) cover calc(24% + var(--i, 0) * 1.6%); }
-  html:not(.js) [data-words='track'] .wi { animation-name: njWordTrack; }
-  html:not(.js) [data-words='punch'] .wi { animation-name: njWordPunch; animation-range: cover calc(8% + var(--i, 0) * 2.2%) cover calc(26% + var(--i, 0) * 2.2%); }
-  html:not(.js) .page-hero [data-words] .wi { animation-timeline: auto; animation-range: normal; }
-
-  html:not(.js) .kicker:not(.band__kicker) { view-timeline: --kick block; animation: njKick linear both; animation-timeline: --kick; animation-range: cover 2% cover 22%; }
-  html:not(.js) .kicker:not(.band__kicker)::before { transform-origin: left; animation: njScaleX linear both; animation-timeline: --kick; animation-range: cover 6% cover 26%; }
-
-  html:not(.js) [data-reveal='up'], html:not(.js) .reveal { animation: njUp linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
-  html:not(.js) [data-reveal='clip'] { view-timeline: --clip block; animation: njClip linear both; animation-timeline: --clip; animation-range: entry 0% cover 45%; }
-  html:not(.js) [data-reveal='clip'] img { animation: njClipImg linear both; animation-timeline: --clip; animation-range: entry 0% cover 70%; }
-  html:not(.js) [data-reveal='wipe'] { animation: njWipe linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
-
-  html:not(.js) .stagger:not([data-carousel]) > * { animation: njUp linear both; animation-timeline: view(); animation-range: entry 0% cover 28%; }
-  html:not(.js) .stagger:not([data-carousel]) > :nth-child(2n) { animation-range: entry 8% cover 32%; }
-  html:not(.js) .stagger-x > * { animation: njLeft linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
-  html:not(.js) .blade { view-timeline: --blade block; }
-  html:not(.js) .blade::after { animation: njBlade linear both; animation-timeline: --blade; animation-range: cover 10% cover 70%; }
-
-  html:not(.js) [data-draw-in] { view-timeline: --draw block; }
-  html:not(.js) [data-draw-in] :is(path, circle, line, polyline) { stroke-dasharray: 160; animation: njDraw linear both; animation-timeline: --draw; animation-range: cover 5% cover 35%; }
-
-  html:not(.js) [data-parallax] { view-timeline: --plx block; }
-  html:not(.js) [data-parallax] img { animation: njPlx linear both; animation-timeline: --plx; }
-  html:not(.js) [data-zoom] { view-timeline: --zoom block; }
-  html:not(.js) [data-zoom] .mclaren__media img { animation: njZoom linear both; animation-timeline: --zoom; animation-range: entry 0% cover 50%; }
-
-  /* Scènes : --p de 0 à 1 (mêmes bornes que motion.js) */
-  html:not(.js) [data-scene] { animation: njP linear both; animation-timeline: view(); }
-  html:not(.js) [data-scene='enter'] { animation-range: cover 0% cover 85vh; }
-
-  /* Maisons : la carte centrée mise en avant, les années comptent */
-  @media (max-width: 1099.98px) {
-    html:not(.js) .houses[data-carousel] > .house { animation: njFocus linear both; animation-timeline: view(inline); }
-  }
-  html:not(.js) .houses { view-timeline: --houses block; }
-  html:not(.js) [data-count] { position: relative; counter-reset: num var(--num); -webkit-text-stroke-color: transparent; animation: njCount linear both; animation-timeline: --houses; animation-range: entry 10% cover 50%; }
-  html:not(.js) [data-count]::after { content: counter(num); position: absolute; left: 0; top: 0; -webkit-text-stroke: 1px rgba(231, 234, 237, 0.55); }
-
-  /* Boutique : chaque carte monte en entrant */
-  html:not(.js) .product { animation: njUp linear both; animation-timeline: view(); animation-range: entry 0% entry 90%; }
-
-  /* Diagnostic : le scanner balaie la voiture pendant qu'on descend */
-  html:not(.js) .diag__plan { view-timeline: --plan block; animation: njScan linear both; animation-timeline: --plan; animation-range: cover 12vh cover 67vh; }
-  html:not(.js) .diag__plan .diag__scan { animation: njScanLine linear both; animation-timeline: --plan; animation-range: cover 12vh cover 67vh; }
-  html:not(.js) .diag__plan .lit { opacity: 1; -webkit-mask-image: linear-gradient(90deg, #000 calc(6% + 88% * var(--scan)), transparent calc(6% + 88% * var(--scan) + 4%)); mask-image: linear-gradient(90deg, #000 calc(6% + 88% * var(--scan)), transparent calc(6% + 88% * var(--scan) + 4%)); }
-  html:not(.js) .diag__plan .diag__draw .base { opacity: 0.35; }
-  html:not(.js) .hotspot { --hit: clamp(0, (6 + 88 * var(--scan) + 0.5 - var(--hx, 0)) * 2, 1); }
-  html:not(.js) [data-system='freins'] { --hx: 31; } html:not(.js) [data-system='suspension'] { --hx: 22; }
-  html:not(.js) [data-system='moteur'] { --hx: 63; } html:not(.js) [data-system='transmission'] { --hx: 52; }
-  html:not(.js) [data-system='echappement'] { --hx: 89; } html:not(.js) [data-system='roues'] { --hx: 77; }
-
-  /* START : l'aiguille fait un tour d'essai quand le compte-tours arrive */
-  html:not(.js) .hold { view-timeline: --hold block; animation: njSweep linear both; animation-timeline: --hold; animation-range: cover 15% cover 55%; }
-
-  /* Hero : la voiture tourne en boucle, les quatre textes défilent comme avec le film */
-  @media not all and (orientation: landscape) and (pointer: coarse) and (max-height: 560px) {
-    html:not(.js) .hero { height: 420vh; view-timeline: --hero block; }
-    html:not(.js) .hero__stage { position: sticky; top: 0; height: 100vh; min-height: 0; align-items: stretch; }
-    html:not(.js) .hero__media { animation: njHeroZoom linear both; animation-timeline: --hero; animation-range: contain 0% contain 100%; }
-    html:not(.js) .hero__scrim {
-      background:
-        linear-gradient(180deg, rgba(9, 11, 13, 0.6) 0%, rgba(9, 11, 13, 0) 18%),
-        linear-gradient(90deg, rgba(9, 11, 13, 0.78) 0%, rgba(9, 11, 13, 0.35) 38%, rgba(9, 11, 13, 0) 60%),
-        linear-gradient(0deg, rgba(9, 11, 13, 0.7) 0%, rgba(9, 11, 13, 0) 30%);
-    }
-    html:not(.js) .hero__content { position: absolute; inset: 0; padding: 0; }
-    html:not(.js) .band { position: absolute; left: var(--gutter); right: var(--gutter); top: 50%; transform: translateY(-46%); max-width: min(640px, 46vw); animation: njBand linear both; animation-timeline: --hero; }
-    html:not(.js) .band__title { font-size: clamp(2.35rem, 0.9rem + 4.1vw, 5rem); }
-    html:not(.js) .band--extra { display: block; }
-    html:not(.js) .band--settle { top: auto; bottom: 9vh; transform: none; }
-    html:not(.js) .hero__meta { display: none; }
-    html:not(.js) .band:nth-child(1) { animation-name: njBandFirst; animation-range: contain 0% contain 25%; }
-    html:not(.js) .band:nth-child(2) { animation-range: contain 31% contain 56%; }
-    html:not(.js) .band:nth-child(3) { animation-range: contain 60% contain 81%; }
-    html:not(.js) .band:nth-child(4) { animation-name: njBandLast; animation-range: contain 86% contain 100%; }
-    html:not(.js) .band:not(:first-child) .band__title { animation: njTitle linear both; animation-timeline: --hero; animation-range: inherit; }
-    html:not(.js) .scroll-cue {
-      display: flex; position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 3;
-      flex-direction: column; align-items: center; gap: 10px; color: var(--c-steel);
-      font-family: var(--f-display); font-stretch: 125%; font-size: 0.6875rem; letter-spacing: 0.24em; text-transform: uppercase;
-      animation: njFadeOut linear both; animation-timeline: --hero; animation-range: contain 0% contain 3%;
-    }
-    html:not(.js) .scroll-cue .ring { width: 40px; height: 40px; transform: rotate(-90deg); --ld: 0; }
-    html:not(.js) .scroll-cue .ring circle:last-child { animation: njRing 2.4s var(--ease-in-out) infinite; }
-    html:not(.js) [data-cue-label] { font-size: 0; }
-    html:not(.js) [data-cue-label]::after { content: 'Défiler'; font-size: 0.6875rem; }
-    html:not(.js) .hero__progress { display: block; }
-    html:not(.js) .hero__progress i { animation: njScaleY linear both; animation-timeline: --hero; animation-range: contain 0% contain 100%; }
-
-    @media (orientation: portrait) and (max-width: 1024px) {
-      html:not(.js) .hero { height: 380vh; }
-      html:not(.js) .hero__stage { height: 100svh; }
-      html:not(.js) .hero__scrim {
-        background:
-          linear-gradient(180deg, rgba(9, 11, 13, 0.55) 0%, rgba(9, 11, 13, 0) 14%),
-          linear-gradient(0deg, rgba(9, 11, 13, 0.97) 0%, rgba(9, 11, 13, 0.82) 30%, rgba(9, 11, 13, 0) 58%);
-      }
-      html:not(.js) .band, html:not(.js) .band--settle { top: auto; bottom: calc(env(safe-area-inset-bottom) + 92px); transform: none; max-width: none; }
-      html:not(.js) .band__title { font-size: clamp(2.1rem, 1rem + 6.6vw, 3.6rem); }
-      html:not(.js) .band__sub { font-size: 1rem; margin-top: 12px; }
-      html:not(.js) .band .btn-row { margin-top: 20px; }
-      html:not(.js) .band:first-child .btn-row .btn { flex: 1 1 auto; }
-      html:not(.js) .scroll-cue { bottom: calc(env(safe-area-inset-bottom) + 24px); }
-      html:not(.js) .scroll-cue span { display: none; }
-      html:not(.js) .hero__progress { top: auto; bottom: 36%; height: 110px; right: 14px; }
-    }
-  }
-}}
-
-@keyframes njFade { from { opacity: 0; } to { opacity: 1; } }
-@keyframes njFadeOut { from { opacity: 1; } to { opacity: 0; } }
-@keyframes njScaleX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-@keyframes njScaleY { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-@keyframes njBarIn { from { transform: translateY(110%); } to { transform: none; } }
-@keyframes njWordUp { from { transform: translateY(112%) rotate(4deg); } to { transform: none; } }
-@keyframes njWordTrack { from { transform: translateY(40%); opacity: 0; letter-spacing: 0.25em; } to { transform: none; opacity: 1; letter-spacing: normal; } }
-@keyframes njWordPunch { 0% { transform: scale(0.4); opacity: 0; } 70% { transform: scale(1.06); opacity: 1; } 100% { transform: none; opacity: 1; } }
-@keyframes njKick { from { opacity: 0; letter-spacing: 0.42em; } to { opacity: 1; letter-spacing: 0.22em; } }
-@keyframes njUp { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
-@keyframes njLeft { from { opacity: 0; transform: translateX(26px); } to { opacity: 1; transform: none; } }
-@keyframes njClip { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
-@keyframes njClipImg { from { transform: scale(1.28); } to { transform: scale(1); } }
-@keyframes njWipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
-@keyframes njBlade { from { left: -30%; } to { left: 100%; } }
-@keyframes njDraw { from { stroke-dashoffset: 160; } to { stroke-dashoffset: 0; } }
-@keyframes njPlx { from { transform: translate3d(0, -5%, 0) scale(1.14); } to { transform: translate3d(0, 5%, 0) scale(1.14); } }
-@keyframes njZoom { from { transform: scale(1.14); } to { transform: scale(1); } }
-@keyframes njP { from { --p: 0; } to { --p: 1; } }
-@keyframes njFocus { 0% { --focus: 0; } 50% { --focus: 1; } 100% { --focus: 0; } }
-@keyframes njCount { from { --num: var(--from); } to { --num: var(--to); } }
-@keyframes njScan { from { --scan: 0; } to { --scan: 1; } }
-@keyframes njScanLine { 0% { opacity: 0; } 4%, 92% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes njSweep { 0% { --sweep: 0; } 55% { --sweep: 0.86; } 100% { --sweep: 0.1; } }
-@keyframes njRing { 0% { stroke-dashoffset: 126; } 60% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -126; } }
-@keyframes njHeroZoom { from { transform: scale(1); } to { transform: scale(1.08); } }
-@keyframes njBandFirst { 0%, 72% { opacity: 1; visibility: visible; translate: 0 0; filter: blur(0); } 100% { opacity: 0; visibility: hidden; translate: 0 -5vh; filter: blur(8px); } }
-@keyframes njBand {
-  0% { opacity: 0; visibility: hidden; translate: 0 6vh; filter: blur(8px); }
-  20%, 78% { opacity: 1; visibility: visible; translate: 0 0; filter: blur(0); }
-  100% { opacity: 0; visibility: hidden; translate: 0 -5vh; filter: blur(8px); }
-}
-@keyframes njBandLast { 0% { opacity: 0; visibility: hidden; translate: 0 6vh; filter: blur(8px); } 35%, 100% { opacity: 1; visibility: visible; translate: 0 0; filter: blur(0); } }
-@keyframes njTitle { 0% { letter-spacing: 0.06em; } 30%, 100% { letter-spacing: normal; } }
