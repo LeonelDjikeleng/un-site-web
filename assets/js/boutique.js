@@ -74,6 +74,14 @@ if (grid && filters) {
   let t;
   search.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { q = search.value; render(); }, 120); });
   render();
+  // Aperçu tout-en-un : les paramètres arrivent sans rechargement de page
+  addEventListener('mp:params', (e) => {
+    const c = e.detail.get('cat');
+    cat = CATEGORIES[c] ? c : 'tout';
+    q = e.detail.get('q') || '';
+    search.value = q;
+    render();
+  });
   const active = filters.querySelector('[aria-pressed="true"]');
   if (active && cat !== 'tout') filters.scrollLeft = active.offsetLeft - filters.clientWidth / 2 + active.offsetWidth / 2;
 }

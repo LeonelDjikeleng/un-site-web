@@ -27,6 +27,10 @@
   }
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+  // Aperçu tout-en-un : après un changement de vue, l'en-tête reste visible
+  addEventListener('mp:params', () => requestAnimationFrame(() => requestAnimationFrame(() => {
+    lastY = scrollY; lastHidden = false; header.classList.remove('is-hidden');
+  })));
 
   /* ---------- Menu mobile ---------- */
   const menuBtn = document.querySelector('[data-menu-btn]');

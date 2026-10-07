@@ -12,7 +12,7 @@ Le site est en HTML, CSS et JavaScript, sans framework ni étape de compilation.
 python3 -m http.server 8000      # puis http://localhost:8000
 ```
 
-Pour un aperçu sans serveur, `python3 tools/bundle.py` produit dans `apercu/` un fichier HTML autonome par page (tout intégré, ouvrable d'un clic). Ouvrir `index.html` en double-cliquant fonctionne aussi, mais le hero affiche alors l'image fixe : les navigateurs bloquent le chargement de la vidéo en `file://` (comportement prévu, c'est le mode de repli).
+Pour un aperçu sans serveur : `python3 tools/bundle_site.py` produit `apercu/milano-performance-site-complet.html`, **le site entier dans un seul fichier HTML** (toutes les pages, navigation comprise, tout intégré, ouvrable d'un clic) ; `python3 tools/bundle.py` produit un fichier autonome par page. Ouvrir `index.html` en double-cliquant fonctionne aussi, mais le hero affiche alors l'image fixe : les navigateurs bloquent le chargement de la vidéo en `file://` (comportement prévu, c'est le mode de repli).
 
 ## Structure
 

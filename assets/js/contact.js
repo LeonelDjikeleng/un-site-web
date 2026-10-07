@@ -12,19 +12,23 @@
   const TO = 'contact@milanoperformance.ca';
 
   // Préremplissage depuis l'URL : ?sujet=piece&produit=…, ?service=…, ?vehicule=McLaren
-  const q = new URLSearchParams(location.search);
-  const setSujet = (v) => { const r = form.querySelector(`input[name="sujet"][value="${v}"]`); if (r) r.checked = true; };
-  if (q.get('sujet') === 'piece') setSujet('piece');
-  if (q.get('sujet') === 'autre-marque') { setSujet('autre'); form.marque.value = 'Autre marque'; }
-  if (q.get('produit')) form.produit.value = q.get('produit');
-  if (q.get('vehicule') === 'McLaren') { form.marque.value = 'McLaren'; form.service.value = 'McLaren'; }
-  const svc = q.get('service');
-  if (svc) {
-    const map = { Moteur: 'Entretien', Freinage: 'Réparation', Suspension: 'Réparation', Transmission: 'Réparation', 'Échappement': 'Pièces de performance', Roues: 'Pièces de performance' };
-    const v = map[svc] || svc;
-    if ([...form.service.options].some((o) => o.value === v || o.text === v)) form.service.value = v;
-    if (!form.message.value && map[svc]) form.message.value = `Système : ${svc}. `;
+  function prefill(q) {
+    const setSujet = (v) => { const r = form.querySelector(`input[name="sujet"][value="${v}"]`); if (r) r.checked = true; };
+    if (q.get('sujet') === 'piece') setSujet('piece');
+    if (q.get('sujet') === 'autre-marque') { setSujet('autre'); form.marque.value = 'Autre marque'; }
+    if (q.get('produit')) form.produit.value = q.get('produit');
+    if (q.get('vehicule') === 'McLaren') { form.marque.value = 'McLaren'; form.service.value = 'McLaren'; }
+    const svc = q.get('service');
+    if (svc) {
+      const map = { Moteur: 'Entretien', Freinage: 'Réparation', Suspension: 'Réparation', Transmission: 'Réparation', 'Échappement': 'Pièces de performance', Roues: 'Pièces de performance' };
+      const v = map[svc] || svc;
+      if ([...form.service.options].some((o) => o.value === v || o.text === v)) form.service.value = v;
+      if (!form.message.value && map[svc]) form.message.value = `Système : ${svc}. `;
+    }
   }
+  prefill(new URLSearchParams(location.search));
+  // Aperçu tout-en-un : les paramètres arrivent sans rechargement de page
+  addEventListener('mp:params', (e) => { prefill(e.detail); sync(); });
 
   function sync() {
     const s = form.sujet.value;
