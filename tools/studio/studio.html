@@ -1,0 +1,233 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head><body>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const W = +(new URLSearchParams(location.search).get('w') || 1920);
+const H = +(new URLSearchParams(location.search).get('h') || 1080);
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(W, H);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x07090b);
+const camera = new THREE.PerspectiveCamera(30, W / H, 0.05, 200);
+
+// ---------- studio environment (rebuilt per frame: moving softboxes) ----------
+const pmrem = new THREE.PMREMGenerator(renderer);
+function buildEnv(strips, ambient = 0.0) {
+  const env = new THREE.Scene();
+  const room = new THREE.Mesh(new THREE.BoxGeometry(40, 14, 40), new THREE.MeshBasicMaterial({ color: new THREE.Color(ambient, ambient, ambient * 1.08), side: THREE.BackSide }));
+  room.position.y = 5;
+  env.add(room);
+  for (const s of strips) {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(s.w, s.h), new THREE.MeshBasicMaterial({ color: new THREE.Color(s.r ?? s.i, s.g ?? s.i, s.b ?? s.i * 1.04), side: THREE.DoubleSide }));
+    m.position.set(...s.p);
+    m.lookAt(...(s.look || [0, 0.5, 0]));
+    env.add(m);
+  }
+  const rt = pmrem.fromScene(env, 0.02);
+  return rt;
+}
+let envRT = null;
+
+// ---------- backdrop gradient ----------
+const bgc = document.createElement('canvas'); bgc.width = 512; bgc.height = 512;
+const bgTex = new THREE.CanvasTexture(bgc); bgTex.colorSpace = THREE.SRGBColorSpace;
+function setBg(base, glow, gy) {
+  const c = bgc.getContext('2d');
+  c.fillStyle = base; c.fillRect(0, 0, 512, 512);
+  const r = c.createRadialGradient(256, 512 * gy, 0, 256, 512 * gy, 420);
+  r.addColorStop(0, glow); r.addColorStop(1, base);
+  c.fillStyle = r; c.fillRect(0, 0, 512, 512);
+  bgTex.needsUpdate = true; scene.background = bgTex;
+}
+// ---------- floor ----------
+const floor = new THREE.Mesh(new THREE.CircleGeometry(60, 96), new THREE.MeshPhysicalMaterial({ color: 0x0a0c0e, roughness: 0.55, metalness: 0.0, clearcoat: 0.5, clearcoatRoughness: 0.18, envMapIntensity: 0.35 }));
+floor.rotation.x = -Math.PI / 2;
+scene.add(floor);
+// soft contact shadow
+const sc = document.createElement('canvas'); sc.width = sc.height = 256;
+const g = sc.getContext('2d');
+const grd = g.createRadialGradient(128, 128, 10, 128, 128, 128);
+grd.addColorStop(0, 'rgba(0,0,0,0.95)'); grd.addColorStop(0.55, 'rgba(0,0,0,0.6)'); grd.addColorStop(1, 'rgba(0,0,0,0)');
+g.fillStyle = grd; g.fillRect(0, 0, 256, 256);
+const shadow = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(sc), transparent: true, depthWrite: false }));
+shadow.rotation.x = -Math.PI / 2; shadow.position.y = 0.002;
+scene.add(shadow);
+
+// ---------- car ----------
+const car = new THREE.Group(); scene.add(car);
+const wheels = [];
+const loader = new GLTFLoader();
+window.ready = new Promise((res) => {
+  loader.load('./CarConcept.glb', (gltf) => {
+    const root = gltf.scene;
+    const hide = /License|Emblem/i;
+    root.traverse((o) => {
+      if (o.name && hide.test(o.name)) o.visible = false;
+      if (/^Wheel(Front|Rear)(L|R)$/.test(o.name)) wheels.push(o);
+    });
+    // normalize: size & ground
+    const box = new THREE.Box3().setFromObject(root);
+    const size = box.getSize(new THREE.Vector3());
+    const s = 4.5 / Math.max(size.x, size.z);
+    root.scale.setScalar(s);
+    const b2 = new THREE.Box3().setFromObject(root);
+    const c = b2.getCenter(new THREE.Vector3());
+    root.position.x -= c.x; root.position.z -= c.z; root.position.y -= b2.min.y;
+    car.add(root);
+    const b3 = new THREE.Box3().setFromObject(car);
+    const sz = b3.getSize(new THREE.Vector3());
+    shadow.scale.set(sz.x * 1.25, sz.z * 1.25, 1);
+    window.carInfo = { size: sz.toArray(), long: sz.x > sz.z ? 'x' : 'z' };
+    car.updateMatrixWorld(true);
+    window.carInfo.wheels = wheels.map((w) => { const b = new THREE.Box3().setFromObject(w); return { n: w.name, c: b.getCenter(new THREE.Vector3()).toArray().map((v) => +v.toFixed(3)), s: b.getSize(new THREE.Vector3()).toArray().map((v) => +v.toFixed(3)) }; });
+    window.materials = [];
+    root.traverse((o) => { if (o.isMesh) { const m = o.material; if (!window.materials.includes(m.name)) window.materials.push(m.name); } });
+    res(window.carInfo);
+  });
+});
+
+window.paint = function (opts) {
+  car.traverse((o) => {
+    if (!o.isMesh) return;
+    const m = o.material; const n = m.name || '';
+    if (/^Paint 1|^Paint 2/.test(n)) {
+      const p = /^Paint 1/.test(n) ? opts.paint1 : opts.paint2;
+      if (!p) return;
+      const nm = new THREE.MeshPhysicalMaterial({ color: new THREE.Color(p.color), metalness: p.metalness ?? 0.6, roughness: p.roughness ?? 0.32, clearcoat: 1, clearcoatRoughness: p.cc ?? 0.04, normalMap: m.normalMap || null, side: THREE.DoubleSide });
+      if (nm.normalMap) nm.normalScale = new THREE.Vector2(0.15, 0.15);
+      nm.name = n; o.material = nm;
+    } else if (n === 'Brake' && opts.caliper) {
+      const nm = new THREE.MeshPhysicalMaterial({ color: new THREE.Color(opts.caliper), roughness: 0.35, metalness: 0.1, clearcoat: 1, clearcoatRoughness: 0.08 });
+      nm.name = n; o.material = nm;
+    } else if (n === 'Tireside') {
+      const nm = new THREE.MeshPhysicalMaterial({ color: 0x0d0e10, roughness: 0.78, metalness: 0, clearcoat: 0.15, clearcoatRoughness: 0.6 });
+      nm.name = n; o.material = nm;
+    } else if (/^Rim/.test(n) && opts.rim) {
+      const nm = new THREE.MeshPhysicalMaterial({ color: new THREE.Color(opts.rim.color), roughness: opts.rim.roughness, metalness: 1 });
+      nm.name = n; o.material = nm;
+    }
+  });
+};
+
+const dyn = [];
+function setLights(list = []) {
+  dyn.forEach((l) => { scene.remove(l); if (l.target) scene.remove(l.target); });
+  dyn.length = 0;
+  for (const d of list) {
+    const l = new THREE.SpotLight(new THREE.Color(d.color || '#ffffff'), d.i, 0, d.angle ?? 0.35, d.penumbra ?? 0.9, 2);
+    l.position.set(...d.p); l.target.position.set(...d.t);
+    scene.add(l); scene.add(l.target); dyn.push(l);
+  }
+}
+// ---------- procedural props ----------
+const props = new THREE.Group(); scene.add(props);
+function tipGeometry() {
+  // exhaust tip profile (radius, length) with rolled lip
+  const pts = [];
+  const R = 0.085, L = 0.55;
+  for (let k = 0; k <= 40; k++) pts.push(new THREE.Vector2(R * 0.82, -L + (L - 0.05) * k / 40));
+  pts.push(new THREE.Vector2(R * 0.86, 0.0));
+  for (let a = 0; a <= 12; a++) { const t = Math.PI * a / 12; pts.push(new THREE.Vector2(R * 0.93 + Math.cos(Math.PI - t) * -0.012 + 0.012, Math.sin(t) * 0.012)); }
+  for (let k = 0; k <= 60; k++) pts.push(new THREE.Vector2(R, -0.02 - (L - 0.02) * k / 60));
+  const g = new THREE.LatheGeometry(pts, 96);
+  g.rotateX(Math.PI / 2);
+  // heat tint along length (z)
+  const pos = g.attributes.position; const col = [];
+  const stops = [[0.0, [0.92, 0.93, 0.95]], [0.12, [0.95, 0.8, 0.42]], [0.3, [0.78, 0.42, 0.62]], [0.5, [0.32, 0.42, 0.95]], [0.75, [0.55, 0.62, 0.8]], [1.0, [0.8, 0.82, 0.86]]];
+  for (let i = 0; i < pos.count; i++) {
+    const z = pos.getZ(i); const t = Math.min(1, Math.max(0, Math.abs(z) / L));
+    let a = stops[0], b = stops[stops.length - 1];
+    for (let k = 0; k < stops.length - 1; k++) if (t >= stops[k][0] && t <= stops[k + 1][0]) { a = stops[k]; b = stops[k + 1]; }
+    const u = (t - a[0]) / Math.max(1e-6, b[0] - a[0]);
+    col.push(...a[1].map((v, j) => v + (b[1][j] - v) * u));
+  }
+  g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  return g;
+}
+window.setProps = function (kind) {
+  props.clear();
+  car.visible = !kind; shadow.visible = !kind;
+  if (kind === 'exhaust') {
+    const m = new THREE.MeshPhysicalMaterial({ vertexColors: true, metalness: 1, roughness: 0.16, envMapIntensity: 1.6, side: THREE.DoubleSide });
+    const inner = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.9, side: THREE.BackSide });
+    [-0.11, 0.11].forEach((x) => {
+      const t = new THREE.Mesh(tipGeometry(), m); t.position.set(x, 0.3, 0); props.add(t);
+      const c = new THREE.Mesh(new THREE.CylinderGeometry(0.068, 0.068, 0.5, 64, 1, true), inner); c.rotation.x = Math.PI / 2; c.position.set(x, 0.3, -0.26); props.add(c);
+      const cap = new THREE.Mesh(new THREE.CircleGeometry(0.07, 48), new THREE.MeshBasicMaterial({ color: 0x020202 })); cap.position.set(x, 0.3, -0.3); props.add(cap);
+    });
+    // bracket plate
+    const plate = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.02, 0.2), new THREE.MeshPhysicalMaterial({ color: 0x2a2e33, metalness: 1, roughness: 0.4 }));
+    
+  }
+  if (kind === 'drop') {
+    const m = new THREE.MeshPhysicalMaterial({ color: 0xffffff, transmission: 1, ior: 1.47, thickness: 0.18, roughness: 0.02, attenuationColor: new THREE.Color('#f2b632'), attenuationDistance: 0.16, clearcoat: 1, clearcoatRoughness: 0.0, specularIntensity: 1, envMapIntensity: 1.4 });
+    const sess = (r, x, z) => { const d = new THREE.Mesh(new THREE.SphereGeometry(r, 96, 64), m); d.scale.set(1, 0.58, 1); d.position.set(x, r * 0.58 * 0.42, z); props.add(d); };
+    sess(0.16, 0, 0); sess(0.055, 0.27, 0.1); sess(0.03, -0.24, 0.16); sess(0.018, 0.16, 0.26);
+    const pts = [];
+    for (let i = 0; i <= 64; i++) { const t = i / 64; const a = t * Math.PI; const r = Math.sin(a) * Math.pow(1 - t * 0.5, 2.2) * 0.07; pts.push(new THREE.Vector2(Math.max(r, 0.0001), Math.cos(a) * -0.11)); }
+  }
+};
+// ---------- blueprint mode ----------
+let bp = null;
+window.blueprint = function (on, color = '#e7eaed', hi = '#ff5a4e') {
+  if (!on) return;
+  bp = new THREE.Group();
+  car.updateMatrixWorld(true);
+  const list = [];
+  car.traverse((o) => {
+    if (!o.isMesh) return;
+    let vis = true; let p = o; while (p) { if (p.visible === false) vis = false; p = p.parent; }
+    if (vis) list.push(o);
+  });
+  for (const o of list) {
+    const n = (o.name + ' ' + (o.parent ? o.parent.name : '')).toLowerCase();
+    if (/interior|seat|steering|pedal|floormat|dash/.test(n)) continue;
+    const edges = new THREE.EdgesGeometry(o.geometry, 32);
+    const isHi = /brake|disc/.test(n);
+    const l = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: isHi ? hi : color, transparent: true, opacity: 1 }));
+    l.applyMatrix4(o.matrixWorld);
+    bp.add(l);
+  }
+  list.forEach((o) => { o.material = new THREE.MeshBasicMaterial({ color: 0x000000 }); });
+  scene.add(bp); floor.visible = false; shadow.visible = false;
+  return bp.children.length;
+};
+window.ortho = null;
+window.shot = function (p) {
+  setLights(p.lights);
+  if (envRT) envRT.dispose();
+  envRT = buildEnv(p.strips, p.ambient ?? 0.0);
+  scene.environment = envRT.texture;
+  scene.environmentIntensity = p.envIntensity ?? 1;
+  setBg(p.bg ?? '#0a0d10', p.bgGlow ?? '#1a2026', p.glowY ?? 0.62);
+  scene.fog = new THREE.Fog(new THREE.Color(p.fogColor ?? p.bg ?? '#0a0d10'), p.fogNear ?? 9, p.fogFar ?? 26);
+  renderer.toneMappingExposure = p.exposure ?? 1;
+  camera.fov = p.fov ?? 30; camera.aspect = W / H; camera.updateProjectionMatrix();
+  camera.position.set(...p.cam);
+  camera.lookAt(...p.target);
+  if (p.roll) camera.rotateZ(p.roll);
+  car.rotation.y = p.carRot ?? 0;
+  if (p.wheelSpin != null) wheels.forEach((w) => { w.rotation.x = p.wheelSpin; });
+  floor.material.color.set(p.floor ?? 0x0a0c0e);
+  floor.material.envMapIntensity = p.floorEnv ?? 0.35;
+  let cam = camera;
+  if (p.ortho) {
+    const [hw, hh] = p.ortho;
+    cam = new THREE.OrthographicCamera(-hw, hw, hh, -hh, 0.1, 100);
+    cam.position.set(...p.cam); cam.lookAt(...p.target);
+  }
+  if (p.flat) { scene.fog = null; scene.background = new THREE.Color(p.flat); }
+  renderer.render(scene, cam);
+  return renderer.domElement.toDataURL(p.png ? 'image/png' : 'image/jpeg', 0.95);
+};
+</script></body></html>

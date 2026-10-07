@@ -1,0 +1,6 @@
+{
+  "name": "milano-studio",
+  "private": true,
+  "description": "Studio 3D (three.js) qui produit les rendus du site Milano Performance",
+  "dependencies": { "three": "0.170.0" }
+}

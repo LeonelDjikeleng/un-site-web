@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /docs/
+Disallow: /tools/
+Disallow: /partials/
+
+Sitemap: https://milanoperformance.ca/sitemap.xml
