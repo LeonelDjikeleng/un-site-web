@@ -10,6 +10,7 @@
 <link rel="icon" href="assets/img/logo-mark.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/saira-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/motion.css">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_CA">
 <meta property="og:title" content="L'atelier Milano Performance · Québec">
@@ -17,7 +18,7 @@
 <!-- DEPLOY STEP : URL absolues -->
 <meta property="og:image" content="https://milanoperformance.ca/assets/img/og.jpg">
 <meta property="og:url" content="https://milanoperformance.ca/atelier.html">
-<script>document.documentElement.classList.add('js')</script>
+<script>(function(r){r.classList.add('js');try{var m=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!m&&!sessionStorage.getItem('mp-intro')){r.classList.add('is-intro');sessionStorage.setItem('mp-intro','1')}if(!m&&sessionStorage.getItem('mp-veil')){r.classList.add('veil-on')}sessionStorage.removeItem('mp-veil')}catch(e){}})(document.documentElement)</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -35,6 +36,8 @@
 <body data-page="atelier">
 <!-- @header -->
 <a class="skip" href="#main">Aller au contenu</a>
+<div class="intro" data-intro aria-hidden="true"><div class="intro__inner"><svg class="intro__mark" viewBox="0 0 32 32"><path d="M7 23V9.5h2.6l6.4 8.2 6.4-8.2H25V23h-2.9v-8.6l-5.2 6.6h-1.8l-5.2-6.6V23z"/><rect x="26.6" y="9.5" width="1.8" height="13.5"/></svg><p class="intro__word"><b>Milano</b> Performance</p><div class="intro__line"></div></div></div>
+<div class="veil" data-veil aria-hidden="true"></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M1 8h13M9 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
   <symbol id="i-out" viewBox="0 0 16 16"><path d="M6 3H3v10h10v-3M9 2h5v5M14 2 7 9" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
@@ -45,6 +48,7 @@
   <symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m11 11 4 4" stroke="currentColor" stroke-width="1.5"/></symbol>
 </svg>
 <header class="site-header" data-header>
+  <i class="progress-line" data-progress aria-hidden="true"></i>
   <div class="wrap">
     <a class="brand" href="index.html" aria-label="Milano Performance, accueil">
       <img class="brand__mark" src="assets/img/logo-mark.svg" alt="" width="30" height="30">
@@ -86,7 +90,7 @@
 
 <main id="main" tabindex="-1">
   <section class="page-hero" aria-labelledby="page-titre">
-    <div class="page-hero__media" aria-hidden="true">
+    <div class="page-hero__media" aria-hidden="true" data-parallax="0.1">
       <picture>
         <source type="image/avif" srcset="assets/img/hero-end-960.avif 960w, assets/img/hero-end-1600.avif 1600w, assets/img/hero-end-1920.avif 1920w" sizes="100vw">
         <source type="image/webp" srcset="assets/img/hero-end-960.webp 960w, assets/img/hero-end-1600.webp 1600w, assets/img/hero-end-1920.webp 1920w" sizes="100vw">
@@ -95,7 +99,7 @@
     </div>
     <div class="wrap">
       <p class="crumbs"><a href="index.html">Accueil</a> / L'atelier</p>
-      <h1 class="display display--xl" id="page-titre">L'atelier des <em>italiennes</em>, à Québec.</h1>
+      <h1 class="display display--xl" id="page-titre" data-words>L'atelier des <em>italiennes</em>, à Québec.</h1>
       <p class="lede">Entretien, diagnostic et réparation pour Alfa&nbsp;Romeo, Fiat, Mini et McLaren, avec les pièces que nous tenons en boutique. Une adresse&nbsp;: 19 rue Odette-Pinard.</p>
       <div class="btn-row" style="margin-top:28px">
         <a class="btn btn--primary" href="contact.html">Prendre rendez-vous <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -109,7 +113,7 @@
       <h2 class="sr-only" id="services-titre">Services</h2>
 
       <article class="svc" id="entretien">
-        <figure class="svc__media frame frame--43 frame__zoom reveal" style="margin:0">
+        <figure class="svc__media frame frame--43" data-reveal="clip" style="margin:0">
           <picture>
             <source type="image/avif" srcset="assets/img/goutte-600.avif 600w, assets/img/goutte-1000.avif 1000w" sizes="(min-width: 1000px) 45vw, 100vw">
             <source type="image/webp" srcset="assets/img/goutte-600.webp 600w, assets/img/goutte-1000.webp 1000w" sizes="(min-width: 1000px) 45vw, 100vw">
@@ -119,10 +123,10 @@
         </figure>
         <div class="svc__body">
           <p class="kicker">Service 01</p>
-          <h2 class="h2">Entretien périodique</h2>
+          <h2 class="h2" data-words>Entretien périodique</h2>
           <p class="svc__benefit">Une voiture entretenue avec les bons produits reste fiable et garde sa valeur.</p>
           <p class="desc">Vidange, remplacement des filtres, mise à niveau des fluides et inspection des points d'usure. On choisit l'huile et les fluides selon votre moteur et votre transmission, parmi des marques comme Pakelo, Liqui&nbsp;Moly et Pentosin.</p>
-          <dl class="svc__specs">
+          <dl class="svc__specs stagger">
             <div><dt>Véhicules</dt><dd>Alfa Romeo, Fiat, Mini, McLaren</dd></div>
             <div><dt>Produits</dt><dd>Huiles moteur et de boîte, filtres, fluides hydrauliques</dd></div>
             <div><dt>Avant le rendez-vous</dt><dd>On confirme avec vous les produits et leur disponibilité</dd></div>
@@ -132,7 +136,7 @@
       </article>
 
       <article class="svc svc--flip" id="reparation">
-        <figure class="svc__media frame frame--43 frame__zoom reveal" style="margin:0">
+        <figure class="svc__media frame frame--43" data-reveal="clip" style="margin:0">
           <picture>
             <source type="image/avif" srcset="assets/img/detail-roue-600.avif 600w, assets/img/detail-roue-1000.avif 1000w" sizes="(min-width: 1000px) 45vw, 100vw">
             <source type="image/webp" srcset="assets/img/detail-roue-600.webp 600w, assets/img/detail-roue-1000.webp 1000w" sizes="(min-width: 1000px) 45vw, 100vw">
@@ -142,10 +146,10 @@
         </figure>
         <div class="svc__body">
           <p class="kicker">Service 02</p>
-          <h2 class="h2">Diagnostic et réparation</h2>
+          <h2 class="h2" data-words>Diagnostic et réparation</h2>
           <p class="svc__benefit">Trouver la vraie cause, puis réparer avec la bonne pièce.</p>
           <p class="desc">Un voyant allumé, un bruit nouveau, un comportement inhabituel&nbsp;: on commence par comprendre ce qui se passe. La réparation suit, sur les systèmes pour lesquels nous tenons les pièces&nbsp;: freinage, suspension, distribution, embrayage, refroidissement.</p>
-          <dl class="svc__specs">
+          <dl class="svc__specs stagger">
             <div><dt>Véhicules</dt><dd>Alfa Romeo, Fiat, Mini, McLaren</dd></div>
             <div><dt>Systèmes</dt><dd>Freinage, suspension, distribution, embrayage, refroidissement, capteurs</dd></div>
             <div><dt>Pièces</dt><dd>Brembo, Textar, Bilstein, Powerflex, Bosch</dd></div>
@@ -155,7 +159,7 @@
       </article>
 
       <article class="svc" id="performance">
-        <figure class="svc__media frame frame--43 frame__zoom reveal" style="margin:0">
+        <figure class="svc__media frame frame--43" data-reveal="clip" style="margin:0">
           <picture>
             <source type="image/avif" srcset="assets/img/echappement-600.avif 600w, assets/img/echappement-1000.avif 1000w" sizes="(min-width: 1000px) 45vw, 100vw">
             <source type="image/webp" srcset="assets/img/echappement-600.webp 600w, assets/img/echappement-1000.webp 1000w" sizes="(min-width: 1000px) 45vw, 100vw">
@@ -165,10 +169,10 @@
         </figure>
         <div class="svc__body">
           <p class="kicker">Service 03</p>
-          <h2 class="h2">Pièces de performance</h2>
+          <h2 class="h2" data-words>Pièces de performance</h2>
           <p class="svc__benefit">La bonne pièce pour votre voiture et votre usage, sans deviner.</p>
           <p class="desc">Roues EVO&nbsp;Corse (dont nous sommes distributeurs) et CINEL, échappements Ragazzon&nbsp;: on vous aide à choisir selon votre modèle, puis on commande la pièce et on vous confirme le délai.</p>
-          <dl class="svc__specs">
+          <dl class="svc__specs stagger">
             <div><dt>Roues</dt><dd>EVO Corse, CINEL, WSP Italy</dd></div>
             <div><dt>Échappement</dt><dd>Ragazzon : système complet, downpipe, sections, silencieux</dd></div>
             <div><dt>Disponibilité</dt><dd>Confirmée avec vous avant toute commande</dd></div>
@@ -189,7 +193,7 @@
     </div>
     <div class="wrap mclaren__content">
       <p class="kicker">Service 04 · McLaren</p>
-      <h2 class="display display--xl reveal" id="mclaren-titre" style="margin-top:16px">Votre McLaren, entre de bonnes <em>mains.</em></h2>
+      <h2 class="display display--xl" id="mclaren-titre" style="margin-top:16px" data-words="track">Votre McLaren, entre de bonnes <em>mains.</em></h2>
       <p class="lede">Milano Performance possède une expérience spécifique des véhicules McLaren et a suivi des formations liées au constructeur. Parlez-nous de votre voiture et de ce dont elle a besoin.</p>
       <div class="mclaren__points stagger">
         <div><b>Expérience spécifique</b>Des véhicules McLaren, de leur mécanique et de leurs exigences d'entretien.</div>
@@ -209,22 +213,22 @@
       <div class="section-head section-head--split">
         <div>
           <p class="kicker">Comment ça se passe</p>
-          <h2 class="display" id="etapes-titre" style="margin-top:16px">Trois étapes, aucune <em>surprise.</em></h2>
+          <h2 class="display" id="etapes-titre" style="margin-top:16px" data-words>Trois étapes, aucune <em>surprise.</em></h2>
         </div>
         <p class="lede">On préfère tout clarifier avant que votre voiture entre à l'atelier&nbsp;: le besoin, les pièces, le délai.</p>
       </div>
-      <ol class="steps stagger">
+      <div class="steps-wrap" data-scene="enter"><ol class="steps stagger">
         <li><span class="num">01 / Contact</span><h3>Vous nous écrivez</h3><p>Par téléphone, courriel ou formulaire. Dites-nous la marque, le modèle, l'année et ce que vous remarquez.</p></li>
         <li><span class="num">02 / Confirmation</span><h3>On confirme</h3><p>Le besoin, les pièces nécessaires et leur disponibilité, puis une date de rendez-vous.</p></li>
         <li><span class="num">03 / Atelier</span><h3>Rendez-vous</h3><p>Au 19 rue Odette-Pinard, dans la bâtisse d'Eugène Baillargeon Auto, secteur Beauport.</p></li>
-      </ol>
+      </ol></div>
       <div class="btn-row" style="margin-top:40px"><a class="btn btn--primary" href="contact.html">Commencer par l'étape 01 <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
     </div>
   </section>
 
   <section class="section" aria-labelledby="faq-titre">
     <div class="wrap" style="display:grid;gap:40px">
-      <h2 class="display" id="faq-titre">Questions sur l'atelier.</h2>
+      <h2 class="display" id="faq-titre" data-words>Questions sur l'atelier.</h2>
       <div class="faq">
         <details>
           <summary>Faites-vous l'entretien d'autres marques&nbsp;?</summary>
@@ -243,7 +247,7 @@
   </section>
 
   <section class="final" aria-labelledby="final-titre">
-    <div class="final__media" aria-hidden="true">
+    <div class="final__media" aria-hidden="true" data-parallax="0.12">
       <picture>
         <source type="image/avif" srcset="assets/img/profil-960.avif 960w, assets/img/profil-1600.avif 1600w, assets/img/profil-2400.avif 2400w" sizes="100vw">
         <source type="image/webp" srcset="assets/img/profil-960.webp 960w, assets/img/profil-1600.webp 1600w, assets/img/profil-2400.webp 2400w" sizes="100vw">
@@ -252,7 +256,7 @@
     </div>
     <div class="wrap">
       <p class="kicker">Rendez-vous</p>
-      <h2 class="display display--xl reveal" id="final-titre" style="margin-top:16px">Parlez-nous de votre <em>voiture.</em></h2>
+      <h2 class="display display--xl" id="final-titre" style="margin-top:16px" data-words="punch">Parlez-nous de votre <em>voiture.</em></h2>
       <div class="btn-row">
         <a class="btn btn--primary" href="contact.html">Prendre rendez-vous <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn--ghost" href="tel:+15815005665">581 500-5665</a>
@@ -299,7 +303,7 @@
         </ul>
       </div>
     </div>
-    <p class="footer-wordmark" aria-hidden="true">Milano Performance</p>
+    <p class="footer-wordmark" aria-hidden="true" data-scene="enter">Milano Performance</p>
     <div class="footer-bottom">
       <span>© <span data-year>2026</span> Milano Performance. Tous droits réservés.</span>
       <span>Images : rendus 3D d'illustration, <a href="mentions-legales.html#credits">crédits</a>.</span>
@@ -313,5 +317,6 @@
 </nav>
 <!-- /@footer -->
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/motion.js" defer></script>
 </body>
 </html>

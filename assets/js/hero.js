@@ -4,7 +4,7 @@
  * temps affiché lissé (indépendant de la fréquence d'écran), recherches sérialisées,
  * écritures DOM seulement sur changement, boucle au repos quand rien ne bouge.
  *
- * Cinq conditions donnent une image fixe composée à la place de la vidéo. Elles doivent
+ * Deux conditions donnent une image fixe composée à la place de la vidéo. Elles doivent
  * rester identiques, caractère pour caractère, à celles de main.css.
  */
 (() => {
@@ -14,16 +14,17 @@
   // VP9/WebM quand le navigateur le décode (plus léger), sinon H.264/MP4 (Safari, anciens appareils)
   const probe = document.createElement('video');
   const WEBM = !!probe.canPlayType && probe.canPlayType('video/webm; codecs="vp9"') === 'probably';
-  const VIDEO_URL = WEBM ? 'assets/video/hero-scrub.webm' : 'assets/video/hero-scrub.mp4';
+  // Écran en hauteur (téléphone, tablette en portrait) : film vertical composé pour le pouce
+  const TALL = matchMedia('(orientation: portrait) and (max-width: 1024px)').matches;
+  const NAME = TALL ? 'hero-scrub-m' : 'hero-scrub';
+  const VIDEO_URL = `assets/video/${NAME}.${WEBM ? 'webm' : 'mp4'}`;
   const VIDEO_TYPE = WEBM ? 'video/webm' : 'video/mp4';
-  const VIDEO_BYTES = WEBM ? 2271239 : 3843419; // repli si Content-Length est absent (mis à jour à l'encodage)
-  const POSTER_URL = 'assets/img/hero-start.jpg';
-  const FALLBACK_URL = 'assets/img/hero-end-1600.jpg';
+  const SIZES = { 'hero-scrub.webm': 2271239, 'hero-scrub.mp4': 3843419, 'hero-scrub-m.webm': 607390, 'hero-scrub-m.mp4': 859129 };
+  const VIDEO_BYTES = SIZES[`${NAME}.${WEBM ? 'webm' : 'mp4'}`] || 3000000; // repli si Content-Length est absent
+  const POSTER_URL = TALL ? 'assets/img/hero-m-start.jpg' : 'assets/img/hero-start.jpg';
+  const FALLBACK_URL = TALL ? 'assets/img/hero-mobile-1080.webp' : 'assets/img/hero-end-1600.jpg';
 
   const GATES = [
-    '(max-width: 720px)',
-    '(orientation: portrait) and (max-width: 1024px)',
-    '(orientation: portrait) and (pointer: coarse)',
     '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)',
     '(prefers-reduced-motion: reduce)',
   ];
@@ -177,6 +178,9 @@
     video.src = URL.createObjectURL(new Blob(chunks, { type: VIDEO_TYPE }));
     video.load();
     video.addEventListener('loadeddata', () => {
+      // iOS n'affiche parfois aucune image tant que la vidéo n'a pas « joué » une fois
+      const pp = video.play && video.play();
+      if (pp && pp.then) pp.then(() => video.pause()).catch(() => {});
       videoReady = true;
       hero.classList.add('video-ready');
       cueLabel.textContent = 'Défiler';

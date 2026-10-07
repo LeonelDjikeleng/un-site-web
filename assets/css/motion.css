@@ -1,0 +1,215 @@
+/* ==========================================================================
+   Milano Performance — animations (chargé après main.css)
+   Tout est en transform/opacity. Sans JS : aucune classe .js, tout est visible.
+   « Réduire les animations » : état final immédiat (fin de fichier).
+   ========================================================================== */
+
+/* ---------- Intro de marque (1re visite de la session, < 2 s) ---------- */
+.intro {
+  position: fixed; inset: 0; z-index: 300; display: none; place-items: center; background: var(--c-night);
+  pointer-events: none;
+}
+.is-intro .intro, .intro-out .intro { display: grid; }
+.is-intro .intro { animation: introSafety 0s linear 2.6s forwards; }
+@keyframes introSafety { to { opacity: 0; visibility: hidden; } }
+.intro-out .intro { clip-path: inset(0 0 100% 0); transition: clip-path 800ms var(--ease-in-out); }
+.is-intro .intro { clip-path: inset(0 0 0 0); }
+.intro__inner { display: grid; justify-items: center; gap: 22px; }
+.intro__mark { width: 74px; height: 74px; }
+.intro__mark path { fill: none; stroke: var(--c-text); stroke-width: 1.4; stroke-dasharray: 120; stroke-dashoffset: 120; animation: introDraw 900ms var(--ease-in-out) 100ms forwards; }
+.intro__mark rect { fill: var(--c-caliper); transform: scaleY(0); transform-origin: bottom; transform-box: fill-box; animation: introBar 500ms var(--ease-out) 750ms forwards; }
+@keyframes introDraw { to { stroke-dashoffset: 0; } }
+@keyframes introBar { to { transform: none; } }
+.intro__word { font-family: var(--f-display); font-stretch: 125%; text-transform: uppercase; letter-spacing: 0.32em; font-size: 0.8125rem; color: var(--c-steel); opacity: 0; animation: introWord 700ms var(--ease-out) 500ms forwards; }
+.intro__word b { color: var(--c-text); font-weight: 700; }
+@keyframes introWord { from { opacity: 0; letter-spacing: 0.6em; } to { opacity: 1; letter-spacing: 0.32em; } }
+.intro__line { width: 160px; height: 1px; background: var(--c-line); overflow: hidden; position: relative; }
+.intro__line::after { content: ''; position: absolute; inset: 0; background: var(--c-signal); transform: scaleX(0); transform-origin: left; animation: introLoad 1100ms var(--ease-in-out) 100ms forwards; }
+@keyframes introLoad { to { transform: none; } }
+
+/* ---------- Transition entre pages : un voile qui glisse ---------- */
+.veil { position: fixed; inset: 0; z-index: 290; background: var(--c-night); transform: translateY(101%); pointer-events: none; }
+.veil::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--c-caliper); box-shadow: 0 0 24px 2px rgba(255, 90, 78, 0.55); }
+.veil-on .veil { transform: none; animation: veilSafety 0s linear 1.6s forwards; }
+@keyframes veilSafety { to { transform: translateY(-101%); } }
+.veil-in .veil { transform: none; transition: transform 380ms var(--ease-in-out); }
+.veil-out .veil { transform: translateY(-101%); transition: transform 650ms var(--ease-in-out); }
+
+/* ---------- Barre de progression de lecture (sous l'en-tête) ---------- */
+.progress-line { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--c-caliper); transform-origin: left; transform: scaleX(0); pointer-events: none; box-shadow: 0 0 10px rgba(255, 90, 78, 0.6); }
+
+/* ---------- Titres : mots qui montent derrière un masque ---------- */
+.wm { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.06em 0.02em 0.1em; margin: -0.06em -0.02em -0.1em; }
+.wi { display: inline-block; }
+.js [data-words] .wi { transform: translateY(112%) rotate(4deg); transform-origin: 0 100%; transition: transform 1000ms var(--ease-out); transition-delay: calc(var(--i, 0) * 55ms); }
+.js [data-words].is-in .wi { transform: none; }
+.js [data-words='track'] .wi { transform: translateY(40%); opacity: 0; letter-spacing: 0.25em; transition: transform 1100ms var(--ease-out), opacity 900ms var(--ease-out), letter-spacing 1300ms var(--ease-out); transition-delay: calc(var(--i, 0) * 70ms); }
+.js [data-words='track'].is-in .wi { transform: none; opacity: 1; letter-spacing: normal; }
+.js [data-words='punch'] .wi { transform: scale(0.4); opacity: 0; transition: transform 700ms cubic-bezier(.34, 1.56, .64, 1), opacity 400ms var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms); }
+.js [data-words='punch'].is-in .wi { transform: none; opacity: 1; }
+
+/* ---------- Sur-titres : le filet se trace, les lettres se resserrent ---------- */
+.js .kicker::before { transform: scaleX(0); transform-origin: left; transition: transform 900ms var(--ease-out) 150ms; }
+.js .kicker { opacity: 0; letter-spacing: 0.42em; transition: opacity 800ms var(--ease-out), letter-spacing 1100ms var(--ease-out); }
+.js .kicker.is-in { opacity: 1; letter-spacing: 0.22em; }
+.js .kicker.is-in::before { transform: none; }
+.js .hero .kicker, .js .band .kicker { opacity: 1; letter-spacing: 0.22em; }
+.js .hero .kicker::before { transform: none; }
+
+/* ---------- Révélations génériques ---------- */
+.js [data-reveal='up'] { opacity: 0; transform: translateY(28px); transition: opacity 900ms var(--ease-out), transform 1000ms var(--ease-out); transition-delay: var(--d, 0ms); }
+.js [data-reveal='up'].is-in { opacity: 1; transform: none; }
+.js [data-reveal='clip'] { clip-path: inset(100% 0 0 0); transition: clip-path 1300ms var(--ease-in-out); transition-delay: var(--d, 0ms); }
+.js [data-reveal='clip'] img { transform: scale(1.28); transition: transform 1800ms var(--ease-out); transition-delay: var(--d, 0ms); }
+.js [data-reveal='clip'].is-in { clip-path: inset(0 0 0 0); }
+.js [data-reveal='clip'].is-in img { transform: scale(1); }
+.js [data-reveal='wipe'] { clip-path: inset(0 100% 0 0); transition: clip-path 1200ms var(--ease-in-out); transition-delay: var(--d, 0ms); }
+.js [data-reveal='wipe'].is-in { clip-path: inset(0 0 0 0); }
+
+/* Série horizontale : chaque enfant arrive avec un décalage */
+.js .stagger-x > * { opacity: 0; transform: translateX(26px); transition: opacity 800ms var(--ease-out), transform 900ms var(--ease-out); }
+.js .stagger-x.is-in > * { opacity: 1; transform: none; }
+.js .stagger-x.is-in > :nth-child(2) { transition-delay: 90ms; }
+.js .stagger-x.is-in > :nth-child(3) { transition-delay: 180ms; }
+.js .stagger-x.is-in > :nth-child(4) { transition-delay: 270ms; }
+.js .stagger-x.is-in > :nth-child(n + 5) { transition-delay: 360ms; }
+
+/* ---------- Tracés SVG qui se dessinent ---------- */
+.js [data-draw-in] path, .js [data-draw-in] circle, .js [data-draw-in] line, .js [data-draw-in] polyline { stroke-dashoffset: var(--len, 300); transition: stroke-dashoffset 1600ms var(--ease-in-out); transition-delay: var(--d, 0ms); }
+.js [data-draw-in].is-in path, .js [data-draw-in].is-in circle, .js [data-draw-in].is-in line, .js [data-draw-in].is-in polyline { stroke-dashoffset: 0; }
+.js [data-scene] [data-draw] { stroke-dashoffset: calc(var(--len, 300) * (1 - min(1, var(--p, 0) * 1.6))); }
+
+/* ---------- Parallaxe ---------- */
+[data-parallax] img { transform: translate3d(0, var(--py, 0px), 0) scale(1.14); will-change: transform; }
+
+/* ---------- Lumière au toucher ---------- */
+.btn::before, .action-bar a::before, .chip-btn::before {
+  content: ''; position: absolute; left: var(--tx, 50%); top: var(--ty, 50%); width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 70%); opacity: 0; pointer-events: none; z-index: -1;
+}
+.chip-btn, .action-bar a { position: relative; overflow: hidden; isolation: isolate; }
+.is-tap::before { animation: tapLight 620ms var(--ease-out); }
+@keyframes tapLight { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(26); } }
+
+/* ---------- Hero : poussière lumineuse ---------- */
+.dust { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen; opacity: 0.7; }
+
+/* ---------- Manifeste : les mots s'allument au fil du défilement ---------- */
+.manifesto__text .mw { opacity: clamp(0.16, calc(var(--p, 0) * 2.3 * var(--n, 30) - var(--i, 0)), 1); }
+.manifesto__text .mw.hl { color: var(--c-signal); }
+
+/* ---------- Bandeau défilant (marques) ---------- */
+.marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee__track { display: flex; width: max-content; animation: marquee 26s linear infinite; }
+.marquee__track > * { flex: none; }
+.marquee--slow .marquee__track { animation-duration: 44s; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+.makes .marquee .makes__list { flex-wrap: nowrap; padding-right: clamp(24px, 4vw, 64px); }
+.makes__list li { display: inline-flex; align-items: center; gap: clamp(24px, 4vw, 64px); white-space: nowrap; }
+.makes__list li::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--c-caliper); box-shadow: 0 0 12px rgba(255, 90, 78, 0.7); }
+
+.brands-strip { display: flex; flex-wrap: nowrap; align-items: center; gap: 22px; }
+.brands-run { display: inline-flex; gap: 22px; padding-right: 22px; white-space: nowrap; }
+
+/* ---------- Icônes de service ---------- */
+.service__icon { width: 44px; height: 44px; flex: none; color: var(--c-ink); }
+.service__icon .accent { stroke: var(--c-caliper); }
+.service__top h3 { display: flex; align-items: center; gap: 14px; }
+
+/* ---------- Maisons : carrousel au doigt (téléphone et tablette) ---------- */
+.carousel-dots { display: none; }
+@media (max-width: 1099.98px) {
+  .houses[data-carousel] {
+    display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
+    -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+  }
+  .houses[data-carousel]::-webkit-scrollbar { display: none; }
+  .houses[data-carousel] > .house {
+    flex: 0 0 min(84%, 420px); min-height: 460px; scroll-snap-align: center;
+    transform: scale(calc(0.93 + 0.07 * var(--focus, 1))); opacity: calc(0.55 + 0.45 * var(--focus, 1));
+    transition: transform 160ms linear, opacity 160ms linear;
+  }
+  .houses[data-carousel] > .house:nth-child(1) { min-height: 460px; }
+  .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+  .carousel-dots i { width: 6px; height: 6px; border-radius: 99px; background: rgba(14, 17, 20, 0.25); transition: width var(--dur-m) var(--ease-out), background var(--dur-m); }
+  .carousel-dots i.on { width: 26px; background: var(--c-caliper); }
+  .carousel-dots.on-dark i { background: rgba(231, 234, 237, 0.25); }
+}
+.house__year { position: absolute; top: 18px; left: clamp(20px, 2.4vw, 32px); font-family: var(--f-display); font-stretch: 75%; font-weight: 700; font-size: clamp(3.4rem, 2rem + 4vw, 5.5rem); line-height: 0.9; color: transparent; -webkit-text-stroke: 1px rgba(231, 234, 237, 0.55); }
+.house__year small { display: block; font-family: var(--f-mono); font-size: 0.6875rem; font-weight: 400; -webkit-text-stroke: 0; color: var(--c-steel); letter-spacing: 0.06em; margin-top: 6px; }
+
+/* ---------- Étapes : la ligne qui relie se trace au défilement ---------- */
+.steps-wrap { position: relative; }
+.steps-wrap::before { content: ''; position: absolute; z-index: 1; background: var(--c-caliper); box-shadow: 0 0 12px rgba(200, 33, 30, 0.6); transform-origin: left top; }
+@media (min-width: 900px) { .steps-wrap::before { left: 0; right: 0; top: -1px; height: 2px; transform: scaleX(var(--p, 0)); } }
+@media (max-width: 899.98px) { .steps-wrap::before { left: -1px; top: 0; bottom: 0; width: 2px; transform: scaleY(var(--p, 0)); } }
+
+/* ---------- Moment interactif : maintenir « START » ---------- */
+.hold { display: grid; justify-items: start; gap: 18px; margin: 34px 0 6px; }
+.hold__gauge { position: relative; width: 168px; height: 168px; }
+.hold__gauge svg { width: 100%; height: 100%; overflow: visible; }
+.hold__btn {
+  position: absolute; inset: 34px; border-radius: 50%; border: 1px solid var(--c-line-strong); cursor: pointer;
+  background: radial-gradient(circle at 50% 40%, #1d2228, #0b0d10 70%); color: var(--c-text);
+  display: grid; place-items: center; align-content: center; gap: 2px; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+  font-family: var(--f-display); font-stretch: 112%; font-weight: 700; font-size: 0.875rem; letter-spacing: 0.2em; text-transform: uppercase;
+  box-shadow: inset 0 0 0 4px rgba(9, 11, 13, 0.6), 0 0 calc(var(--hold, 0) * 40px) rgba(255, 90, 78, calc(var(--hold, 0) * 0.65));
+  transform: scale(calc(1 - var(--hold, 0) * 0.04)); transition: border-color var(--dur-s);
+}
+.hold__btn small { font-family: var(--f-mono); font-size: 0.625rem; font-weight: 400; letter-spacing: 0.04em; color: var(--c-steel); text-transform: none; }
+.hold.is-holding .hold__btn, .hold.is-started .hold__btn { border-color: var(--c-signal); }
+.hold__rpm { font-family: var(--f-mono); font-size: 0.75rem; color: var(--c-steel); }
+.hold__rpm b { color: var(--c-text); font-weight: 400; font-size: 1.1rem; }
+.hold__msg { font-family: var(--f-display); font-stretch: 90%; font-weight: 600; font-size: clamp(1.2rem, 1rem + 1vw, 1.6rem); text-transform: uppercase; opacity: 0; transform: translateY(10px); transition: opacity 600ms var(--ease-out), transform 700ms var(--ease-out); }
+.hold.is-started .hold__msg { opacity: 1; transform: none; }
+.hold.is-started ~ .btn-row .btn--primary { box-shadow: 0 0 0 0 rgba(255, 90, 78, 0.6); animation: ctaPulse 1.8s var(--ease-out) 2; }
+@keyframes ctaPulse { 0% { box-shadow: 0 0 0 0 rgba(255, 90, 78, 0.6); } 100% { box-shadow: 0 0 0 22px rgba(255, 90, 78, 0); } }
+.gauge-arc { fill: none; stroke: var(--c-line-strong); stroke-width: 2; }
+.gauge-red { fill: none; stroke: var(--c-caliper); stroke-width: 4; }
+.gauge-fill { fill: none; stroke: var(--c-signal); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 293; stroke-dashoffset: calc(293 * (1 - var(--hold, 0))); filter: drop-shadow(0 0 6px rgba(255, 90, 78, 0.8)); }
+.gauge-ticks line { stroke: rgba(231, 234, 237, 0.5); stroke-width: 1.2; }
+.gauge-needle { transform-origin: 84px 84px; transform: rotate(-120deg); }
+.gauge-needle line { stroke: var(--c-signal); stroke-width: 2; stroke-linecap: round; }
+
+/* ---------- Pied de page : le logotype se remplit de lumière en arrivant ---------- */
+.footer-wordmark {
+  background: linear-gradient(90deg, rgba(231, 234, 237, 0.85) 0 calc(var(--p, 0) * 140% - 20%), rgba(231, 234, 237, 0) calc(var(--p, 0) * 140%));
+  -webkit-background-clip: text; background-clip: text;
+}
+
+/* ---------- Boutique : les cartes arrivent en cascade à chaque filtre ---------- */
+.js .product { animation: cardIn 700ms var(--ease-out) both; animation-delay: calc(min(var(--i, 0), 12) * 45ms); }
+@keyframes cardIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Diagnostic : le scanner balaie la voiture (téléphone) ---------- */
+.diag__scan { position: absolute; top: 4%; bottom: 4%; left: calc(6% + 88% * var(--scan, 0)); width: 2px; z-index: 1; pointer-events: none; opacity: 0; background: linear-gradient(180deg, transparent, var(--c-signal), transparent); box-shadow: 0 0 18px 4px rgba(255, 90, 78, 0.45); }
+.diag__plan.is-scanning:not(.scan-done) .diag__scan { opacity: 1; }
+.diag__plan.is-scanning .lit { -webkit-mask-image: linear-gradient(90deg, #000 calc(6% + 88% * var(--scan, 0)), transparent calc(6% + 88% * var(--scan, 0) + 4%)); mask-image: linear-gradient(90deg, #000 calc(6% + 88% * var(--scan, 0)), transparent calc(6% + 88% * var(--scan, 0) + 4%)); opacity: 1; }
+.diag__plan.is-scanning .base { opacity: 0.35; }
+.hotspot.is-hit::before { background: var(--c-signal); box-shadow: 0 0 0 6px rgba(255, 90, 78, 0.25), 0 0 16px rgba(255, 90, 78, 0.8); }
+
+/* ---------- Mobile : rythme et confort ---------- */
+@media (max-width: 720px) {
+  .section { padding-block: clamp(4rem, 3rem + 6vw, 6rem); }
+  .display { font-size: clamp(2.3rem, 1.4rem + 5.4vw, 3.4rem); }
+  .display--xl { font-size: clamp(2.6rem, 1.4rem + 7vw, 4rem); }
+  .manifesto__text { font-size: clamp(1.7rem, 1.2rem + 3.4vw, 2.4rem); }
+  .hold { justify-items: center; text-align: center; margin-inline: auto; }
+  .final .btn-row .btn { flex: 1 1 100%; }
+}
+
+/* ---------- Réduire les animations : tout à l'état final ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .intro, .veil { display: none !important; }
+  .js [data-words] .wi, .js [data-reveal], .js [data-reveal] img, .js .stagger-x > *, .js .kicker, .js .kicker::before { opacity: 1 !important; transform: none !important; clip-path: none !important; letter-spacing: 0.22em; }
+  .js [data-words] .wi { letter-spacing: normal; }
+  .js [data-draw-in] *, .js [data-scene] [data-draw] { stroke-dashoffset: 0 !important; }
+  [data-parallax] img { transform: none !important; }
+  .marquee__track { animation: none; flex-wrap: wrap; width: auto; }
+  .marquee__track > [aria-hidden='true'] { display: none; }
+  .manifesto__text .mw { opacity: 1 !important; }
+  .js .product { animation: none; }
+  .footer-wordmark { background: none; }
+  .dust { display: none; }
+}

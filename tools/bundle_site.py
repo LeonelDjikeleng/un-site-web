@@ -14,7 +14,7 @@ import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from bundle import ROOT, OUT, data_uri, pick_src  # noqa: E402
+from bundle import ROOT, OUT, data_uri, pick_src, prep_hero  # noqa: E402
 
 VIEWS = [  # fichier, identifiant de vue, titre d'onglet
     ('index.html', 'accueil'),
@@ -69,10 +69,11 @@ def build():
     base = sources['accueil']
     head = re.search(r'<head>(.*)</head>', base, flags=re.S).group(1)
     head = re.sub(r'<link rel="preload"[^>]*>\n?', '', head)
-    css = (ROOT / 'assets/css/main.css').read_text(encoding='utf-8')
+    css = (ROOT / 'assets/css/main.css').read_text(encoding='utf-8') + (ROOT / 'assets/css/motion.css').read_text(encoding='utf-8')
     css = re.sub(r"url\('\.\./fonts/([^']+)'\)", lambda m: f"url('{data_uri('assets/fonts/' + m.group(1))}')", css)
     css += '\n/* Aperçu tout-en-un */\n.view[hidden] { display: none !important; }\n'
-    head = head.replace('<link rel="stylesheet" href="assets/css/main.css">', f'<style>{css}</style>')
+    head = head.replace('<link rel="stylesheet" href="assets/css/main.css">', f'<style>{css}</style>').replace('<link rel="stylesheet" href="assets/css/motion.css">\n', '')
+    head = head.replace('<title>', '<script>window.__mpSingleFile = true</script>\n<title>', 1)
     head = head.replace('<title>', '<!-- Aperçu tout-en-un généré par tools/bundle_site.py : ne pas publier tel quel -->\n<title>', 1)
 
     header = re.search(r'<!-- @header -->(.*?)<!-- /@header -->', base, flags=re.S).group(1)
@@ -86,13 +87,7 @@ def build():
     def js(rel):
         return (ROOT / rel).read_text(encoding='utf-8')
 
-    video = data_uri('assets/video/hero-scrub.webm')
-    hero = (js('assets/js/hero.js')
-            .replace("'assets/video/hero-scrub.webm'", f"'{video}'")
-            .replace("'assets/video/hero-scrub.mp4'", "''")
-            .replace("'assets/img/hero-start.jpg'", f"'{data_uri('assets/img/hero-start.jpg')}'")
-            .replace("'assets/img/hero-end-1600.jpg'", f"'{data_uri('assets/img/hero-end-1600.jpg')}'")
-            .replace('const WEBM = ', 'const WEBM = true || '))
+    hero = prep_hero(js('assets/js/hero.js'))
     boutique = re.sub(r'^import .*?;\n', '', js('assets/js/boutique.js'), flags=re.M)
     catalogue = js('assets/js/catalogue.js').replace('export ', '')
 
@@ -139,6 +134,7 @@ def build():
 </main>
 {footer}
 <script>{js('assets/js/main.js')}</script>
+<script>{js('assets/js/motion.js')}</script>
 <script>{hero}</script>
 <script>{js('assets/js/contact.js')}</script>
 <script type="module">{js('assets/js/diagnostic.js')}</script>

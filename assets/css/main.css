@@ -330,10 +330,9 @@ body.has-action-bar { padding-bottom: 0; }
 .hero__meta a { text-decoration: none; color: var(--c-text); }
 .scroll-cue { display: none; }
 
-/* Mode défilé (ordinateur avec JS) : décidé par les mêmes cinq conditions qu'en JavaScript */
-@media not all and (max-width: 720px) {
-@media not all and (orientation: portrait) and (max-width: 1024px) {
-@media not all and (orientation: portrait) and (pointer: coarse) {
+/* Mode défilé (avec JS) : décidé par les mêmes deux conditions qu'en JavaScript.
+   Téléphones et tablettes ont leur propre film vertical ; seuls le téléphone tenu
+   à l'horizontale et « réduire les animations » gardent l'image fixe. */
 @media not all and (orientation: landscape) and (pointer: coarse) and (max-height: 560px) {
 @media not all and (prefers-reduced-motion: reduce) {
   .js .hero { height: 540vh; }
@@ -367,7 +366,26 @@ body.has-action-bar { padding-bottom: 0; }
   .js .scroll-cue .ring circle { transition: stroke-dashoffset 120ms linear; }
   .js .scroll-cue .chev { width: 2px; height: 34px; background: linear-gradient(180deg, var(--c-text), transparent); }
   .js .hero__progress { display: block; }
-}}}}}
+
+  /* Film vertical : le texte occupe la moitié basse, la voiture la moitié haute */
+  @media (orientation: portrait) and (max-width: 1024px) {
+    .js .hero { height: 430vh; }
+    .js .hero__stage { height: 100svh; }
+    .js .hero__scrim {
+      background:
+        linear-gradient(180deg, rgba(9, 11, 13, 0.55) 0%, rgba(9, 11, 13, 0) 14%),
+        linear-gradient(0deg, rgba(9, 11, 13, 0.97) 0%, rgba(9, 11, 13, 0.82) 30%, rgba(9, 11, 13, 0) 58%);
+    }
+    .js .band, .js .band--settle { top: auto; bottom: calc(env(safe-area-inset-bottom) + 92px); transform: none; max-width: none; }
+    .js .band__title { font-size: clamp(2.1rem, 1rem + 6.6vw, 3.6rem); }
+    .js .band__sub { font-size: 1rem; margin-top: 12px; }
+    .js .band .btn-row { margin-top: 20px; }
+    .js .band:first-child .btn-row .btn { flex: 1 1 auto; }
+    .js .scroll-cue { bottom: calc(env(safe-area-inset-bottom) + 24px); }
+    .js .scroll-cue span { display: none; }
+    .js .hero__progress { top: auto; bottom: 36%; height: 110px; right: 14px; }
+  }
+}}
 
 /* Barre de progression du film (dans le mode défilé) */
 .hero__progress {

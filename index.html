@@ -10,6 +10,7 @@
 <link rel="icon" href="assets/img/logo-mark.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/saira-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/motion.css">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_CA">
 <meta property="og:site_name" content="Milano Performance">
@@ -18,7 +19,7 @@
 <!-- DEPLOY STEP : og:image et og:url doivent être des URL absolues du site en ligne -->
 <meta property="og:image" content="https://milanoperformance.ca/assets/img/og.jpg">
 <meta property="og:url" content="https://milanoperformance.ca/">
-<script>document.documentElement.classList.add('js')</script>
+<script>(function(r){r.classList.add('js');try{var m=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!m&&!sessionStorage.getItem('mp-intro')){r.classList.add('is-intro');sessionStorage.setItem('mp-intro','1')}if(!m&&sessionStorage.getItem('mp-veil')){r.classList.add('veil-on')}sessionStorage.removeItem('mp-veil')}catch(e){}})(document.documentElement)</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -48,6 +49,8 @@
 <body data-page="accueil">
 <!-- @header -->
 <a class="skip" href="#main">Aller au contenu</a>
+<div class="intro" data-intro aria-hidden="true"><div class="intro__inner"><svg class="intro__mark" viewBox="0 0 32 32"><path d="M7 23V9.5h2.6l6.4 8.2 6.4-8.2H25V23h-2.9v-8.6l-5.2 6.6h-1.8l-5.2-6.6V23z"/><rect x="26.6" y="9.5" width="1.8" height="13.5"/></svg><p class="intro__word"><b>Milano</b> Performance</p><div class="intro__line"></div></div></div>
+<div class="veil" data-veil aria-hidden="true"></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M1 8h13M9 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
   <symbol id="i-out" viewBox="0 0 16 16"><path d="M6 3H3v10h10v-3M9 2h5v5M14 2 7 9" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
@@ -58,6 +61,7 @@
   <symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m11 11 4 4" stroke="currentColor" stroke-width="1.5"/></symbol>
 </svg>
 <header class="site-header" data-header>
+  <i class="progress-line" data-progress aria-hidden="true"></i>
   <div class="wrap">
     <a class="brand" href="index.html" aria-label="Milano Performance, accueil">
       <img class="brand__mark" src="assets/img/logo-mark.svg" alt="" width="30" height="30">
@@ -112,6 +116,7 @@
         </picture>
         <div class="hero__poster" data-hero-poster></div>
         <video class="hero__video" muted playsinline preload="none" aria-hidden="true" tabindex="-1" data-hero-video></video>
+        <canvas class="dust" data-dust aria-hidden="true"></canvas>
       </div>
       <div class="hero__scrim" aria-hidden="true"></div>
 
@@ -162,11 +167,7 @@
   <section class="manifesto" id="maison" aria-labelledby="maison-titre">
     <div class="wrap">
       <p class="kicker" id="maison-titre">La maison</p>
-      <p class="manifesto__text" data-manifesto style="margin-top:28px">
-        <span class="dim">Une italienne a du caractère.</span>
-        <span class="dim">Une mécanique à part, des points à surveiller, des pièces qu'on ne trouve pas partout.</span>
-        <span class="dim">Ici, l'atelier et les pièces sont au même endroit.</span>
-      </p>
+      <p class="manifesto__text" data-manifesto data-scene style="margin-top:28px">Une italienne a du <span class="hl-src">caractère.</span> Une mécanique à part, des points à surveiller, des pièces qu'on ne trouve pas partout. Ici, l'atelier et les pièces sont au <span class="hl-src">même endroit.</span></p>
       <div class="manifesto__foot stagger">
         <div class="fact"><b>L'atelier et la boutique</b><p>Entretien, réparation et pièces sous un même toit, au 19 rue Odette-Pinard.</p></div>
         <div class="fact"><b>Une expérience McLaren</b><p>Une expérience spécifique des véhicules McLaren et des formations liées au constructeur.</p></div>
@@ -180,12 +181,20 @@
   <section class="makes" aria-labelledby="marques-titre">
     <div class="wrap">
       <h2 class="sr-only" id="marques-titre">Marques prises en charge</h2>
-      <ul class="makes__list stagger">
-        <li><b>Alfa</b> Romeo</li>
-        <li><b>Fiat</b></li>
-        <li><b>Mini</b></li>
-        <li><b>McLaren</b></li>
-      </ul>
+      <div class="marquee"><div class="marquee__track">
+        <ul class="makes__list">
+          <li><span><b>Alfa</b> Romeo</span></li>
+          <li><span><b>Fiat</b></span></li>
+          <li><span><b>Mini</b></span></li>
+          <li><span><b>McLaren</b></span></li>
+        </ul>
+        <ul class="makes__list" aria-hidden="true">
+          <li><span><b>Alfa</b> Romeo</span></li>
+          <li><span><b>Fiat</b></span></li>
+          <li><span><b>Mini</b></span></li>
+          <li><span><b>McLaren</b></span></li>
+        </ul>
+      </div></div>
       <p class="makes__note">Une autre marque&nbsp;? <a href="contact.html?sujet=autre-marque">Écrivez-nous avant de passer</a>&nbsp;: on vous dira franchement si on peut s'en occuper.</p>
     </div>
   </section>
@@ -193,7 +202,7 @@
   <!-- ===================== L'ATELIER (clair) ===================== -->
   <section class="section on-light" id="atelier" aria-labelledby="atelier-titre">
     <div class="wrap atelier">
-      <figure class="atelier__media frame frame--45 frame__zoom reveal" style="margin:0">
+      <figure class="atelier__media frame frame--45" data-reveal="clip" style="margin:0">
         <picture>
           <source type="image/avif" srcset="assets/img/detail-roue-600.avif 600w, assets/img/detail-roue-1000.avif 1000w" sizes="(min-width: 1000px) 42vw, 100vw">
           <source type="image/webp" srcset="assets/img/detail-roue-600.webp 600w, assets/img/detail-roue-1000.webp 1000w" sizes="(min-width: 1000px) 42vw, 100vw">
@@ -204,24 +213,24 @@
       <div>
         <div class="section-head">
           <p class="kicker">L'atelier</p>
-          <h2 class="display" id="atelier-titre">Entretenir. Diagnostiquer. <em>Réparer.</em></h2>
+          <h2 class="display" id="atelier-titre" data-words>Entretenir. Diagnostiquer. <em>Réparer.</em></h2>
           <p class="lede">Les bons fluides, les bonnes pièces et le temps de bien faire, pour des voitures qui ne pardonnent pas l'approximation.</p>
         </div>
         <ul class="services stagger">
           <li class="service">
-            <div class="service__top"><h3>Entretien</h3><span class="ref">Périodique</span></div>
+            <div class="service__top"><h3><svg class="service__icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" data-draw-in aria-hidden="true"><path d="M22 6C17 14 12 20 12 27a10 10 0 0 0 20 0c0-7-5-13-10-21z"/><path class="accent" d="M17 28a5 5 0 0 0 4 5"/></svg>Entretien</h3><span class="ref">Périodique</span></div>
             <p>Vidange, filtres, fluides et inspections, avec des produits adaptés à votre moteur, dont les lubrifiants Pakelo.</p>
           </li>
           <li class="service">
-            <div class="service__top"><h3>Diagnostic et réparation</h3><span class="ref">Mécanique</span></div>
+            <div class="service__top"><h3><svg class="service__icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" data-draw-in aria-hidden="true"><path d="M4 24h8l4-10 6 20 5-14 3 4h10"/><circle class="accent" cx="40" cy="24" r="2"/></svg>Diagnostic et réparation</h3><span class="ref">Mécanique</span></div>
             <p>Un voyant, un bruit, une sensation inhabituelle&nbsp;: on trouve la cause, puis on répare. Freinage, suspension, distribution, embrayage, refroidissement.</p>
           </li>
           <li class="service">
-            <div class="service__top"><h3>Pièces de performance</h3><span class="ref">Conseil</span></div>
+            <div class="service__top"><h3><svg class="service__icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" data-draw-in aria-hidden="true"><circle cx="22" cy="22" r="17"/><circle cx="22" cy="22" r="4"/><path d="M22 18V7M25.8 23.2l10.4 3.4M18.2 23.2 7.8 26.6M24.4 25.4l6.4 8.9M19.6 25.4l-6.4 8.9"/><path class="accent" d="M9 13a17 17 0 0 1 9-7"/></svg>Pièces de performance</h3><span class="ref">Conseil</span></div>
             <p>Roues EVO&nbsp;Corse et CINEL, échappements Ragazzon&nbsp;: on vous aide à choisir la bonne pièce pour votre voiture, puis on la commande.</p>
           </li>
           <li class="service">
-            <div class="service__top"><h3>McLaren</h3><span class="ref">Spécialité</span></div>
+            <div class="service__top"><h3><svg class="service__icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" data-draw-in aria-hidden="true"><path d="M4 30c8-2 14-8 20-14s12-8 16-8"/><path d="M4 36c10-2 18-8 24-14"/><path class="accent" d="M30 30h10"/></svg>McLaren</h3><span class="ref">Spécialité</span></div>
             <p>Une expérience spécifique de ces véhicules et des formations liées au constructeur. <a href="atelier.html#mclaren">En savoir plus</a>.</p>
           </li>
         </ul>
@@ -239,12 +248,13 @@
       <div class="section-head section-head--split">
         <div>
           <p class="kicker">Explorer</p>
-          <h2 class="display" id="explorer-titre" style="margin-top:16px">Promenez la lumière sur la voiture.</h2>
+          <h2 class="display" id="explorer-titre" style="margin-top:16px" data-words>Promenez la lumière sur la voiture.</h2>
         </div>
         <p class="lede">Chaque système a ses gestes et ses pièces. Passez sur le plan ou choisissez une zone pour voir ce qu'on y fait.</p>
       </div>
       <div class="diag__grid">
         <div class="diag__plan is-idle" data-diag-plan>
+          <div class="diag__scan" aria-hidden="true"></div>
           <div class="diag__draw" aria-hidden="true">
             <img class="base" src="assets/img/plan-1800.webp" alt="" width="1800" height="692" loading="lazy" decoding="async">
             <img class="lit" src="assets/img/plan-1800.webp" alt="" width="1800" height="692" loading="lazy" decoding="async">
@@ -275,7 +285,7 @@
     </div>
     <div class="wrap mclaren__content">
       <p class="kicker">McLaren</p>
-      <h2 class="display display--xl reveal" id="mclaren-titre" style="margin-top:16px">L'expertise McLaren, à <em>Québec.</em></h2>
+      <h2 class="display display--xl" id="mclaren-titre" style="margin-top:16px" data-words="track">L'expertise McLaren, à <em>Québec.</em></h2>
       <p class="lede">Milano Performance possède une expérience spécifique des véhicules McLaren et a suivi des formations liées au constructeur. Pour l'entretien de votre McLaren, parlez directement à un spécialiste.</p>
       <div class="mclaren__points stagger">
         <div><b>Expérience spécifique</b>Des véhicules McLaren, de leur mécanique et de leurs exigences.</div>
@@ -296,14 +306,15 @@
       <div class="section-head section-head--split">
         <div>
           <p class="kicker">La boutique</p>
-          <h2 class="display" id="boutique-titre" style="margin-top:16px">Des pièces qui ont une <em>histoire.</em></h2>
+          <h2 class="display" id="boutique-titre" style="margin-top:16px" data-words>Des pièces qui ont une <em>histoire.</em></h2>
         </div>
         <p class="lede">Roues, échappements, lubrifiants et soins&nbsp;: des maisons nées en Italie et une gamme développée avec McLaren.</p>
       </div>
-      <div class="houses stagger">
+      <div class="houses stagger" data-carousel>
         <a class="house" href="https://milanoperformance.ca/collections/roues">
           <div class="house__img" aria-hidden="true"><picture><source type="image/avif" srcset="assets/img/roue-rasante-600.avif 600w, assets/img/roue-rasante-1000.avif 1000w" sizes="(min-width: 1100px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/roue-rasante-600.webp 600w, assets/img/roue-rasante-1000.webp 1000w" sizes="(min-width: 1100px) 50vw, 100vw"><img src="assets/img/roue-rasante-1000.jpg" alt="" width="1000" height="1000" loading="lazy" decoding="async" style="object-position:78% 50%"></picture></div>
           <span class="illus">Illustration</span>
+          <span class="house__year" aria-hidden="true"><span data-count="2004" data-from="1954">2004</span><small>SanremoCorse</small></span>
           <span class="house__tag">Roues · Distributeur</span>
           <h3>EVO Corse</h3>
           <p>Des roues nées en rallye, de la SanremoCorse de 2004 jusqu'à la gamme Dakar. Milano Performance en est distributeur.</p>
@@ -328,6 +339,7 @@
         <a class="house" href="https://milanoperformance.ca/search?q=pakelo">
           <div class="house__img" aria-hidden="true"><picture><source type="image/avif" srcset="assets/img/goutte-600.avif 600w, assets/img/goutte-1000.avif 1000w" sizes="(min-width: 1100px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/goutte-600.webp 600w, assets/img/goutte-1000.webp 1000w" sizes="(min-width: 1100px) 50vw, 100vw"><img src="assets/img/goutte-1000.jpg" alt="" width="1000" height="1000" loading="lazy" decoding="async" style="object-position:50% 72%"></picture></div>
           <span class="illus">Illustration</span>
+          <span class="house__year" aria-hidden="true"><span data-count="1930" data-from="1880">1930</span><small>Fondation</small></span>
           <span class="house__tag">Lubrifiants</span>
           <h3>Pakelo</h3>
           <p>Lubrifiants italiens depuis 1930, formulés pour les moteurs exigeants et la compétition.</p>
@@ -342,9 +354,10 @@
           <span class="link">Voir la gamme <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
       </div>
-      <p class="brands-strip" style="border-color:var(--c-ink-line);color:var(--c-ink-2)"><span style="color:var(--c-ink)">Aussi au catalogue</span><span>Liqui Moly</span><span>Motul</span><span>Pentosin</span><span>Brembo</span><span>Textar</span><span>Bosch</span><span>Bilstein</span><span>Powerflex</span><span>Novitec</span><span>WSP Italy</span></p>
+      <div class="carousel-dots" data-dots aria-hidden="true"></div>
+      <div class="brands-strip" style="border-color:var(--c-ink-line);color:var(--c-ink-2)"><span style="color:var(--c-ink);flex:none">Aussi au catalogue</span><div class="marquee marquee--slow" style="flex:1;min-width:0"><div class="marquee__track"><span class="brands-run"><span>Liqui Moly</span><span>Motul</span><span>Pentosin</span><span>Brembo</span><span>Textar</span><span>Bosch</span><span>Bilstein</span><span>Powerflex</span><span>Novitec</span><span>WSP Italy</span></span><span class="brands-run" aria-hidden="true"><span>Liqui Moly</span><span>Motul</span><span>Pentosin</span><span>Brembo</span><span>Textar</span><span>Bosch</span><span>Bilstein</span><span>Powerflex</span><span>Novitec</span><span>WSP Italy</span></span></div></div></div>
 
-      <div class="notice reveal" style="margin-top:clamp(48px,6vw,88px)">
+      <div class="notice" data-reveal="up" style="margin-top:clamp(48px,6vw,88px)">
         <svg class="notice__icon" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M28 15v17" stroke="currentColor" stroke-width="2"/><circle cx="28" cy="39.5" r="1.8" fill="currentColor"/></svg>
         <div>
           <h3>Une pièce affichée n'est pas toujours en stock.</h3>
@@ -376,7 +389,7 @@
           <a class="btn btn--ghost" href="tel:+15815005665">Appeler</a>
         </div>
       </div>
-      <div class="map" data-map>
+      <div class="map" data-map data-reveal="clip">
         <div class="map__inner">
           <div class="map__pin" aria-hidden="true"></div>
           <p class="map__coords">46,8667° N · 71,1799° O</p>
@@ -391,7 +404,7 @@
   <section class="section on-light" id="questions" aria-labelledby="faq-titre">
     <div class="wrap" style="display:grid;gap:40px">
       <div class="section-head section-head--split" style="margin-bottom:0">
-        <h2 class="display" id="faq-titre">Avant de venir.</h2>
+        <h2 class="display" id="faq-titre" data-words>Avant de venir.</h2>
         <p class="lede">Les réponses aux questions qu'on nous pose le plus souvent. Pour le reste, un appel suffit.</p>
       </div>
       <div class="faq">
@@ -421,7 +434,7 @@
 
   <!-- ===================== CTA FINAL ===================== -->
   <section class="final" aria-labelledby="final-titre">
-    <div class="final__media" aria-hidden="true">
+    <div class="final__media" aria-hidden="true" data-parallax="0.12">
       <picture>
         <source type="image/avif" srcset="assets/img/profil-960.avif 960w, assets/img/profil-1600.avif 1600w, assets/img/profil-2400.avif 2400w" sizes="100vw">
         <source type="image/webp" srcset="assets/img/profil-960.webp 960w, assets/img/profil-1600.webp 1600w, assets/img/profil-2400.webp 2400w" sizes="100vw">
@@ -430,7 +443,21 @@
     </div>
     <div class="wrap">
       <p class="kicker">Rendez-vous</p>
-      <h2 class="display display--xl reveal" id="final-titre" style="margin-top:16px">Votre voiture mérite qu'on la regarde de <em>près.</em></h2>
+      <h2 class="display display--xl" id="final-titre" style="margin-top:16px" data-words="punch">Votre voiture mérite qu'on la regarde de <em>près.</em></h2>
+      <div class="hold" data-hold>
+        <div class="hold__gauge">
+          <svg viewBox="0 0 168 168" aria-hidden="true">
+            <path class="gauge-arc" d="M33.6 113.1A58 58 0 1 1 134.4 113.1"/>
+            <path class="gauge-red" d="M140.5 70.8A58 58 0 0 1 134.2 113.0"/>
+            <path class="gauge-fill" d="M33.6 113.1A58 58 0 1 1 134.4 113.1" pathLength="293"/>
+            <g class="gauge-ticks"><line x1="39.0" y1="110.0" x2="45.9" y2="106.0"/><line x1="32.0" y1="84.0" x2="36.0" y2="84.0"/><line x1="39.0" y1="58.0" x2="45.9" y2="62.0"/><line x1="58.0" y1="39.0" x2="60.0" y2="42.4"/><line x1="84.0" y1="32.0" x2="84.0" y2="40.0"/><line x1="110.0" y1="39.0" x2="108.0" y2="42.4"/><line x1="129.0" y1="58.0" x2="122.1" y2="62.0"/><line x1="136.0" y1="84.0" x2="132.0" y2="84.0"/><line x1="129.0" y1="110.0" x2="122.1" y2="106.0"/></g>
+            <g class="gauge-needle" data-needle><line x1="84" y1="84" x2="84" y2="34"/></g>
+          </svg>
+          <button class="hold__btn" type="button" data-hold-btn aria-pressed="false"><span data-hold-label>Start</span><small>maintenir</small></button>
+        </div>
+        <p class="hold__rpm" aria-hidden="true"><b data-rpm>0000</b> tr/min</p>
+        <p class="hold__msg" aria-live="polite">Moteur prêt. Il ne manque que votre rendez-vous.</p>
+      </div>
       <div class="btn-row">
         <a class="btn btn--primary" href="contact.html">Prendre rendez-vous <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn--ghost" href="tel:+15815005665">581 500-5665</a>
@@ -477,7 +504,7 @@
         </ul>
       </div>
     </div>
-    <p class="footer-wordmark" aria-hidden="true">Milano Performance</p>
+    <p class="footer-wordmark" aria-hidden="true" data-scene="enter">Milano Performance</p>
     <div class="footer-bottom">
       <span>© <span data-year>2026</span> Milano Performance. Tous droits réservés.</span>
       <span>Images : rendus 3D d'illustration, <a href="mentions-legales.html#credits">crédits</a>.</span>
@@ -491,6 +518,7 @@
 </nav>
 <!-- /@footer -->
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/motion.js" defer></script>
 <script src="assets/js/hero.js" defer></script>
 <script type="module" src="assets/js/diagnostic.js"></script>
 </body>

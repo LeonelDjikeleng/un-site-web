@@ -9,11 +9,14 @@
 <meta name="theme-color" content="#090b0d">
 <link rel="icon" href="assets/img/logo-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/main.css">
-<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="assets/css/motion.css">
+<script>(function(r){r.classList.add('js');try{var m=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!m&&!sessionStorage.getItem('mp-intro')){r.classList.add('is-intro');sessionStorage.setItem('mp-intro','1')}if(!m&&sessionStorage.getItem('mp-veil')){r.classList.add('veil-on')}sessionStorage.removeItem('mp-veil')}catch(e){}})(document.documentElement)</script>
 </head>
 <body data-page="mentions">
 <!-- @header -->
 <a class="skip" href="#main">Aller au contenu</a>
+<div class="intro" data-intro aria-hidden="true"><div class="intro__inner"><svg class="intro__mark" viewBox="0 0 32 32"><path d="M7 23V9.5h2.6l6.4 8.2 6.4-8.2H25V23h-2.9v-8.6l-5.2 6.6h-1.8l-5.2-6.6V23z"/><rect x="26.6" y="9.5" width="1.8" height="13.5"/></svg><p class="intro__word"><b>Milano</b> Performance</p><div class="intro__line"></div></div></div>
+<div class="veil" data-veil aria-hidden="true"></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M1 8h13M9 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
   <symbol id="i-out" viewBox="0 0 16 16"><path d="M6 3H3v10h10v-3M9 2h5v5M14 2 7 9" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
@@ -24,6 +27,7 @@
   <symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m11 11 4 4" stroke="currentColor" stroke-width="1.5"/></symbol>
 </svg>
 <header class="site-header" data-header>
+  <i class="progress-line" data-progress aria-hidden="true"></i>
   <div class="wrap">
     <a class="brand" href="index.html" aria-label="Milano Performance, accueil">
       <img class="brand__mark" src="assets/img/logo-mark.svg" alt="" width="30" height="30">
@@ -66,7 +70,7 @@
   <section class="section" style="padding-top:calc(var(--header-h) + clamp(40px,6vw,96px))">
     <div class="wrap">
       <p class="crumbs"><a href="index.html">Accueil</a> / Mentions légales</p>
-      <h1 class="display" style="margin-top:16px;max-width:16ch">Mentions légales et accessibilité</h1>
+      <h1 class="display" data-words style="margin-top:16px;max-width:16ch">Mentions légales et accessibilité</h1>
       <div class="prose" style="margin-top:40px">
         <h2>Éditeur du site</h2>
         <p>Milano Performance · 19 rue Odette-Pinard, Québec (Québec) G1E&nbsp;5P6 · 581 500-5665 · <a href="mailto:contact@milanoperformance.ca">contact@milanoperformance.ca</a></p>
@@ -131,7 +135,7 @@
         </ul>
       </div>
     </div>
-    <p class="footer-wordmark" aria-hidden="true">Milano Performance</p>
+    <p class="footer-wordmark" aria-hidden="true" data-scene="enter">Milano Performance</p>
     <div class="footer-bottom">
       <span>© <span data-year>2026</span> Milano Performance. Tous droits réservés.</span>
       <span>Images : rendus 3D d'illustration, <a href="mentions-legales.html#credits">crédits</a>.</span>
@@ -145,5 +149,6 @@
 </nav>
 <!-- /@footer -->
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/motion.js" defer></script>
 </body>
 </html>

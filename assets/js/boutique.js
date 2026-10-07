@@ -23,11 +23,11 @@ const prix = (p) => p.prix == null
   ? 'Prix sur la fiche · disponibilité à confirmer'
   : `${p.prix.toLocaleString('fr-CA', { style: 'currency', currency: 'CAD' })} · disponibilité à confirmer`;
 
-function card(p) {
+function card(p, i = 0) {
   const c = CATEGORIES[p.categorie];
   const m = p.maison ? MAISONS[p.maison].nom : c.nom;
   const demande = `contact.html?sujet=piece&produit=${encodeURIComponent(p.nom)}`;
-  return `<li class="product">
+  return `<li class="product" style="--i:${i}">
     <div class="product__glyph" aria-hidden="true"><span class="product__code">${esc(c.nom)}</span>${GLYPHS[c.glyph] || ''}<span class="product__big${(p.ref || c.nom).length > 9 ? ' is-long' : ''}">${esc(p.ref || c.nom)}</span></div>
     <div class="product__body">
       <p class="product__house">${esc(m)}</p>

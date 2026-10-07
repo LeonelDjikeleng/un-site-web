@@ -69,7 +69,25 @@ Les cadres d'image ont des ratios fixes (`aspect-ratio`) : une photo remplace un
 
 ## Hero défilé (standard « 10K »)
 
-`assets/js/hero.js` : la vidéo (H.264, image clé toutes les 8 images) est chargée en Blob avec un anneau de progression honnête, le temps affiché est lissé indépendamment de la fréquence d'écran, les recherches temporelles sont sérialisées. Cinq conditions donnent une image fixe composée à la place (téléphone, tablette en portrait, pointeur tactile en portrait, téléphone en paysage, mouvement réduit) ; elles sont identiques dans `main.css` et `hero.js` et réévaluées en direct.
+`assets/js/hero.js` : la vidéo (H.264 + VP9, image clé toutes les 8 images) est chargée en Blob avec un anneau de progression honnête, le temps affiché est lissé indépendamment de la fréquence d'écran, les recherches temporelles sont sérialisées. **Deux films** : `hero-scrub` (ordinateur, 16:9) et `hero-scrub-m` (téléphone et tablette en portrait, 9:16, moins de 1 Mo). Deux conditions donnent une image fixe composée à la place (téléphone tenu à l'horizontale, « réduire les animations ») ; elles sont identiques dans `main.css` et `hero.js` et réévaluées en direct.
+
+## Animations (`assets/js/motion.js` + `assets/css/motion.css`)
+
+Une seule boucle `requestAnimationFrame` qui se met au repos, uniquement `transform`/`opacity`, et « réduire les animations » respecté partout (état final immédiat). Attributs à poser dans le HTML :
+
+| Attribut | Effet |
+|---|---|
+| `data-words` (`="track"`, `="punch"`) | titre découpé en mots qui montent derrière un masque |
+| `data-reveal="clip"` / `"up"` / `"wipe"` | image révélée par un volet, bloc qui monte, balayage |
+| `data-scene` (`="enter"`, `="sticky"`) | reçoit `--p` (0 → 1) pendant la traversée de l'écran |
+| `data-parallax="0.1"` | profondeur au défilement |
+| `data-count="1930"` | compteur jusqu'à une valeur réelle |
+| `data-draw-in` (sur un `svg`) | tracés qui se dessinent |
+| `data-carousel` + `data-dots` | défilement horizontal au doigt, carte active mise en avant |
+| `data-hold` | moment interactif « START » à maintenir (compte-tours) |
+| `data-manifesto` | mots qui s'allument au fil de la lecture |
+
+Aussi : intro de marque (1re visite de la session), voile de transition entre les pages, barre de progression sous l'en-tête, poussière lumineuse dans le hero, scanner du diagnostic au doigt, bandeaux de marques défilants, cartes de boutique en cascade.
 
 ## Mise en production (Shopify)
 

@@ -38,6 +38,14 @@ def data_uri(rel: str) -> str:
     return _cache[rel]
 
 
+def prep_hero(js: str) -> str:
+    """hero.js autonome : vidéos (ordinateur + verticale) et images intégrées, WebM imposé."""
+    js = re.sub(r"const VIDEO_URL = [^;]+;",
+                lambda _m: "const VIDEO_URL = TALL ? '%s' : '%s';" % (data_uri('assets/video/hero-scrub-m.webm'), data_uri('assets/video/hero-scrub.webm')), js)
+    js = js.replace('const WEBM = ', 'const WEBM = true || ')
+    return re.sub(r"'(assets/img/[^']+)'", lambda m: f"'{data_uri(m.group(1))}'", js)
+
+
 def pick_src(srcset: str) -> str:
     """Garde une seule largeur (la plus proche de 1000 px) pour alléger l'aperçu."""
     cands = []
@@ -52,9 +60,9 @@ def bundle(src_name: str, out_name: str):
     html = (ROOT / src_name).read_text(encoding='utf-8')
 
     # Feuille de styles + polices
-    css = (ROOT / 'assets/css/main.css').read_text(encoding='utf-8')
+    css = (ROOT / 'assets/css/main.css').read_text(encoding='utf-8') + (ROOT / 'assets/css/motion.css').read_text(encoding='utf-8')
     css = re.sub(r"url\('\.\./fonts/([^']+)'\)", lambda m: f"url('{data_uri('assets/fonts/' + m.group(1))}')", css)
-    html = html.replace('<link rel="stylesheet" href="assets/css/main.css">', f'<style>{css}</style>')
+    html = html.replace('<link rel="stylesheet" href="assets/css/main.css">', f'<style>{css}</style>').replace('<link rel="stylesheet" href="assets/css/motion.css">\n', '')
     html = re.sub(r'<link rel="preload"[^>]*>\n?', '', html)
 
     # Images : on retire les variantes AVIF (doublons) et on réduit chaque srcset à une seule image
@@ -77,17 +85,12 @@ def bundle(src_name: str, out_name: str):
     def js(rel):
         return (ROOT / rel).read_text(encoding='utf-8')
 
-    hero = js('assets/js/hero.js')
-    if 'hero.js' in html:
-        video = data_uri('assets/video/hero-scrub.webm')
-        hero = hero.replace("'assets/video/hero-scrub.webm'", f"'{video}'").replace("'assets/video/hero-scrub.mp4'", "''")
-        hero = hero.replace("'assets/img/hero-start.jpg'", f"'{data_uri('assets/img/hero-start.jpg')}'")
-        hero = hero.replace("'assets/img/hero-end-1600.jpg'", f"'{data_uri('assets/img/hero-end-1600.jpg')}'")
-        hero = hero.replace("const WEBM = ", "const WEBM = true || ")
+    hero = prep_hero(js('assets/js/hero.js'))
     boutique = re.sub(r'^import .*?;\n', '', js('assets/js/boutique.js'), flags=re.M)
     catalogue = js('assets/js/catalogue.js').replace('export ', '')
     scripts = {
         '<script src="assets/js/main.js" defer></script>': f'<script>{js("assets/js/main.js")}</script>',
+        '<script src="assets/js/motion.js" defer></script>': f'<script>{js("assets/js/motion.js")}</script>',
         '<script src="assets/js/hero.js" defer></script>': f'<script>{hero}</script>',
         '<script type="module" src="assets/js/diagnostic.js"></script>': f'<script type="module">{js("assets/js/diagnostic.js")}</script>',
         '<script type="module" src="assets/js/boutique.js"></script>': f'<script type="module">{catalogue}\n{boutique}</script>',

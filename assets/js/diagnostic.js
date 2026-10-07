@@ -84,8 +84,32 @@ if (plan && panel) {
     [...hotspots, ...chips.children].forEach((h) => h.setAttribute('aria-pressed', String(h.dataset.system === id)));
   }
 
-  plan.addEventListener('click', (e) => { const h = e.target.closest('.hotspot'); if (h) show(h.dataset.system); });
-  chips.addEventListener('click', (e) => { const b = e.target.closest('.chip-btn'); if (b) show(b.dataset.system); });
+  let userPicked = false;
+  plan.addEventListener('click', (e) => { const h = e.target.closest('.hotspot'); if (h) { userPicked = true; show(h.dataset.system); } });
+  chips.addEventListener('click', (e) => { const b = e.target.closest('.chip-btn'); if (b) { userPicked = true; show(b.dataset.system); } });
+
+  // Au doigt : un scanner balaie la voiture pendant le défilement et allume chaque système
+  if (matchMedia('(hover: none)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const order = hotspots.map((h) => ({ h, x: parseFloat(h.style.getPropertyValue('--x')) })).sort((a, b) => a.x - b.x);
+    let raf = null, on = false, lastScan = -1, lastId = '';
+    const tick = () => {
+      raf = null;
+      const r = plan.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (innerHeight * 0.88 - r.top) / (innerHeight * 0.55)));
+      const v = Math.round(p * 500) / 500;
+      if (v === lastScan) return;
+      lastScan = v;
+      plan.style.setProperty('--scan', v);
+      plan.classList.toggle('is-scanning', v > 0);
+      plan.classList.toggle('scan-done', v >= 1);
+      const edge = 6 + 88 * v;
+      let current = '';
+      order.forEach(({ h, x }) => { const hit = x <= edge + 0.5; h.classList.toggle('is-hit', hit); if (hit) current = h.dataset.system; });
+      if (current && current !== lastId && !userPicked) { lastId = current; show(current); }
+    };
+    new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on) tick(); }).observe(plan);
+    addEventListener('scroll', () => { if (on && raf === null) raf = requestAnimationFrame(tick); }, { passive: true });
+  }
 
   // La lumière suit le pointeur (souris seulement : au doigt, le plan reste entièrement visible)
   if (matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
