@@ -12,7 +12,7 @@ Le site est en HTML, CSS et JavaScript, sans framework ni étape de compilation.
 python3 -m http.server 8000      # puis http://localhost:8000
 ```
 
-Ouvrir `index.html` en double-cliquant fonctionne aussi, mais le hero affiche alors l'image fixe : les navigateurs bloquent le chargement de la vidéo en `file://` (comportement prévu, c'est le mode de repli).
+Pour un aperçu sans serveur, `python3 tools/bundle.py` produit dans `apercu/` un fichier HTML autonome par page (tout intégré, ouvrable d'un clic). Ouvrir `index.html` en double-cliquant fonctionne aussi, mais le hero affiche alors l'image fixe : les navigateurs bloquent le chargement de la vidéo en `file://` (comportement prévu, c'est le mode de repli).
 
 ## Structure
 
