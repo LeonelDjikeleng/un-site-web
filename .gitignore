@@ -4,3 +4,4 @@ qa-captures/
 tools/studio/CarConcept.glb
 tools/studio/out/
 apercu/
+__pycache__/
