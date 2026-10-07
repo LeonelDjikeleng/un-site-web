@@ -10,6 +10,8 @@
 (() => {
   const hero = document.querySelector('[data-hero]');
   if (!hero) return;
+  // Films en boucle de l'aperçu sans JavaScript : inutiles dès que ce script tourne
+  hero.querySelectorAll('.hero__loop').forEach((v) => { v.pause(); v.remove(); });
 
   // VP9/WebM quand le navigateur le décode (plus léger), sinon H.264/MP4 (Safari, anciens appareils)
   const probe = document.createElement('video');

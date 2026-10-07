@@ -62,6 +62,8 @@
 
   /* ---------- Manifeste : un mot = une unité de lumière ---------- */
   document.querySelectorAll('[data-manifesto]').forEach((el) => {
+    if (el.dataset.split === 'done') return; // déjà découpé (aperçu autonome)
+    el.dataset.split = 'done';
     el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
     const out = document.createElement('span'); out.setAttribute('aria-hidden', 'true');
     let i = 0;

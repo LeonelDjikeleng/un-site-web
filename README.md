@@ -14,6 +14,8 @@ python3 -m http.server 8000      # puis http://localhost:8000
 
 Pour un aperçu sans serveur : `python3 tools/bundle_site.py` produit `apercu/milano-performance-site-complet.html`, **le site entier dans un seul fichier HTML** (toutes les pages, navigation comprise, tout intégré, ouvrable d'un clic) ; `python3 tools/bundle.py` produit un fichier autonome par page. Ouvrir `index.html` en double-cliquant fonctionne aussi, mais le hero affiche alors l'image fixe : les navigateurs bloquent le chargement de la vidéo en `file://` (comportement prévu, c'est le mode de repli).
 
+**Aperçu dans une visionneuse qui bloque le JavaScript** (aperçu de fichier sur téléphone, messageries) : le fichier tout-en-un reste animé et navigable. Les animations passent en CSS pur (liées au défilement, section « Sans JavaScript » de `motion.css`), les titres sont découpés d'avance, le hero lit un film en boucle (`hero-loop*.webm/mp4`), les liens deviennent des ancres (`:target`), et menu, filtres de la boutique, diagnostic et START marchent sans script.
+
 ## Structure
 
 ```
@@ -35,6 +37,7 @@ docs/                  Dossier, registre des faits, direction artistique, confor
 
 - **En-tête ou pied de page** : modifier `partials/header.html` ou `partials/footer.html`, puis `python3 tools/build.py`.
 - **Couleurs, typographie, espacements, durées d'animation** : variables en tête de `assets/css/main.css`.
+- **Catalogue et diagnostic** : après une modification de `assets/js/catalogue.js` ou `assets/js/systemes.js`, lancer `node tools/prerender.mjs` (réécrit les cartes produits de `boutique.html` et les panneaux du diagnostic de `index.html`, visibles même sans JavaScript).
 - **Catalogue** : `assets/js/catalogue.js`. Chaque produit pointe vers sa vraie fiche Shopify (`/products/…`). Le champ `prix` reste `null` tant que le prix n'est pas validé ; mettre un nombre l'affiche (prix complet, seules les taxes s'ajoutent). Aucune disponibilité n'est affichée.
 - **Coordonnées** : rechercher `581 500-5665`, `+15815005665` et `contact@milanoperformance.ca` dans tous les fichiers.
 - **Heures d'ouverture** : emplacements marqués `À COMPLÉTER` dans `index.html` et `contact.html`.

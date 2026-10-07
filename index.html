@@ -80,6 +80,8 @@
       <a class="header-tel" href="tel:+15815005665">581 500-5665</a>
       <a class="btn btn--primary header-cta" href="contact.html">Prendre rendez-vous</a>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn><span></span><span class="sr-only">Menu</span></button>
+      <a class="menu-btn menu-btn--nojs" href="#menu"><span></span><span class="sr-only">Menu</span></a>
+      <a class="menu-btn menu-btn--close" href="#main"><span></span><span class="sr-only">Fermer le menu</span></a>
     </div>
   </div>
 </header>
@@ -268,7 +270,69 @@
           <button class="hotspot" type="button" style="--x:77%;--y:53%;--d:-2.6s" data-system="roues" aria-pressed="false"><span class="hotspot__label">Roues</span><span class="sr-only">Roues</span></button>
         </div>
         <div class="diag__panel" aria-live="polite" data-diag-panel>
-          <noscript><p>Moteur, freinage, suspension, transmission, échappement et roues&nbsp;: voyez le détail sur la page <a href="atelier.html">L'atelier</a>.</p></noscript>
+<!-- @diagnostic -->
+<div class="diag__static"><input class="sr-only" type="radio" name="systeme" id="sys-moteur" checked><input class="sr-only" type="radio" name="systeme" id="sys-freins"><input class="sr-only" type="radio" name="systeme" id="sys-suspension"><input class="sr-only" type="radio" name="systeme" id="sys-transmission"><input class="sr-only" type="radio" name="systeme" id="sys-echappement"><input class="sr-only" type="radio" name="systeme" id="sys-roues">
+    <div class="panel-swap" data-sys="moteur">
+      <p class="kicker kicker--plain">Système · Moteur</p>
+      <h3 class="h3">Entretien moteur</h3>
+      <p>Vidange, filtres et fluides avec des produits adaptés, et les pièces d'entretien courantes de la distribution et du refroidissement.</p>
+      <ul><li>Huiles moteur Pakelo, Liqui Moly</li><li>Filtres à huile, dont Fiat / Dodge / Jeep 1.4L</li><li>Chaîne de distribution, pompe à eau, réservoir d'expansion</li><li>Sondes à oxygène, pompe haute pression</li></ul>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="contact.html?service=Moteur">Prendre rendez-vous</a>
+        <a class="btn btn--ghost" href="boutique.html?cat=moteur">Voir les pièces</a>
+      </div>
+    </div>
+    <div class="panel-swap" data-sys="freins">
+      <p class="kicker kicker--plain">Système · Freinage</p>
+      <h3 class="h3">Freinage</h3>
+      <p>Disques et plaquettes remplacés avec des pièces de qualité, pour retrouver un freinage franc et régulier.</p>
+      <ul><li>Disques de frein avant et arrière</li><li>Disque arrière Brembo</li><li>Plaquettes de frein</li><li>Marques au catalogue : Brembo, Textar</li></ul>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="contact.html?service=Freinage">Prendre rendez-vous</a>
+        <a class="btn btn--ghost" href="boutique.html?cat=freins">Voir les pièces</a>
+      </div>
+    </div>
+    <div class="panel-swap" data-sys="suspension">
+      <p class="kicker kicker--plain">Système · Suspension</p>
+      <h3 class="h3">Suspension et train roulant</h3>
+      <p>Un bruit sur les bosses, une direction imprécise, une usure de pneus inégale : la suspension se vérifie pièce par pièce.</p>
+      <ul><li>Tables de suspension avant et arrière</li><li>Marques au catalogue : Bilstein, Powerflex</li></ul>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="contact.html?service=Suspension">Prendre rendez-vous</a>
+        <a class="btn btn--ghost" href="boutique.html?cat=suspension">Voir les pièces</a>
+      </div>
+    </div>
+    <div class="panel-swap" data-sys="transmission">
+      <p class="kicker kicker--plain">Système · Transmission</p>
+      <h3 class="h3">Embrayage et boîte</h3>
+      <p>Embrayage qui patine, passages durs : l'embrayage et les huiles de boîte se choisissent selon la transmission de votre voiture.</p>
+      <ul><li>Kit d'embrayage</li><li>Huiles pour boîte manuelle et automatique</li><li>Liqui Moly DCT 8100 pour boîtes à double embrayage</li><li>Pakelo Global Gear DLS 75W90</li></ul>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="contact.html?service=Transmission">Prendre rendez-vous</a>
+        <a class="btn btn--ghost" href="boutique.html?cat=transmission">Voir les pièces</a>
+      </div>
+    </div>
+    <div class="panel-swap" data-sys="echappement">
+      <p class="kicker kicker--plain">Système · Échappement</p>
+      <h3 class="h3">Échappement Ragazzon</h3>
+      <p>Systèmes complets ou sections : downpipe, tuyau intermédiaire, échappement central et arrière, silencieux.</p>
+      <ul><li>Système d'échappement complet</li><li>Downpipe et tuyau intermédiaire</li><li>Échappements central et arrière, silencieux</li><li>Flexible inox groupe N</li></ul>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="contact.html?service=%C3%89chappement">Prendre rendez-vous</a>
+        <a class="btn btn--ghost" href="boutique.html?cat=echappement">Voir les pièces</a>
+      </div>
+    </div>
+    <div class="panel-swap" data-sys="roues">
+      <p class="kicker kicker--plain">Système · Roues</p>
+      <h3 class="h3">Roues EVO Corse et CINEL</h3>
+      <p>Des roues issues de la compétition, choisies selon votre voiture et votre usage. Milano Performance est distributeur EVO Corse.</p>
+      <ul><li>EVO Corse : X3MA, FormulaCorse, SanremoCorsica, Monte Carlo, Neve</li><li>CINEL : jantes forgées et flow-formed</li><li>Boulons M14×1,5 et capuchons de centre</li></ul>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="contact.html?service=Roues">Prendre rendez-vous</a>
+        <a class="btn btn--ghost" href="boutique.html?cat=roues">Voir les pièces</a>
+      </div>
+    </div><div class="diag__systems" role="group" aria-label="Choisir un système"><label class="chip-btn" for="sys-moteur">Moteur</label><label class="chip-btn" for="sys-freins">Freinage</label><label class="chip-btn" for="sys-suspension">Suspension</label><label class="chip-btn" for="sys-transmission">Transmission</label><label class="chip-btn" for="sys-echappement">Échappement</label><label class="chip-btn" for="sys-roues">Roues</label></div></div>
+<!-- /@diagnostic -->
         </div>
       </div>
     </div>
@@ -314,7 +378,7 @@
         <a class="house" href="https://milanoperformance.ca/collections/roues">
           <div class="house__img" aria-hidden="true"><picture><source type="image/avif" srcset="assets/img/roue-rasante-600.avif 600w, assets/img/roue-rasante-1000.avif 1000w" sizes="(min-width: 1100px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/roue-rasante-600.webp 600w, assets/img/roue-rasante-1000.webp 1000w" sizes="(min-width: 1100px) 50vw, 100vw"><img src="assets/img/roue-rasante-1000.jpg" alt="" width="1000" height="1000" loading="lazy" decoding="async" style="object-position:78% 50%"></picture></div>
           <span class="illus">Illustration</span>
-          <span class="house__year" aria-hidden="true"><span data-count="2004" data-from="1954">2004</span><small>SanremoCorse</small></span>
+          <span class="house__year" aria-hidden="true"><span data-count="2004" data-from="1954" style="--from:1954;--to:2004">2004</span><small>SanremoCorse</small></span>
           <span class="house__tag">Roues · Distributeur</span>
           <h3>EVO Corse</h3>
           <p>Des roues nées en rallye, de la SanremoCorse de 2004 jusqu'à la gamme Dakar. Milano Performance en est distributeur.</p>
@@ -339,7 +403,7 @@
         <a class="house" href="https://milanoperformance.ca/search?q=pakelo">
           <div class="house__img" aria-hidden="true"><picture><source type="image/avif" srcset="assets/img/goutte-600.avif 600w, assets/img/goutte-1000.avif 1000w" sizes="(min-width: 1100px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/goutte-600.webp 600w, assets/img/goutte-1000.webp 1000w" sizes="(min-width: 1100px) 50vw, 100vw"><img src="assets/img/goutte-1000.jpg" alt="" width="1000" height="1000" loading="lazy" decoding="async" style="object-position:50% 72%"></picture></div>
           <span class="illus">Illustration</span>
-          <span class="house__year" aria-hidden="true"><span data-count="1930" data-from="1880">1930</span><small>Fondation</small></span>
+          <span class="house__year" aria-hidden="true"><span data-count="1930" data-from="1880" style="--from:1880;--to:1930">1930</span><small>Fondation</small></span>
           <span class="house__tag">Lubrifiants</span>
           <h3>Pakelo</h3>
           <p>Lubrifiants italiens depuis 1930, formulés pour les moteurs exigeants et la compétition.</p>

@@ -8,6 +8,7 @@ Les aperçus ne remplacent pas le site : ils sont plus lourds (tout est intégr�
 et servent seulement à montrer le travail. Le dossier apercu/ n'est pas versionné.
 """
 import base64
+import html as htmllib
 import mimetypes
 import pathlib
 import re
@@ -44,6 +45,75 @@ def prep_hero(js: str) -> str:
                 lambda _m: "const VIDEO_URL = TALL ? '%s' : '%s';" % (data_uri('assets/video/hero-scrub-m.webm'), data_uri('assets/video/hero-scrub.webm')), js)
     js = js.replace('const WEBM = ', 'const WEBM = true || ')
     return re.sub(r"'(assets/img/[^']+)'", lambda m: f"'{data_uri(m.group(1))}'", js)
+
+
+def module(*rels: str) -> str:
+    """Modules ES réunis en un seul script : imports retirés, exports rendus locaux."""
+    out = []
+    for rel in rels:
+        src = (ROOT / rel).read_text(encoding='utf-8')
+        src = re.sub(r'^import .*?;\n', '', src, flags=re.M)
+        out.append(re.sub(r'^export ', '', src, flags=re.M))
+    return '\n'.join(out)
+
+
+def _attr(text: str) -> str:
+    text = re.sub(r'\s+', ' ', htmllib.unescape(re.sub(r'<[^>]+>', '', text))).strip()
+    return text.replace('&', '&amp;').replace('"', '&quot;').replace('<', '&lt;')
+
+
+def presplit(html: str) -> str:
+    """Découpe d'avance les titres [data-words] et le manifeste, exactement comme motion.js,
+    pour que les animations CSS fonctionnent aussi quand une visionneuse bloque le JavaScript."""
+    def words(m):
+        tag, attrs, inner = m.group(1), m.group(2), m.group(3)
+        out, i, spaced, last = [], 0, True, None
+        for tok in re.split(r'(<[^>]+>)', inner):
+            if tok.startswith('<'):
+                out.append(tok)
+                continue
+            for t in re.split(r'(\s+)', htmllib.unescape(tok)):
+                if not t:
+                    continue
+                if not t.strip():
+                    out.append(' ')
+                    spaced = True
+                    continue
+                if not spaced and last is not None:
+                    out[last] = out[last].replace('</span></span>', htmllib.escape(t, quote=False) + '</span></span>')
+                    continue
+                spaced = False
+                out.append(f'<span class="wm"><span class="wi" style="--i:{i}">{htmllib.escape(t, quote=False)}</span></span>')
+                last = len(out) - 1
+                i += 1
+        return f'<{tag}{attrs} data-split="done" aria-label="{_attr(inner)}"><span aria-hidden="true">{"".join(out)}</span></{tag}>'
+    html = re.sub(r'<(h1|h2|h3|p)(\s[^>]*?\bdata-words\b[^>]*)>(.*?)</\1>', words, html, flags=re.S)
+
+    def manifesto(m):
+        attrs, inner = m.group(1), m.group(2)
+        out, i = [], 0
+        parts = [(bool(a), a or b) for a, b in re.findall(r'<span class="hl-src">(.*?)</span>|([^<]+)', inner)]
+        for hl, tok in parts:
+            for t in re.split(r'(\s+)', htmllib.unescape(tok)):
+                if not t:
+                    continue
+                if not t.strip():
+                    out.append(' ')
+                    continue
+                out.append(f'<span class="mw{" hl" if hl else ""}" style="--i:{i}">{htmllib.escape(t, quote=False)}</span>')
+                i += 1
+        attrs = re.sub(r'style="([^"]*)"', lambda s: f'style="{s.group(1)};--n:{i}"', attrs) if 'style="' in attrs else attrs + f' style="--n:{i}"'
+        return f'<p{attrs} data-split="done" aria-label="{_attr(inner)}"><span aria-hidden="true">{"".join(out)}</span></p>'
+    return re.sub(r'<p(\s[^>]*?\bdata-manifesto\b[^>]*)>(.*?)</p>', manifesto, html, flags=re.S)
+
+
+def hero_loops(html: str) -> str:
+    """Films en boucle (lecture automatique, sans script) glissés dans le hero de l'aperçu."""
+    def vid(kind, name):
+        return (f'<video class="hero__loop hero__loop--{kind}" autoplay muted loop playsinline disablepictureinpicture aria-hidden="true" tabindex="-1">'
+                f'<source src="{data_uri(f"assets/video/{name}.webm")}" type="video/webm">'
+                f'<source src="{data_uri(f"assets/video/{name}.mp4")}" type="video/mp4"></video>')
+    return html.replace('data-hero-video></video>', 'data-hero-video></video>\n        ' + vid('m', 'hero-loop-m') + vid('d', 'hero-loop'), 1)
 
 
 def pick_src(srcset: str) -> str:
@@ -86,14 +156,13 @@ def bundle(src_name: str, out_name: str):
         return (ROOT / rel).read_text(encoding='utf-8')
 
     hero = prep_hero(js('assets/js/hero.js'))
-    boutique = re.sub(r'^import .*?;\n', '', js('assets/js/boutique.js'), flags=re.M)
-    catalogue = js('assets/js/catalogue.js').replace('export ', '')
+    html = hero_loops(presplit(html))
     scripts = {
         '<script src="assets/js/main.js" defer></script>': f'<script>{js("assets/js/main.js")}</script>',
         '<script src="assets/js/motion.js" defer></script>': f'<script>{js("assets/js/motion.js")}</script>',
         '<script src="assets/js/hero.js" defer></script>': f'<script>{hero}</script>',
-        '<script type="module" src="assets/js/diagnostic.js"></script>': f'<script type="module">{js("assets/js/diagnostic.js")}</script>',
-        '<script type="module" src="assets/js/boutique.js"></script>': f'<script type="module">{catalogue}\n{boutique}</script>',
+        '<script type="module" src="assets/js/diagnostic.js"></script>': f'<script type="module">{module("assets/js/systemes.js", "assets/js/diagnostic.js")}</script>',
+        '<script type="module" src="assets/js/boutique.js"></script>': f'<script type="module">{module("assets/js/catalogue.js", "assets/js/catalogue-view.js", "assets/js/boutique.js")}</script>',
         '<script src="assets/js/contact.js" defer></script>': f'<script>{js("assets/js/contact.js")}</script>',
     }
     # main.js/hero.js/contact.js étaient en defer : on les place en fin de body (déjà le cas)

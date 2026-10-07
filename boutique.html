@@ -54,6 +54,8 @@
       <a class="header-tel" href="tel:+15815005665">581 500-5665</a>
       <a class="btn btn--primary header-cta" href="contact.html">Prendre rendez-vous</a>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn><span></span><span class="sr-only">Menu</span></button>
+      <a class="menu-btn menu-btn--nojs" href="#menu"><span></span><span class="sr-only">Menu</span></a>
+      <a class="menu-btn menu-btn--close" href="#main"><span></span><span class="sr-only">Fermer le menu</span></a>
     </div>
   </div>
 </header>
@@ -98,7 +100,7 @@
         <a class="house" href="https://milanoperformance.ca/collections/roues">
           <div class="house__img" aria-hidden="true"><picture><source type="image/avif" srcset="assets/img/roue-rasante-600.avif 600w, assets/img/roue-rasante-1000.avif 1000w" sizes="(min-width: 1100px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/roue-rasante-600.webp 600w, assets/img/roue-rasante-1000.webp 1000w" sizes="(min-width: 1100px) 50vw, 100vw"><img src="assets/img/roue-rasante-1000.jpg" alt="" width="1000" height="1000" loading="lazy" decoding="async" style="object-position:78% 50%"></picture></div>
           <span class="illus">Illustration</span>
-          <span class="house__year" aria-hidden="true"><span data-count="2004" data-from="1954">2004</span><small>SanremoCorse</small></span>
+          <span class="house__year" aria-hidden="true"><span data-count="2004" data-from="1954" style="--from:1954;--to:2004">2004</span><small>SanremoCorse</small></span>
           <span class="house__tag">Roues · Distributeur</span>
           <h3>EVO Corse</h3>
           <p>Des roues nées en rallye, de la SanremoCorse de 2004 jusqu'à la gamme Dakar. Milano Performance en est distributeur.</p>
@@ -123,7 +125,7 @@
         <a class="house" href="https://milanoperformance.ca/search?q=pakelo">
           <div class="house__img" aria-hidden="true"><picture><source type="image/avif" srcset="assets/img/goutte-600.avif 600w, assets/img/goutte-1000.avif 1000w" sizes="(min-width: 1100px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/goutte-600.webp 600w, assets/img/goutte-1000.webp 1000w" sizes="(min-width: 1100px) 50vw, 100vw"><img src="assets/img/goutte-1000.jpg" alt="" width="1000" height="1000" loading="lazy" decoding="async" style="object-position:50% 72%"></picture></div>
           <span class="illus">Illustration</span>
-          <span class="house__year" aria-hidden="true"><span data-count="1930" data-from="1880">1930</span><small>Fondation</small></span>
+          <span class="house__year" aria-hidden="true"><span data-count="1930" data-from="1880" style="--from:1880;--to:1930">1930</span><small>Fondation</small></span>
           <span class="house__tag">Lubrifiants</span>
           <h3>Pakelo</h3>
           <p>Lubrifiants italiens depuis 1930, formulés pour les moteurs exigeants et la compétition.</p>
@@ -150,7 +152,31 @@
           <svg aria-hidden="true"><use href="#i-search"/></svg>
           <input type="search" placeholder="Pièce, marque ou référence" autocomplete="off" data-search>
         </label>
-        <div class="filters" role="group" aria-label="Filtrer par catégorie" data-filters></div>
+        <div class="filters" role="group" aria-label="Filtrer par catégorie" data-filters>
+<!-- @filtres -->
+<input class="sr-only" type="radio" name="filtre" id="f-tout" checked><input class="sr-only" type="radio" name="filtre" id="f-roues"><input class="sr-only" type="radio" name="filtre" id="f-echappement"><input class="sr-only" type="radio" name="filtre" id="f-fluides"><input class="sr-only" type="radio" name="filtre" id="f-freins"><input class="sr-only" type="radio" name="filtre" id="f-moteur"><input class="sr-only" type="radio" name="filtre" id="f-suspension"><input class="sr-only" type="radio" name="filtre" id="f-transmission"><input class="sr-only" type="radio" name="filtre" id="f-confort"><input class="sr-only" type="radio" name="filtre" id="f-accessoires"><label class="chip-btn" for="f-tout">Tout<span>47</span></label><label class="chip-btn" for="f-roues">Roues<span>10</span></label><label class="chip-btn" for="f-echappement">Échappement<span>7</span></label><label class="chip-btn" for="f-fluides">Huiles et fluides<span>9</span></label><label class="chip-btn" for="f-freins">Freinage<span>3</span></label><label class="chip-btn" for="f-moteur">Moteur et entretien<span>12</span></label><label class="chip-btn" for="f-suspension">Suspension<span>2</span></label><label class="chip-btn" for="f-transmission">Transmission<span>1</span></label><label class="chip-btn" for="f-confort">Confort et carrosserie<span>2</span></label><label class="chip-btn" for="f-accessoires">Accessoires<span>1</span></label><style>
+html:not(.js) #catalogue:has(#f-roues:checked) .product:not([data-cat="roues"]),
+html:not(.js) #catalogue:has(#f-echappement:checked) .product:not([data-cat="echappement"]),
+html:not(.js) #catalogue:has(#f-fluides:checked) .product:not([data-cat="fluides"]),
+html:not(.js) #catalogue:has(#f-freins:checked) .product:not([data-cat="freins"]),
+html:not(.js) #catalogue:has(#f-moteur:checked) .product:not([data-cat="moteur"]),
+html:not(.js) #catalogue:has(#f-suspension:checked) .product:not([data-cat="suspension"]),
+html:not(.js) #catalogue:has(#f-transmission:checked) .product:not([data-cat="transmission"]),
+html:not(.js) #catalogue:has(#f-confort:checked) .product:not([data-cat="confort"]),
+html:not(.js) #catalogue:has(#f-accessoires:checked) .product:not([data-cat="accessoires"]) { display: none; }
+html:not(.js) #catalogue:has(#f-tout:checked) label[for="f-tout"],
+html:not(.js) #catalogue:has(#f-roues:checked) label[for="f-roues"],
+html:not(.js) #catalogue:has(#f-echappement:checked) label[for="f-echappement"],
+html:not(.js) #catalogue:has(#f-fluides:checked) label[for="f-fluides"],
+html:not(.js) #catalogue:has(#f-freins:checked) label[for="f-freins"],
+html:not(.js) #catalogue:has(#f-moteur:checked) label[for="f-moteur"],
+html:not(.js) #catalogue:has(#f-suspension:checked) label[for="f-suspension"],
+html:not(.js) #catalogue:has(#f-transmission:checked) label[for="f-transmission"],
+html:not(.js) #catalogue:has(#f-confort:checked) label[for="f-confort"],
+html:not(.js) #catalogue:has(#f-accessoires:checked) label[for="f-accessoires"] { background: var(--c-ink); color: var(--c-alu); border-color: var(--c-ink); }
+</style>
+<!-- /@filtres -->
+        </div>
       </div>
     </div>
     <div class="wrap" style="padding-top:clamp(32px,4vw,56px)">
@@ -162,14 +188,762 @@
         </div>
         <div class="btn-row"><a class="btn btn--primary" href="contact.html?sujet=piece">Vérifier une pièce</a></div>
       </div>
-      <p class="shop-count" aria-live="polite" data-count></p>
+      <p class="shop-count" aria-live="polite" data-count>47 produits</p>
       <ul class="products" data-products>
-        <li class="empty">
-          <noscript>
-            <p>Parcourez le catalogue complet sur la boutique en ligne&nbsp;:</p>
-            <p><a href="https://milanoperformance.ca/collections/roues">Roues</a> · <a href="https://milanoperformance.ca/collections/echappement-ragazzon">Échappements Ragazzon</a> · <a href="https://milanoperformance.ca/collections/all">Tous les produits</a></p>
-          </noscript>
-        </li>
+<!-- @produits -->
+<li class="product" data-cat="roues" style="--i:0">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Roues</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="9"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(0 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(72 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(144 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(216 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(288 60 60)"/><path class="accent" d="M28 34a40 40 0 0 1 22-14" stroke-width="5"/></svg><span class="product__big is-long">Compétition</span></div>
+    <div class="product__body">
+      <p class="product__house">EVO Corse</p>
+      <h3>X3MA Zero</h3>
+      <div class="product__meta"><span class="ref">Roues</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/x3mazero" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : X3MA Zero (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=X3MA%20Zero">Vérifier la dispo<span class="sr-only"> : X3MA Zero</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="roues" style="--i:1">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Roues</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="9"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(0 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(72 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(144 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(216 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(288 60 60)"/><path class="accent" d="M28 34a40 40 0 0 1 22-14" stroke-width="5"/></svg><span class="product__big is-long">Compétition</span></div>
+    <div class="product__body">
+      <p class="product__house">EVO Corse</p>
+      <h3>X3MA</h3>
+      <div class="product__meta"><span class="ref">Roues</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/x3ma-zero" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : X3MA (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=X3MA">Vérifier la dispo<span class="sr-only"> : X3MA</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="roues" style="--i:2">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Roues</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="9"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(0 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(72 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(144 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(216 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(288 60 60)"/><path class="accent" d="M28 34a40 40 0 0 1 22-14" stroke-width="5"/></svg><span class="product__big">Forgée</span></div>
+    <div class="product__body">
+      <p class="product__house">EVO Corse</p>
+      <h3>X3MA Forged</h3>
+      <div class="product__meta"><span class="ref">Roues</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/x3ma-forged" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : X3MA Forged (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=X3MA%20Forged">Vérifier la dispo<span class="sr-only"> : X3MA Forged</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="roues" style="--i:3">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Roues</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="9"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(0 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(72 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(144 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(216 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(288 60 60)"/><path class="accent" d="M28 34a40 40 0 0 1 22-14" stroke-width="5"/></svg><span class="product__big">15×6</span></div>
+    <div class="product__body">
+      <p class="product__house">EVO Corse</p>
+      <h3>SanremoCorsica</h3>
+      <div class="product__meta"><span class="ref">Roues</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/sanremocorse-15x6" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : SanremoCorsica (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=SanremoCorsica">Vérifier la dispo<span class="sr-only"> : SanremoCorsica</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="roues" style="--i:4">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Roues</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="9"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(0 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(72 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(144 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(216 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(288 60 60)"/><path class="accent" d="M28 34a40 40 0 0 1 22-14" stroke-width="5"/></svg><span class="product__big is-long">Compétition</span></div>
+    <div class="product__body">
+      <p class="product__house">EVO Corse</p>
+      <h3>FormulaCorse</h3>
+      <div class="product__meta"><span class="ref">Roues</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/formulacorse" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : FormulaCorse (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=FormulaCorse">Vérifier la dispo<span class="sr-only"> : FormulaCorse</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="roues" style="--i:5">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Roues</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="9"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(0 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(72 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(144 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(216 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(288 60 60)"/><path class="accent" d="M28 34a40 40 0 0 1 22-14" stroke-width="5"/></svg><span class="product__big">Rallye</span></div>
+    <div class="product__body">
+      <p class="product__house">EVO Corse</p>
+      <h3>Monte Carlo</h3>
+      <div class="product__meta"><span class="ref">Roues</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/montecarlo" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Monte Carlo (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Monte%20Carlo">Vérifier la dispo<span class="sr-only"> : Monte Carlo</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="roues" style="--i:6">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Roues</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="9"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(0 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(72 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(144 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(216 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(288 60 60)"/><path class="accent" d="M28 34a40 40 0 0 1 22-14" stroke-width="5"/></svg><span class="product__big">Rallye</span></div>
+    <div class="product__body">
+      <p class="product__house">EVO Corse</p>
+      <h3>Neve</h3>
+      <div class="product__meta"><span class="ref">Roues</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/neve" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Neve (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Neve">Vérifier la dispo<span class="sr-only"> : Neve</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="roues" style="--i:7">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Roues</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="9"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(0 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(72 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(144 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(216 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(288 60 60)"/><path class="accent" d="M28 34a40 40 0 0 1 22-14" stroke-width="5"/></svg><span class="product__big is-long">Accessoire de roue</span></div>
+    <div class="product__body">
+      <p class="product__house">Roues</p>
+      <h3>Capuchon de centre</h3>
+      <div class="product__meta"><span class="ref">Roues</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/center-cap" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Capuchon de centre (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Capuchon%20de%20centre">Vérifier la dispo<span class="sr-only"> : Capuchon de centre</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="roues" style="--i:8">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Roues</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="9"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(0 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(72 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(144 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(216 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(288 60 60)"/><path class="accent" d="M28 34a40 40 0 0 1 22-14" stroke-width="5"/></svg><span class="product__big is-long">Accessoire de roue</span></div>
+    <div class="product__body">
+      <p class="product__house">Roues</p>
+      <h3>Capuchon de centre (variante)</h3>
+      <div class="product__meta"><span class="ref">Roues</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/cap-de-centre" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Capuchon de centre (variante) (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Capuchon%20de%20centre%20(variante)">Vérifier la dispo<span class="sr-only"> : Capuchon de centre (variante)</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="roues" style="--i:9">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Roues</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="9"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(0 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(72 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(144 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(216 60 60)"/><path d="M60 51 L56 22 M60 51 L64 22" transform="rotate(288 60 60)"/><path class="accent" d="M28 34a40 40 0 0 1 22-14" stroke-width="5"/></svg><span class="product__big">M14×1,5</span></div>
+    <div class="product__body">
+      <p class="product__house">Roues</p>
+      <h3>Boulon de roue M14×1,5</h3>
+      <div class="product__meta"><span class="ref">Roues</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/boulon-de-roue-m14x1-5" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Boulon de roue M14×1,5 (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Boulon%20de%20roue%20M14%C3%971%2C5">Vérifier la dispo<span class="sr-only"> : Boulon de roue M14×1,5</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="accessoires" style="--i:10">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Accessoires</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M76 20a20 20 0 0 0-18 28L22 84l14 14 36-36a20 20 0 0 0 28-18l-10 10-12-4-4-12z"/><path class="accent" d="M28 92l6 6" stroke-width="3"/></svg><span class="product__big">Cric</span></div>
+    <div class="product__body">
+      <p class="product__house">Accessoires</p>
+      <h3>EVO Jack</h3>
+      <div class="product__meta"><span class="ref">Accessoires</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/evojack" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : EVO Jack (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=EVO%20Jack">Vérifier la dispo<span class="sr-only"> : EVO Jack</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="echappement" style="--i:11">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Échappement</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="40" cy="60" rx="16" ry="20"/><ellipse cx="40" cy="60" rx="11" ry="15"/><ellipse cx="80" cy="60" rx="16" ry="20"/><ellipse cx="80" cy="60" rx="11" ry="15"/><path d="M40 40h40M40 80h40"/><path class="accent" d="M24 98h72" stroke-width="2"/></svg><span class="product__big is-long">Système complet</span></div>
+    <div class="product__body">
+      <p class="product__house">Ragazzon</p>
+      <h3>Système d&#39;échappement Ragazzon</h3>
+      <div class="product__meta"><span class="ref">Échappement</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/systeme-dechappement-ragazzon" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Système d&#39;échappement Ragazzon (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Syst%C3%A8me%20d'%C3%A9chappement%20Ragazzon">Vérifier la dispo<span class="sr-only"> : Système d&#39;échappement Ragazzon</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="echappement" style="--i:12">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Échappement</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="40" cy="60" rx="16" ry="20"/><ellipse cx="40" cy="60" rx="11" ry="15"/><ellipse cx="80" cy="60" rx="16" ry="20"/><ellipse cx="80" cy="60" rx="11" ry="15"/><path d="M40 40h40M40 80h40"/><path class="accent" d="M24 98h72" stroke-width="2"/></svg><span class="product__big is-long">Section arrière</span></div>
+    <div class="product__body">
+      <p class="product__house">Ragazzon</p>
+      <h3>Échappement arrière Ragazzon</h3>
+      <div class="product__meta"><span class="ref">Échappement</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/echappement-ragazzon" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Échappement arrière Ragazzon (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=%C3%89chappement%20arri%C3%A8re%20Ragazzon">Vérifier la dispo<span class="sr-only"> : Échappement arrière Ragazzon</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="echappement" style="--i:13">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Échappement</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="40" cy="60" rx="16" ry="20"/><ellipse cx="40" cy="60" rx="11" ry="15"/><ellipse cx="80" cy="60" rx="16" ry="20"/><ellipse cx="80" cy="60" rx="11" ry="15"/><path d="M40 40h40M40 80h40"/><path class="accent" d="M24 98h72" stroke-width="2"/></svg><span class="product__big is-long">Section centrale</span></div>
+    <div class="product__body">
+      <p class="product__house">Ragazzon</p>
+      <h3>Échappement central Ragazzon</h3>
+      <div class="product__meta"><span class="ref">Échappement</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/echappement-central-ragazzon" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Échappement central Ragazzon (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=%C3%89chappement%20central%20Ragazzon">Vérifier la dispo<span class="sr-only"> : Échappement central Ragazzon</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="echappement" style="--i:14">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Échappement</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="40" cy="60" rx="16" ry="20"/><ellipse cx="40" cy="60" rx="11" ry="15"/><ellipse cx="80" cy="60" rx="16" ry="20"/><ellipse cx="80" cy="60" rx="11" ry="15"/><path d="M40 40h40M40 80h40"/><path class="accent" d="M24 98h72" stroke-width="2"/></svg><span class="product__big">Downpipe</span></div>
+    <div class="product__body">
+      <p class="product__house">Ragazzon</p>
+      <h3>Downpipe Ragazzon</h3>
+      <div class="product__meta"><span class="ref">Échappement</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/downpipe-ragazzon" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Downpipe Ragazzon (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Downpipe%20Ragazzon">Vérifier la dispo<span class="sr-only"> : Downpipe Ragazzon</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="echappement" style="--i:15">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Échappement</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="40" cy="60" rx="16" ry="20"/><ellipse cx="40" cy="60" rx="11" ry="15"/><ellipse cx="80" cy="60" rx="16" ry="20"/><ellipse cx="80" cy="60" rx="11" ry="15"/><path d="M40 40h40M40 80h40"/><path class="accent" d="M24 98h72" stroke-width="2"/></svg><span class="product__big is-long">Intermédiaire</span></div>
+    <div class="product__body">
+      <p class="product__house">Ragazzon</p>
+      <h3>Tuyau intermédiaire Ragazzon</h3>
+      <div class="product__meta"><span class="ref">Échappement</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/tuyau-intermediaire-ragazzon" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Tuyau intermédiaire Ragazzon (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Tuyau%20interm%C3%A9diaire%20Ragazzon">Vérifier la dispo<span class="sr-only"> : Tuyau intermédiaire Ragazzon</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="echappement" style="--i:16">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Échappement</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="40" cy="60" rx="16" ry="20"/><ellipse cx="40" cy="60" rx="11" ry="15"/><ellipse cx="80" cy="60" rx="16" ry="20"/><ellipse cx="80" cy="60" rx="11" ry="15"/><path d="M40 40h40M40 80h40"/><path class="accent" d="M24 98h72" stroke-width="2"/></svg><span class="product__big is-long">Silencieux</span></div>
+    <div class="product__body">
+      <p class="product__house">Ragazzon</p>
+      <h3>Silencieux Ragazzon</h3>
+      <div class="product__meta"><span class="ref">Échappement</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/silencieux-ragazzon-2" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Silencieux Ragazzon (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Silencieux%20Ragazzon">Vérifier la dispo<span class="sr-only"> : Silencieux Ragazzon</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="echappement" style="--i:17">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Échappement</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="40" cy="60" rx="16" ry="20"/><ellipse cx="40" cy="60" rx="11" ry="15"/><ellipse cx="80" cy="60" rx="16" ry="20"/><ellipse cx="80" cy="60" rx="11" ry="15"/><path d="M40 40h40M40 80h40"/><path class="accent" d="M24 98h72" stroke-width="2"/></svg><span class="product__big is-long">Inox · groupe N</span></div>
+    <div class="product__body">
+      <p class="product__house">Échappement</p>
+      <h3>Flexible avec tube intermédiaire, groupe N, sans silencieux, inox</h3>
+      <div class="product__meta"><span class="ref">Échappement</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/flexible-avec-tube-intermediaire-groupe-n-sans-silencieux-en-inox" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Flexible avec tube intermédiaire, groupe N, sans silencieux, inox (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Flexible%20avec%20tube%20interm%C3%A9diaire%2C%20groupe%20N%2C%20sans%20silencieux%2C%20inox">Vérifier la dispo<span class="sr-only"> : Flexible avec tube intermédiaire, groupe N, sans silencieux, inox</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="fluides" style="--i:18">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Huiles et fluides</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M60 14C48 36 34 52 34 72a26 26 0 0 0 52 0c0-20-14-36-26-58z"/><path d="M46 74a14 14 0 0 0 10 14" /><path class="accent" d="M60 104v8" stroke-width="2"/></svg><span class="product__big">75W90</span></div>
+    <div class="product__body">
+      <p class="product__house">Pakelo</p>
+      <h3>Global Gear DLS 75W90</h3>
+      <div class="product__meta"><span class="ref">Huiles et fluides</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/global-gear-dls-75w90" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Global Gear DLS 75W90 (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Global%20Gear%20DLS%2075W90">Vérifier la dispo<span class="sr-only"> : Global Gear DLS 75W90</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="fluides" style="--i:19">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Huiles et fluides</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M60 14C48 36 34 52 34 72a26 26 0 0 0 52 0c0-20-14-36-26-58z"/><path d="M46 74a14 14 0 0 0 10 14" /><path class="accent" d="M60 104v8" stroke-width="2"/></svg><span class="product__big">5W30</span></div>
+    <div class="product__body">
+      <p class="product__house">Pakelo</p>
+      <h3>Krypton XT LA 5W30</h3>
+      <div class="product__meta"><span class="ref">Huiles et fluides</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/krypton-xt-la-5w30" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Krypton XT LA 5W30 (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Krypton%20XT%20LA%205W30">Vérifier la dispo<span class="sr-only"> : Krypton XT LA 5W30</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="fluides" style="--i:20">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Huiles et fluides</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M60 14C48 36 34 52 34 72a26 26 0 0 0 52 0c0-20-14-36-26-58z"/><path d="M46 74a14 14 0 0 0 10 14" /><path class="accent" d="M60 104v8" stroke-width="2"/></svg><span class="product__big">5W40</span></div>
+    <div class="product__body">
+      <p class="product__house">Liqui Moly</p>
+      <h3>Liqui Moly 5W40</h3>
+      <div class="product__meta"><span class="ref">Huiles et fluides</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/liqui-moly-5w40" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Liqui Moly 5W40 (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Liqui%20Moly%205W40">Vérifier la dispo<span class="sr-only"> : Liqui Moly 5W40</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="fluides" style="--i:21">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Huiles et fluides</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M60 14C48 36 34 52 34 72a26 26 0 0 0 52 0c0-20-14-36-26-58z"/><path d="M46 74a14 14 0 0 0 10 14" /><path class="accent" d="M60 104v8" stroke-width="2"/></svg><span class="product__big">Boîte DCT</span></div>
+    <div class="product__body">
+      <p class="product__house">Liqui Moly</p>
+      <h3>Liqui Moly DCT 8100</h3>
+      <div class="product__meta"><span class="ref">Huiles et fluides</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/liqui-moly-dct-8100" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Liqui Moly DCT 8100 (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Liqui%20Moly%20DCT%208100">Vérifier la dispo<span class="sr-only"> : Liqui Moly DCT 8100</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="fluides" style="--i:22">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Huiles et fluides</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M60 14C48 36 34 52 34 72a26 26 0 0 0 52 0c0-20-14-36-26-58z"/><path d="M46 74a14 14 0 0 0 10 14" /><path class="accent" d="M60 104v8" stroke-width="2"/></svg><span class="product__big is-long">Hydraulique</span></div>
+    <div class="product__body">
+      <p class="product__house">Pentosin</p>
+      <h3>Pentosin CHF 11S</h3>
+      <div class="product__meta"><span class="ref">Huiles et fluides</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/pentosin-chf-11s" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Pentosin CHF 11S (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Pentosin%20CHF%2011S">Vérifier la dispo<span class="sr-only"> : Pentosin CHF 11S</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="fluides" style="--i:23">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Huiles et fluides</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M60 14C48 36 34 52 34 72a26 26 0 0 0 52 0c0-20-14-36-26-58z"/><path d="M46 74a14 14 0 0 0 10 14" /><path class="accent" d="M60 104v8" stroke-width="2"/></svg><span class="product__big">5W20</span></div>
+    <div class="product__body">
+      <p class="product__house">Huiles et fluides</p>
+      <h3>Huile moteur 5W20</h3>
+      <div class="product__meta"><span class="ref">Huiles et fluides</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/huile-moteur-5w20" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Huile moteur 5W20 (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Huile%20moteur%205W20">Vérifier la dispo<span class="sr-only"> : Huile moteur 5W20</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="fluides" style="--i:24">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Huiles et fluides</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M60 14C48 36 34 52 34 72a26 26 0 0 0 52 0c0-20-14-36-26-58z"/><path d="M46 74a14 14 0 0 0 10 14" /><path class="accent" d="M60 104v8" stroke-width="2"/></svg><span class="product__big is-long">Boîte automatique</span></div>
+    <div class="product__body">
+      <p class="product__house">Huiles et fluides</p>
+      <h3>Huile pour transmission automatique</h3>
+      <div class="product__meta"><span class="ref">Huiles et fluides</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/huile-pour-transmission-automatique" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Huile pour transmission automatique (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Huile%20pour%20transmission%20automatique">Vérifier la dispo<span class="sr-only"> : Huile pour transmission automatique</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="fluides" style="--i:25">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Huiles et fluides</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M60 14C48 36 34 52 34 72a26 26 0 0 0 52 0c0-20-14-36-26-58z"/><path d="M46 74a14 14 0 0 0 10 14" /><path class="accent" d="M60 104v8" stroke-width="2"/></svg><span class="product__big is-long">Boîte manuelle</span></div>
+    <div class="product__body">
+      <p class="product__house">Huiles et fluides</p>
+      <h3>Huile pour boîte manuelle</h3>
+      <div class="product__meta"><span class="ref">Huiles et fluides</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/huile-pour-boite-manuelle" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Huile pour boîte manuelle (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Huile%20pour%20bo%C3%AEte%20manuelle">Vérifier la dispo<span class="sr-only"> : Huile pour boîte manuelle</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="fluides" style="--i:26">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Huiles et fluides</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M60 14C48 36 34 52 34 72a26 26 0 0 0 52 0c0-20-14-36-26-58z"/><path d="M46 74a14 14 0 0 0 10 14" /><path class="accent" d="M60 104v8" stroke-width="2"/></svg><span class="product__big">Diesel</span></div>
+    <div class="product__body">
+      <p class="product__house">Huiles et fluides</p>
+      <h3>Urée</h3>
+      <div class="product__meta"><span class="ref">Huiles et fluides</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/uree" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Urée (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Ur%C3%A9e">Vérifier la dispo<span class="sr-only"> : Urée</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="freins" style="--i:27">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Freinage</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="46"/><circle cx="60" cy="60" r="18"/><circle cx="60" cy="28" r="2" transform="rotate(0 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(30 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(60 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(90 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(120 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(150 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(180 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(210 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(240 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(270 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(300 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(330 60 60)"/><path class="accent" d="M88 22a48 48 0 0 1 16 22l-12 6a36 36 0 0 0-12-17z" fill="currentColor" stroke="none"/></svg><span class="product__big">Arrière</span></div>
+    <div class="product__body">
+      <p class="product__house">Brembo</p>
+      <h3>Disque de frein arrière Brembo</h3>
+      <div class="product__meta"><span class="ref">Freinage</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/disque-de-frein-arriere-brembo-2" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Disque de frein arrière Brembo (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Disque%20de%20frein%20arri%C3%A8re%20Brembo">Vérifier la dispo<span class="sr-only"> : Disque de frein arrière Brembo</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="freins" style="--i:28">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Freinage</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="46"/><circle cx="60" cy="60" r="18"/><circle cx="60" cy="28" r="2" transform="rotate(0 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(30 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(60 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(90 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(120 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(150 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(180 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(210 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(240 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(270 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(300 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(330 60 60)"/><path class="accent" d="M88 22a48 48 0 0 1 16 22l-12 6a36 36 0 0 0-12-17z" fill="currentColor" stroke="none"/></svg><span class="product__big">Avant</span></div>
+    <div class="product__body">
+      <p class="product__house">Freinage</p>
+      <h3>Disque de frein avant</h3>
+      <div class="product__meta"><span class="ref">Freinage</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/disque-de-frein" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Disque de frein avant (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Disque%20de%20frein%20avant">Vérifier la dispo<span class="sr-only"> : Disque de frein avant</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="freins" style="--i:29">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Freinage</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="46"/><circle cx="60" cy="60" r="18"/><circle cx="60" cy="28" r="2" transform="rotate(0 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(30 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(60 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(90 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(120 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(150 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(180 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(210 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(240 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(270 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(300 60 60)"/><circle cx="60" cy="28" r="2" transform="rotate(330 60 60)"/><path class="accent" d="M88 22a48 48 0 0 1 16 22l-12 6a36 36 0 0 0-12-17z" fill="currentColor" stroke="none"/></svg><span class="product__big">Arrière</span></div>
+    <div class="product__body">
+      <p class="product__house">Freinage</p>
+      <h3>Plaquettes de frein arrière</h3>
+      <div class="product__meta"><span class="ref">Freinage</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/plaquettes-de-freins-2" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Plaquettes de frein arrière (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Plaquettes%20de%20frein%20arri%C3%A8re">Vérifier la dispo<span class="sr-only"> : Plaquettes de frein arrière</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="moteur" style="--i:30">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Moteur et entretien</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="34" y="22" width="52" height="76" rx="6"/><path d="M34 34h52M34 86h52"/><path d="M42 40v40"/><path d="M48 40v40"/><path d="M54 40v40"/><path d="M60 40v40"/><path d="M66 40v40"/><path d="M72 40v40"/><path d="M78 40v40"/><path class="accent" d="M50 14h20" stroke-width="2"/></svg><span class="product__big">1.4L</span></div>
+    <div class="product__body">
+      <p class="product__house">Moteur et entretien</p>
+      <h3>Filtre à huile moteur Fiat / Dodge / Jeep 1.4L</h3>
+      <div class="product__meta"><span class="ref">Moteur et entretien</span></div>
+      <p class="product__compat">Compatibilité indiquée : Fiat, Dodge, Jeep — moteur 1.4L</p>
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/filtre-huile-moteur-fiat-500" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Filtre à huile moteur Fiat / Dodge / Jeep 1.4L (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Filtre%20%C3%A0%20huile%20moteur%20Fiat%20%2F%20Dodge%20%2F%20Jeep%201.4L">Vérifier la dispo<span class="sr-only"> : Filtre à huile moteur Fiat / Dodge / Jeep 1.4L</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="moteur" style="--i:31">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Moteur et entretien</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="34" y="22" width="52" height="76" rx="6"/><path d="M34 34h52M34 86h52"/><path d="M42 40v40"/><path d="M48 40v40"/><path d="M54 40v40"/><path d="M60 40v40"/><path d="M66 40v40"/><path d="M72 40v40"/><path d="M78 40v40"/><path class="accent" d="M50 14h20" stroke-width="2"/></svg><span class="product__big is-long">Filtration</span></div>
+    <div class="product__body">
+      <p class="product__house">Moteur et entretien</p>
+      <h3>Filtre à huile</h3>
+      <div class="product__meta"><span class="ref">Moteur et entretien</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/filtre-huile" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Filtre à huile (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Filtre%20%C3%A0%20huile">Vérifier la dispo<span class="sr-only"> : Filtre à huile</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="moteur" style="--i:32">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Moteur et entretien</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="34" y="22" width="52" height="76" rx="6"/><path d="M34 34h52M34 86h52"/><path d="M42 40v40"/><path d="M48 40v40"/><path d="M54 40v40"/><path d="M60 40v40"/><path d="M66 40v40"/><path d="M72 40v40"/><path d="M78 40v40"/><path class="accent" d="M50 14h20" stroke-width="2"/></svg><span class="product__big is-long">Filtration</span></div>
+    <div class="product__body">
+      <p class="product__house">Moteur et entretien</p>
+      <h3>Filtre à huile (variante)</h3>
+      <div class="product__meta"><span class="ref">Moteur et entretien</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/filtre-huile-1" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Filtre à huile (variante) (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Filtre%20%C3%A0%20huile%20(variante)">Vérifier la dispo<span class="sr-only"> : Filtre à huile (variante)</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="moteur" style="--i:33">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Moteur et entretien</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="34" y="22" width="52" height="76" rx="6"/><path d="M34 34h52M34 86h52"/><path d="M42 40v40"/><path d="M48 40v40"/><path d="M54 40v40"/><path d="M60 40v40"/><path d="M66 40v40"/><path d="M72 40v40"/><path d="M78 40v40"/><path class="accent" d="M50 14h20" stroke-width="2"/></svg><span class="product__big is-long">Filtration</span></div>
+    <div class="product__body">
+      <p class="product__house">Moteur et entretien</p>
+      <h3>Filtre à huile moteur</h3>
+      <div class="product__meta"><span class="ref">Moteur et entretien</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/filtre-huile-moteur-2" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Filtre à huile moteur (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Filtre%20%C3%A0%20huile%20moteur">Vérifier la dispo<span class="sr-only"> : Filtre à huile moteur</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="moteur" style="--i:34">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Moteur et entretien</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="34" y="22" width="52" height="76" rx="6"/><path d="M34 34h52M34 86h52"/><path d="M42 40v40"/><path d="M48 40v40"/><path d="M54 40v40"/><path d="M60 40v40"/><path d="M66 40v40"/><path d="M72 40v40"/><path d="M78 40v40"/><path class="accent" d="M50 14h20" stroke-width="2"/></svg><span class="product__big is-long">Distribution</span></div>
+    <div class="product__body">
+      <p class="product__house">Moteur et entretien</p>
+      <h3>Chaîne de distribution</h3>
+      <div class="product__meta"><span class="ref">Moteur et entretien</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/chaine-de-distribution" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Chaîne de distribution (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Cha%C3%AEne%20de%20distribution">Vérifier la dispo<span class="sr-only"> : Chaîne de distribution</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="moteur" style="--i:35">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Moteur et entretien</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="34" y="22" width="52" height="76" rx="6"/><path d="M34 34h52M34 86h52"/><path d="M42 40v40"/><path d="M48 40v40"/><path d="M54 40v40"/><path d="M60 40v40"/><path d="M66 40v40"/><path d="M72 40v40"/><path d="M78 40v40"/><path class="accent" d="M50 14h20" stroke-width="2"/></svg><span class="product__big is-long">Refroidissement</span></div>
+    <div class="product__body">
+      <p class="product__house">Moteur et entretien</p>
+      <h3>Pompe à eau</h3>
+      <div class="product__meta"><span class="ref">Moteur et entretien</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/pompe-a-eau" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Pompe à eau (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Pompe%20%C3%A0%20eau">Vérifier la dispo<span class="sr-only"> : Pompe à eau</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="moteur" style="--i:36">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Moteur et entretien</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="34" y="22" width="52" height="76" rx="6"/><path d="M34 34h52M34 86h52"/><path d="M42 40v40"/><path d="M48 40v40"/><path d="M54 40v40"/><path d="M60 40v40"/><path d="M66 40v40"/><path d="M72 40v40"/><path d="M78 40v40"/><path class="accent" d="M50 14h20" stroke-width="2"/></svg><span class="product__big is-long">Refroidissement</span></div>
+    <div class="product__body">
+      <p class="product__house">Moteur et entretien</p>
+      <h3>Réservoir d&#39;expansion</h3>
+      <div class="product__meta"><span class="ref">Moteur et entretien</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/reservoir-dexpansion" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Réservoir d&#39;expansion (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=R%C3%A9servoir%20d'expansion">Vérifier la dispo<span class="sr-only"> : Réservoir d&#39;expansion</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="moteur" style="--i:37">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Moteur et entretien</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="34" y="22" width="52" height="76" rx="6"/><path d="M34 34h52M34 86h52"/><path d="M42 40v40"/><path d="M48 40v40"/><path d="M54 40v40"/><path d="M60 40v40"/><path d="M66 40v40"/><path d="M72 40v40"/><path d="M78 40v40"/><path class="accent" d="M50 14h20" stroke-width="2"/></svg><span class="product__big">Carburant</span></div>
+    <div class="product__body">
+      <p class="product__house">Moteur et entretien</p>
+      <h3>Pompe haute pression</h3>
+      <div class="product__meta"><span class="ref">Moteur et entretien</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/pompe-haute-pression" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Pompe haute pression (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Pompe%20haute%20pression">Vérifier la dispo<span class="sr-only"> : Pompe haute pression</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="moteur" style="--i:38">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Moteur et entretien</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="34" y="22" width="52" height="76" rx="6"/><path d="M34 34h52M34 86h52"/><path d="M42 40v40"/><path d="M48 40v40"/><path d="M54 40v40"/><path d="M60 40v40"/><path d="M66 40v40"/><path d="M72 40v40"/><path d="M78 40v40"/><path class="accent" d="M50 14h20" stroke-width="2"/></svg><span class="product__big">Capteur</span></div>
+    <div class="product__body">
+      <p class="product__house">Moteur et entretien</p>
+      <h3>Sonde à oxygène</h3>
+      <div class="product__meta"><span class="ref">Moteur et entretien</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/sonde-a-oxygene" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Sonde à oxygène (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Sonde%20%C3%A0%20oxyg%C3%A8ne">Vérifier la dispo<span class="sr-only"> : Sonde à oxygène</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="moteur" style="--i:39">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Moteur et entretien</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="34" y="22" width="52" height="76" rx="6"/><path d="M34 34h52M34 86h52"/><path d="M42 40v40"/><path d="M48 40v40"/><path d="M54 40v40"/><path d="M60 40v40"/><path d="M66 40v40"/><path d="M72 40v40"/><path d="M78 40v40"/><path class="accent" d="M50 14h20" stroke-width="2"/></svg><span class="product__big">Capteur</span></div>
+    <div class="product__body">
+      <p class="product__house">Moteur et entretien</p>
+      <h3>Sonde à oxygène arrière</h3>
+      <div class="product__meta"><span class="ref">Moteur et entretien</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/sonde-oxygene-arriere" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Sonde à oxygène arrière (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Sonde%20%C3%A0%20oxyg%C3%A8ne%20arri%C3%A8re">Vérifier la dispo<span class="sr-only"> : Sonde à oxygène arrière</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="moteur" style="--i:40">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Moteur et entretien</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="34" y="22" width="52" height="76" rx="6"/><path d="M34 34h52M34 86h52"/><path d="M42 40v40"/><path d="M48 40v40"/><path d="M54 40v40"/><path d="M60 40v40"/><path d="M66 40v40"/><path d="M72 40v40"/><path d="M78 40v40"/><path class="accent" d="M50 14h20" stroke-width="2"/></svg><span class="product__big">Carter</span></div>
+    <div class="product__body">
+      <p class="product__house">Moteur et entretien</p>
+      <h3>Panne à huile moteur</h3>
+      <div class="product__meta"><span class="ref">Moteur et entretien</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/panne-a-huile-moteur" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Panne à huile moteur (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Panne%20%C3%A0%20huile%20moteur">Vérifier la dispo<span class="sr-only"> : Panne à huile moteur</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="moteur" style="--i:41">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Moteur et entretien</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="34" y="22" width="52" height="76" rx="6"/><path d="M34 34h52M34 86h52"/><path d="M42 40v40"/><path d="M48 40v40"/><path d="M54 40v40"/><path d="M60 40v40"/><path d="M66 40v40"/><path d="M72 40v40"/><path d="M78 40v40"/><path class="accent" d="M50 14h20" stroke-width="2"/></svg><span class="product__big">Carter</span></div>
+    <div class="product__body">
+      <p class="product__house">Moteur et entretien</p>
+      <h3>Panne à huile moteur (variante)</h3>
+      <div class="product__meta"><span class="ref">Moteur et entretien</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/panne-huile-moteur" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Panne à huile moteur (variante) (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Panne%20%C3%A0%20huile%20moteur%20(variante)">Vérifier la dispo<span class="sr-only"> : Panne à huile moteur (variante)</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="suspension" style="--i:42">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Suspension</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 80 60 40l40 40"/><circle cx="20" cy="80" r="7"/><circle cx="100" cy="80" r="7"/><circle cx="60" cy="40" r="9"/><path d="M60 31V12"/><path class="accent" d="M52 12h16" stroke-width="2"/></svg><span class="product__big">Avant</span></div>
+    <div class="product__body">
+      <p class="product__house">Suspension</p>
+      <h3>Table de suspension avant</h3>
+      <div class="product__meta"><span class="ref">Suspension</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/table-de-suspension-avant" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Table de suspension avant (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Table%20de%20suspension%20avant">Vérifier la dispo<span class="sr-only"> : Table de suspension avant</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="suspension" style="--i:43">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Suspension</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 80 60 40l40 40"/><circle cx="20" cy="80" r="7"/><circle cx="100" cy="80" r="7"/><circle cx="60" cy="40" r="9"/><path d="M60 31V12"/><path class="accent" d="M52 12h16" stroke-width="2"/></svg><span class="product__big">Arrière</span></div>
+    <div class="product__body">
+      <p class="product__house">Suspension</p>
+      <h3>Table de suspension arrière</h3>
+      <div class="product__meta"><span class="ref">Suspension</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/table-de-suspension-arriere" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Table de suspension arrière (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Table%20de%20suspension%20arri%C3%A8re">Vérifier la dispo<span class="sr-only"> : Table de suspension arrière</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="transmission" style="--i:44">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Transmission</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="60" cy="60" r="30"/><circle cx="60" cy="60" r="10"/><rect x="56" y="22" width="8" height="10" transform="rotate(0 60 60)"/><rect x="56" y="22" width="8" height="10" transform="rotate(30 60 60)"/><rect x="56" y="22" width="8" height="10" transform="rotate(60 60 60)"/><rect x="56" y="22" width="8" height="10" transform="rotate(90 60 60)"/><rect x="56" y="22" width="8" height="10" transform="rotate(120 60 60)"/><rect x="56" y="22" width="8" height="10" transform="rotate(150 60 60)"/><rect x="56" y="22" width="8" height="10" transform="rotate(180 60 60)"/><rect x="56" y="22" width="8" height="10" transform="rotate(210 60 60)"/><rect x="56" y="22" width="8" height="10" transform="rotate(240 60 60)"/><rect x="56" y="22" width="8" height="10" transform="rotate(270 60 60)"/><rect x="56" y="22" width="8" height="10" transform="rotate(300 60 60)"/><rect x="56" y="22" width="8" height="10" transform="rotate(330 60 60)"/><path class="accent" d="M60 98v10" stroke-width="2"/></svg><span class="product__big">Embrayage</span></div>
+    <div class="product__body">
+      <p class="product__house">Transmission</p>
+      <h3>Kit d&#39;embrayage</h3>
+      <div class="product__meta"><span class="ref">Transmission</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/kit-dembrayage" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Kit d&#39;embrayage (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Kit%20d'embrayage">Vérifier la dispo<span class="sr-only"> : Kit d&#39;embrayage</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="confort" style="--i:45">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Confort et carrosserie</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M76 20a20 20 0 0 0-18 28L22 84l14 14 36-36a20 20 0 0 0 28-18l-10 10-12-4-4-12z"/><path class="accent" d="M28 92l6 6" stroke-width="3"/></svg><span class="product__big">Chauffage</span></div>
+    <div class="product__body">
+      <p class="product__house">Confort et carrosserie</p>
+      <h3>Moteur de chaufferette</h3>
+      <div class="product__meta"><span class="ref">Confort et carrosserie</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/moteur-de-chaufferette" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Moteur de chaufferette (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Moteur%20de%20chaufferette">Vérifier la dispo<span class="sr-only"> : Moteur de chaufferette</span></a>
+      </div>
+    </div>
+  </li>
+<li class="product" data-cat="confort" style="--i:46">
+    <div class="product__glyph" aria-hidden="true"><span class="product__code">Confort et carrosserie</span><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M76 20a20 20 0 0 0-18 28L22 84l14 14 36-36a20 20 0 0 0 28-18l-10 10-12-4-4-12z"/><path class="accent" d="M28 92l6 6" stroke-width="3"/></svg><span class="product__big is-long">Lave-glace</span></div>
+    <div class="product__body">
+      <p class="product__house">Confort et carrosserie</p>
+      <h3>Pompe de lave-glace</h3>
+      <div class="product__meta"><span class="ref">Confort et carrosserie</span></div>
+      
+    </div>
+    <div class="product__foot">
+      <p class="product__price">Prix sur la fiche · disponibilité à confirmer</p>
+      <div class="product__actions">
+        <a class="primary" href="https://milanoperformance.ca/products/pompe-de-lave-vitre" rel="noopener">Voir la fiche <svg aria-hidden="true"><use href="#i-out"/></svg><span class="sr-only"> : Pompe de lave-glace (boutique en ligne)</span></a>
+        <a href="contact.html?sujet=piece&produit=Pompe%20de%20lave-glace">Vérifier la dispo<span class="sr-only"> : Pompe de lave-glace</span></a>
+      </div>
+    </div>
+  </li>
+<!-- /@produits -->
       </ul>
       <div class="notice" style="margin-top:clamp(40px,5vw,72px);background:transparent">
         <svg class="notice__icon" viewBox="0 0 56 56" aria-hidden="true"><circle cx="24" cy="24" r="16" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m36 36 14 14" stroke="currentColor" stroke-width="2"/></svg>

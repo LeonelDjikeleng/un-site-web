@@ -6,6 +6,10 @@ Usage : python3 tools/bundle_site.py   -> apercu/milano-performance-site-complet
 Chaque page devient une vue du même fichier ; un petit routeur intercepte les liens
 vers index.html, atelier.html, boutique.html, contact.html, etc. et affiche la bonne vue
 (adresse du type #/boutique). Styles, polices, images et vidéo sont intégrés.
+
+Sans JavaScript (visionneuse qui bloque les scripts), le fichier marche quand même :
+les liens pointent vers des ancres (#v-boutique, #atelier-mclaren…) et le CSS affiche
+la vue qui contient la cible (:target) ; les animations passent en CSS (motion.css).
 Sert à montrer le site d'un clic ; la version à mettre en ligne reste celle des pages séparées.
 """
 import json
@@ -14,7 +18,7 @@ import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from bundle import ROOT, OUT, data_uri, pick_src, prep_hero  # noqa: E402
+from bundle import ROOT, OUT, data_uri, hero_loops, module, pick_src, prep_hero, presplit  # noqa: E402
 
 VIEWS = [  # fichier, identifiant de vue, titre d'onglet
     ('index.html', 'accueil'),
@@ -71,7 +75,12 @@ def build():
     head = re.sub(r'<link rel="preload"[^>]*>\n?', '', head)
     css = (ROOT / 'assets/css/main.css').read_text(encoding='utf-8') + (ROOT / 'assets/css/motion.css').read_text(encoding='utf-8')
     css = re.sub(r"url\('\.\./fonts/([^']+)'\)", lambda m: f"url('{data_uri('assets/fonts/' + m.group(1))}')", css)
-    css += '\n/* Aperçu tout-en-un */\n.view[hidden] { display: none !important; }\n'
+    css += '''
+/* Aperçu tout-en-un */
+.view[hidden] { display: none !important; }
+html:not(.js) .view[hidden]:is(:target, :has(:target)) { display: block !important; }
+html:not(.js) main:has(> .view:not([data-view='accueil']):is(:target, :has(:target))) > .view[data-view='accueil'] { display: none !important; }
+'''
     head = head.replace('<link rel="stylesheet" href="assets/css/main.css">', f'<style>{css}</style>').replace('<link rel="stylesheet" href="assets/css/motion.css">\n', '')
     head = head.replace('<title>', '<script>window.__mpSingleFile = true</script>\n<title>', 1)
     head = head.replace('<title>', '<!-- Aperçu tout-en-un généré par tools/bundle_site.py : ne pas publier tel quel -->\n<title>', 1)
@@ -80,7 +89,7 @@ def build():
     footer = re.search(r'<!-- @footer -->(.*?)<!-- /@footer -->', base, flags=re.S).group(1)
 
     views_html = '\n'.join(
-        f'<div class="view" data-view="{v}"{"" if v == "accueil" else " hidden"}>{inners[v]}</div>'
+        f'<div class="view" id="v-{v}" data-view="{v}"{"" if v == "accueil" else " hidden"}>{inners[v]}</div>'
         for _, v in VIEWS
     )
 
@@ -88,8 +97,6 @@ def build():
         return (ROOT / rel).read_text(encoding='utf-8')
 
     hero = prep_hero(js('assets/js/hero.js'))
-    boutique = re.sub(r'^import .*?;\n', '', js('assets/js/boutique.js'), flags=re.M)
-    catalogue = js('assets/js/catalogue.js').replace('export ', '')
 
     pages = {f: v for f, v in VIEWS}
     router = """
@@ -113,7 +120,7 @@ def build():
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href]');
     if (!a) return;
-    const m = a.getAttribute('href').match(/^([a-z-]+\\.html)(\\?[^#]*)?(#.*)?$/);
+    const m = (a.dataset.href || a.getAttribute('href')).match(/^([a-z-]+\\.html)(\\?[^#]*)?(#.*)?$/);
     if (!m || !PAGES[m[1]]) return;
     e.preventDefault();
     show(PAGES[m[1]], m[3] ? m[3].slice(1) : '', new URLSearchParams(m[2] || ''), true);
@@ -137,12 +144,26 @@ def build():
 <script>{js('assets/js/motion.js')}</script>
 <script>{hero}</script>
 <script>{js('assets/js/contact.js')}</script>
-<script type="module">{js('assets/js/diagnostic.js')}</script>
-<script type="module">{catalogue}
-{boutique}</script>
+<script type="module">{module('assets/js/systemes.js', 'assets/js/diagnostic.js')}</script>
+<script type="module">{module('assets/js/catalogue.js', 'assets/js/catalogue-view.js', 'assets/js/boutique.js')}</script>
 <script>{router}</script>
 </body>"""
     html = f'<!doctype html>\n<html lang="fr-CA">\n<head>{head}</head>\n{body}\n</html>\n'
+    html = hero_loops(presplit(html))
+
+    # Liens entre pages -> ancres (sans JS : le CSS montre la vue ciblée ; avec JS : data-href pour le routeur)
+    all_ids = set(re.findall(r'\sid="([^"]+)"', html))
+
+    def link(m):
+        page, query, anchor = m.group(1), m.group(2) or '', (m.group(3) or '')[1:]
+        if page not in pages:
+            return m.group(0)
+        v = pages[page]
+        target = f'v-{v}'
+        if anchor:
+            target = f'{v}-{anchor}' if f'{v}-{anchor}' in all_ids else (anchor if anchor in all_ids else target)
+        return f'href="#{target}" data-href="{page}{query}{"#" + anchor if anchor else ""}"'
+    html = re.sub(r'href="([a-z-]+\.html)(\?[^"#]*)?(#[^"]*)?"', link, html)
     html = inline_images(html)
     OUT.mkdir(exist_ok=True)
     out = OUT / 'milano-performance-site-complet.html'
